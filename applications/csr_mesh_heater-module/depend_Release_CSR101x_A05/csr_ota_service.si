@@ -1,0 +1,21 @@
+   1                 		.file	"csr_ota_service.c"
+   2                 		.variant xap2+
+   3                 	
+   4                 		.small
+   5                 	
+   6                 		.section	.debug_abbrev,"",@progbits
+   7                 	.Ldebug_abbrev0:
+   8                 		.section	.debug_info,"",@progbits
+   9                 	.Ldebug_info0:
+  10                 		.section	.debug_line,"",@progbits
+  11                 	.Ldebug_line0:
+  12 0000 00 00 00 00 		.text
+  12      00 02 00 00 
+  12      00 00 01 01 
+  12      FB 0E 0D 00 
+  12      01 01 01 01 
+  13                 	.Ltext0:
+  14                 	.Letext0:
+  15                 		.section	.debug_abbrev
+  16 0000 00          		.1byte	0x0
+  17                 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"

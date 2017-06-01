@@ -1,0 +1,11 @@
+# Store Configuration File
+#
+# Configuration for stores in flash memory
+#
+# App store (1), 48KByte, cache enabled,
+#
+#   COMMENT, MEMORY, TYPE, ID, STORE_SIZE, CACHED, CONTENT,
+App store 1,  FLASH,  APP,  1,      81920,    Yes, <Project>,
+App store 2,  FLASH,  APP,  2,      81920,    Yes, <Null>,
+Config Store, FLASH,  CONF, 15,     8192,     No,
+Config Store, MTP,    CONF, 16,     36,       No,

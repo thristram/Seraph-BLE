@@ -1,0 +1,2338 @@
+   1                 		.file	"cm_peripheral.c"
+   2                 		.variant xap2+
+   3                 	
+   4                 		.small
+   5                 	
+   6                 		.section	.debug_abbrev,"",@progbits
+   7                 	.Ldebug_abbrev0:
+   8                 		.section	.debug_info,"",@progbits
+   9                 	.Ldebug_info0:
+  10                 		.section	.debug_line,"",@progbits
+  11                 	.Ldebug_line0:
+  12 0000 00 00 00 00 		.text
+  12      00 02 00 00 
+  12      00 00 01 01 
+  12      FB 0E 0D 00 
+  12      01 01 01 01 
+  13                 	.Ltext0:
+  14                 		.section	.text.CMPeripheralInit,"ax",@progbits
+  15                 		.global	CMPeripheralInit
+  16                 		.type	CMPeripheralInit, @function
+  17                 	CMPeripheralInit:
+  18                 	.LFB2:
+  19                 		.file 1 "../mesh_common/components/connection_manager/cm_peripheral.c"
+   0:../mesh_common/components/connection_manager/cm_peripheral.c **** /******************************************************************************
+   1:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Copyright 2014 - 2016 Qualcomm Technologies International, Ltd.
+   2:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Bluetooth Low Energy CSRmesh 2.1
+   3:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  CSRmesh is a product of Qualcomm Technologies International Ltd.
+   4:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+   5:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  FILE
+   6:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      cm_peripheral.c
+   7:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+   8:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+   9:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      This file defines connection manager peripheral functionality
+  10:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+  11:../mesh_common/components/connection_manager/cm_peripheral.c ****  ******************************************************************************/
+  12:../mesh_common/components/connection_manager/cm_peripheral.c **** #if defined (PERIPHERAL)
+  13:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  14:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+  15:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  SDK Header Files
+  16:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+  17:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  18:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <gap_types.h>
+  19:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <ls_err.h>
+  20:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <ls_types.h>
+  21:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <panic.h>
+  22:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <gatt.h>
+  23:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <gatt_uuid.h>
+  24:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <timer.h>
+  25:../mesh_common/components/connection_manager/cm_peripheral.c **** #include <mem.h>
+  26:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  27:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+  28:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Local Header Files
+  29:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+  30:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  31:../mesh_common/components/connection_manager/cm_peripheral.c **** #include "cm_peripheral.h"
+  32:../mesh_common/components/connection_manager/cm_peripheral.c **** #include "cm_types.h"
+  33:../mesh_common/components/connection_manager/cm_peripheral.c **** #include "cm_api.h"
+  34:../mesh_common/components/connection_manager/cm_peripheral.c **** #include "cm_private.h"
+  35:../mesh_common/components/connection_manager/cm_peripheral.c **** #include "cm_server.h"
+  36:../mesh_common/components/connection_manager/cm_peripheral.c **** #include "cm_security.h"
+  37:../mesh_common/components/connection_manager/cm_peripheral.c **** #include "cm_hal.h"
+  38:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  39:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+  40:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Private Definitions
+  41:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+  42:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  43:../mesh_common/components/connection_manager/cm_peripheral.c **** /* This constant is used in the main server app to define array that is
+  44:../mesh_common/components/connection_manager/cm_peripheral.c ****    large enough to hold the advertisement data.
+  45:../mesh_common/components/connection_manager/cm_peripheral.c ****  */
+  46:../mesh_common/components/connection_manager/cm_peripheral.c **** #define MAX_ADV_DATA_LEN                                    (31)
+  47:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  48:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Acceptable shortened device name length that can be sent in advertisement
+  49:../mesh_common/components/connection_manager/cm_peripheral.c ****  * data
+  50:../mesh_common/components/connection_manager/cm_peripheral.c ****  */
+  51:../mesh_common/components/connection_manager/cm_peripheral.c **** #define SHORTENED_DEV_NAME_LEN                              (8)
+  52:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  53:../mesh_common/components/connection_manager/cm_peripheral.c **** /* length of Tx Power prefixed with 'Tx Power' AD Type */
+  54:../mesh_common/components/connection_manager/cm_peripheral.c **** #define TX_POWER_VALUE_LENGTH                               (2)
+  55:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  56:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Number of AD flags added by GAP layer to AdvData (3 bytes)
+  57:../mesh_common/components/connection_manager/cm_peripheral.c ****  * Refer BT Spec 4.0, Vol 3, Part C, Sec 11.1.3.
+  58:../mesh_common/components/connection_manager/cm_peripheral.c ****  */
+  59:../mesh_common/components/connection_manager/cm_peripheral.c **** #define NUM_OF_GAP_AD_FLAGS                                 (3)
+  60:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  61:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Macro to save the bond id to be unbonded */
+  62:../mesh_common/components/connection_manager/cm_peripheral.c **** #define SET_BONDID_TO_BE_UNBONDED(x) \
+  63:../mesh_common/components/connection_manager/cm_peripheral.c ****                           g_cm_peripheral_data.bond_id_to_be_removed = x
+  64:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  65:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Macro to get the bond id to be unbonded */
+  66:../mesh_common/components/connection_manager/cm_peripheral.c **** #define GET_BOND_ID_TO_BE_UNBONDED g_cm_peripheral_data.bond_id_to_be_removed
+  67:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  68:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+  69:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Private Data Type
+  70:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+  71:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  72:../mesh_common/components/connection_manager/cm_peripheral.c **** /* CM Peripheral data type */
+  73:../mesh_common/components/connection_manager/cm_peripheral.c **** typedef struct
+  74:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+  75:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Advertisement parameters instance */
+  76:../mesh_common/components/connection_manager/cm_peripheral.c ****     CM_PERIPHERAL_ADVERT_PARAMETERS_T           advert_params;
+  77:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  78:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Advertisement type */
+  79:../mesh_common/components/connection_manager/cm_peripheral.c ****     uint16                                      cur_adv_type;
+  80:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  81:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Advertisement timer */
+  82:../mesh_common/components/connection_manager/cm_peripheral.c ****     timer_id                                    advert_tid;
+  83:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  84:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Flag when set to True stops the ongoing advertisements */
+  85:../mesh_common/components/connection_manager/cm_peripheral.c ****     bool                                        stop_adverts;
+  86:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  87:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Flag to know more advertising types available for advertising */
+  88:../mesh_common/components/connection_manager/cm_peripheral.c ****     bool                                        moreAdvertisementTypes;
+  89:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  90:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Flag to to know the unbonding is in progress */
+  91:../mesh_common/components/connection_manager/cm_peripheral.c ****     bool                                        unbonding;
+  92:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  93:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* bonding removal bond id */
+  94:../mesh_common/components/connection_manager/cm_peripheral.c ****     bond_handle_id                              bond_id_to_be_removed;
+  95:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  96:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Advertising state */
+  97:../mesh_common/components/connection_manager/cm_peripheral.c ****     cm_advert_state                             advert_state;
+  98:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  99:../mesh_common/components/connection_manager/cm_peripheral.c **** } CM_PERIPHERAL_DATA_T;
+ 100:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 101:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+ 102:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Private Data
+ 103:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+ 104:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 105:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Peripheral data */
+ 106:../mesh_common/components/connection_manager/cm_peripheral.c **** static CM_PERIPHERAL_DATA_T g_cm_peripheral_data;
+ 107:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 108:../mesh_common/components/connection_manager/cm_peripheral.c **** #ifndef THIN_CM4_MESH_NODE
+ 109:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+ 110:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Private Function Prototypes
+ 111:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+ 112:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 113:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Called while exiting advertising state */
+ 114:../mesh_common/components/connection_manager/cm_peripheral.c **** static void advertisingExit(void);
+ 115:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 116:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Adds the device name to the adveritising packet */
+ 117:../mesh_common/components/connection_manager/cm_peripheral.c **** static void addDeviceNameToAdvData(uint16 adv_data_len, uint16 scan_data_len);
+ 118:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 119:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Adds the device name to the scan response packet */
+ 120:../mesh_common/components/connection_manager/cm_peripheral.c **** static void addDeviceNameToScanRspData(uint16 scan_data_len);
+ 121:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 122:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Adds the advertisement and scan data */
+ 123:../mesh_common/components/connection_manager/cm_peripheral.c **** static void addAdvScanData(CM_PERIPHERAL_ADVERT_TYPE_T *cur_advert_type);
+ 124:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 125:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Starts the advertisement procedure */
+ 126:../mesh_common/components/connection_manager/cm_peripheral.c **** static void startAdvertisements(void);
+ 127:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 128:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Handles advertisement timer expiry */
+ 129:../mesh_common/components/connection_manager/cm_peripheral.c **** static void gattAdvertTimerHandler(timer_id tid);
+ 130:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 131:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Handles the signal GATT_CONNECT_CFM */
+ 132:../mesh_common/components/connection_manager/cm_peripheral.c **** static void handleSignalGattConnectCfm(h_gatt_connect_cfm_t *p_event_data);
+ 133:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 134:../mesh_common/components/connection_manager/cm_peripheral.c **** /* Handles the signal HAL_GATT_CANCEL_CONNECT_CFM */
+ 135:../mesh_common/components/connection_manager/cm_peripheral.c **** static void handleSignalLsCancelConnectCfm(h_gatt_cancel_connect_cfm_t
+ 136:../mesh_common/components/connection_manager/cm_peripheral.c ****                                            *p_event_data);
+ 137:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 138:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+ 139:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Private Function Implementations
+ 140:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+ 141:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 142:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 143:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 144:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      advertisingExit
+ 145:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 146:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 147:../mesh_common/components/connection_manager/cm_peripheral.c ****  *     Called while exiting advertising state
+ 148:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 149:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 150:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Nothing
+ 151:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 152:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 153:../mesh_common/components/connection_manager/cm_peripheral.c **** static void advertisingExit(void)
+ 154:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 155:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Cancel advertisement timer */
+ 156:../mesh_common/components/connection_manager/cm_peripheral.c ****     TimerDelete(g_cm_peripheral_data.advert_tid);
+ 157:../mesh_common/components/connection_manager/cm_peripheral.c ****     g_cm_peripheral_data.advert_tid                 = TIMER_INVALID;
+ 158:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 159:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Initialise the advertisement flags */
+ 160:../mesh_common/components/connection_manager/cm_peripheral.c ****     g_cm_peripheral_data.stop_adverts               = FALSE;
+ 161:../mesh_common/components/connection_manager/cm_peripheral.c ****     g_cm_peripheral_data.cur_adv_type               = 0;
+ 162:../mesh_common/components/connection_manager/cm_peripheral.c ****     g_cm_peripheral_data.moreAdvertisementTypes     = FALSE;
+ 163:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 164:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 165:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 166:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 167:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      addDeviceNameToAdvData
+ 168:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 169:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 170:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Adds device name to advertisement or scan
+ 171:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      response data. It follows below steps:
+ 172:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      a. Try to add complete device name to the advertisement packet
+ 173:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      b. Try to add complete device name to the scan response packet
+ 174:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      c. Try to add shortened device name to the advertisement packet
+ 175:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      d. Try to add shortened (max possible) device name to the scan
+ 176:../mesh_common/components/connection_manager/cm_peripheral.c ****  *         response packet
+ 177:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 178:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 179:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Nothing
+ 180:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 181:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 182:../mesh_common/components/connection_manager/cm_peripheral.c **** static void addDeviceNameToAdvData(uint16 adv_data_len, uint16 scan_data_len)
+ 183:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 184:../mesh_common/components/connection_manager/cm_peripheral.c ****     uint8 *p_device_name = NULL;
+ 185:../mesh_common/components/connection_manager/cm_peripheral.c ****     uint16 device_name_adtype_len;
+ 186:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 187:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Read device name along with AD Type and its length */
+ 188:../mesh_common/components/connection_manager/cm_peripheral.c ****     p_device_name = g_cm_peripheral_data.advert_params.
+ 189:../mesh_common/components/connection_manager/cm_peripheral.c ****                                 advert_data.device_name.name;
+ 190:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 191:../mesh_common/components/connection_manager/cm_peripheral.c ****     device_name_adtype_len = g_cm_peripheral_data.advert_params.
+ 192:../mesh_common/components/connection_manager/cm_peripheral.c ****                              advert_data.device_name.length;
+ 193:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 194:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Add complete device name to Advertisement data */
+ 195:../mesh_common/components/connection_manager/cm_peripheral.c ****     p_device_name[0] = AD_TYPE_LOCAL_NAME_COMPLETE;
+ 196:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 197:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Check if Complete Device Name can fit in remaining advertisement
+ 198:../mesh_common/components/connection_manager/cm_peripheral.c ****      * data space including the one byte length field which will be added
+ 199:../mesh_common/components/connection_manager/cm_peripheral.c ****      * by the GAP layer
+ 200:../mesh_common/components/connection_manager/cm_peripheral.c ****      */
+ 201:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((device_name_adtype_len + 1) <= (MAX_ADV_DATA_LEN - adv_data_len))
+ 202:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 203:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add Complete Device Name to Advertisement Data */
+ 204:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(device_name_adtype_len , p_device_name,
+ 205:../mesh_common/components/connection_manager/cm_peripheral.c ****                       ad_src_advertise);
+ 206:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 207:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Check if Complete Device Name can fit in Scan response message */
+ 208:../mesh_common/components/connection_manager/cm_peripheral.c ****     else if((device_name_adtype_len + 1) <= (MAX_ADV_DATA_LEN - scan_data_len))
+ 209:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 210:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add Complete Device Name to Scan Response Data */
+ 211:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(device_name_adtype_len , p_device_name,
+ 212:../mesh_common/components/connection_manager/cm_peripheral.c ****                       ad_src_scan_rsp);
+ 213:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 214:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Check if Shortened Device Name can fit in remaining advertisement
+ 215:../mesh_common/components/connection_manager/cm_peripheral.c ****      * data space
+ 216:../mesh_common/components/connection_manager/cm_peripheral.c ****      */
+ 217:../mesh_common/components/connection_manager/cm_peripheral.c ****     else if((MAX_ADV_DATA_LEN - adv_data_len) >=
+ 218:../mesh_common/components/connection_manager/cm_peripheral.c ****             (SHORTENED_DEV_NAME_LEN + 2)) /* Added 2 for Length and AD type
+ 219:../mesh_common/components/connection_manager/cm_peripheral.c ****                                            * added by GAP layer
+ 220:../mesh_common/components/connection_manager/cm_peripheral.c ****                                            */
+ 221:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 222:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add shortened device name to Advertisement data */
+ 223:../mesh_common/components/connection_manager/cm_peripheral.c ****         p_device_name[0] = AD_TYPE_LOCAL_NAME_SHORT;
+ 224:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 225:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the short name to the advertisement data */
+ 226:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(SHORTENED_DEV_NAME_LEN , p_device_name,
+ 227:../mesh_common/components/connection_manager/cm_peripheral.c ****                       ad_src_advertise);
+ 228:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 229:../mesh_common/components/connection_manager/cm_peripheral.c ****     else /* Add device name to remaining Scan reponse data space */
+ 230:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 231:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add as much as can be stored in Scan Response data */
+ 232:../mesh_common/components/connection_manager/cm_peripheral.c ****         p_device_name[0] = AD_TYPE_LOCAL_NAME_SHORT;
+ 233:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 234:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the name to the scan response */
+ 235:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(MAX_ADV_DATA_LEN - scan_data_len,
+ 236:../mesh_common/components/connection_manager/cm_peripheral.c ****                                     p_device_name,
+ 237:../mesh_common/components/connection_manager/cm_peripheral.c ****                                     ad_src_scan_rsp);
+ 238:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 239:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 240:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 241:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 242:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 243:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      addDeviceNameToScanRspData
+ 244:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 245:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 246:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Adds device name to scan response packet
+ 247:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 248:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 249:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Nothing
+ 250:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 251:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 252:../mesh_common/components/connection_manager/cm_peripheral.c **** static void addDeviceNameToScanRspData(uint16 scan_data_len)
+ 253:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 254:../mesh_common/components/connection_manager/cm_peripheral.c ****     uint8 *p_device_name = NULL;
+ 255:../mesh_common/components/connection_manager/cm_peripheral.c ****     uint16 device_name_len;
+ 256:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 257:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Read device name along with AD Type and its length */
+ 258:../mesh_common/components/connection_manager/cm_peripheral.c ****     p_device_name = g_cm_peripheral_data.advert_params.
+ 259:../mesh_common/components/connection_manager/cm_peripheral.c ****                                 advert_data.device_name.name;
+ 260:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 261:../mesh_common/components/connection_manager/cm_peripheral.c ****     device_name_len = g_cm_peripheral_data.advert_params.
+ 262:../mesh_common/components/connection_manager/cm_peripheral.c ****                              advert_data.device_name.length;
+ 263:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 264:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((device_name_len + 1) <= (MAX_ADV_DATA_LEN - scan_data_len))
+ 265:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 266:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add complete device name to Advertisement data */
+ 267:../mesh_common/components/connection_manager/cm_peripheral.c ****         p_device_name[0] = AD_TYPE_LOCAL_NAME_COMPLETE;
+ 268:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 269:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add Complete Device Name to Scan Response Data */
+ 270:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(device_name_len , p_device_name,
+ 271:../mesh_common/components/connection_manager/cm_peripheral.c ****                            ad_src_scan_rsp);
+ 272:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 273:../mesh_common/components/connection_manager/cm_peripheral.c ****     else /* Add device name to remaining Scan reponse data space */
+ 274:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 275:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add as much as can be stored in Scan Response data */
+ 276:../mesh_common/components/connection_manager/cm_peripheral.c ****         p_device_name[0] = AD_TYPE_LOCAL_NAME_SHORT;
+ 277:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 278:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the name to the scan response */
+ 279:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(MAX_ADV_DATA_LEN - scan_data_len,
+ 280:../mesh_common/components/connection_manager/cm_peripheral.c ****                                     p_device_name,
+ 281:../mesh_common/components/connection_manager/cm_peripheral.c ****                                     ad_src_scan_rsp);
+ 282:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 283:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 284:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 285:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 286:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 287:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      gattAdvertTimerHandler
+ 288:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 289:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 290:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Handles advertisement timer expiry.
+ 291:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 292:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 293:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Nothing
+ 294:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 295:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 296:../mesh_common/components/connection_manager/cm_peripheral.c **** static void gattAdvertTimerHandler(timer_id tid)
+ 297:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 298:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Based upon the timer id, stop on-going advertisements */
+ 299:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(g_cm_peripheral_data.advert_tid == tid)
+ 300:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 301:../mesh_common/components/connection_manager/cm_peripheral.c ****         g_cm_peripheral_data.advert_tid = TIMER_INVALID;
+ 302:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 303:../mesh_common/components/connection_manager/cm_peripheral.c ****         if((g_cm_peripheral_data.cur_adv_type + 1) <
+ 304:../mesh_common/components/connection_manager/cm_peripheral.c ****                 g_cm_peripheral_data.advert_params.num_adv_types)
+ 305:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 306:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Move to the next advertisement type */
+ 307:../mesh_common/components/connection_manager/cm_peripheral.c ****             ++g_cm_peripheral_data.cur_adv_type;
+ 308:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 309:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* More advertisements available */
+ 310:../mesh_common/components/connection_manager/cm_peripheral.c ****             g_cm_peripheral_data.moreAdvertisementTypes = TRUE;
+ 311:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 312:../mesh_common/components/connection_manager/cm_peripheral.c ****         else
+ 313:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 314:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* More advertisements un available */
+ 315:../mesh_common/components/connection_manager/cm_peripheral.c ****             g_cm_peripheral_data.moreAdvertisementTypes = FALSE;
+ 316:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 317:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Reset the current advertisement type */
+ 318:../mesh_common/components/connection_manager/cm_peripheral.c ****             g_cm_peripheral_data.cur_adv_type = 0;
+ 319:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 320:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 321:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Stop the current advertisement type */
+ 322:../mesh_common/components/connection_manager/cm_peripheral.c ****         GattCancelConnectReq();
+ 323:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 324:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 325:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 326:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 327:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 328:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      addAdvScanData
+ 329:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 330:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 331:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Adds the advertisement and scan data
+ 332:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 333:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 334:../mesh_common/components/connection_manager/cm_peripheral.c ****  *     Nothing
+ 335:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 336:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 337:../mesh_common/components/connection_manager/cm_peripheral.c **** static void addAdvScanData(CM_PERIPHERAL_ADVERT_TYPE_T *cur_advert_type)
+ 338:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 339:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* A variable to keep track of the data added to AdvData. The limit is
+ 340:../mesh_common/components/connection_manager/cm_peripheral.c ****      * MAX_ADV_DATA_LEN. GAP layer will add AD Flags to AdvData which
+ 341:../mesh_common/components/connection_manager/cm_peripheral.c ****      * is 3 bytes. Refer BT Spec 4.0, Vol 3, Part C, Sec 11.1.3.
+ 342:../mesh_common/components/connection_manager/cm_peripheral.c ****      */
+ 343:../mesh_common/components/connection_manager/cm_peripheral.c ****     uint16 length_added_to_adv = NUM_OF_GAP_AD_FLAGS;
+ 344:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 345:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Reset existing advertising data */
+ 346:../mesh_common/components/connection_manager/cm_peripheral.c ****     LsStoreAdvScanData(0, NULL, ad_src_advertise);
+ 347:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 348:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Reset existing scan response data */
+ 349:../mesh_common/components/connection_manager/cm_peripheral.c ****     LsStoreAdvScanData(0, NULL, ad_src_scan_rsp);
+ 350:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 351:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Add UUID list of the services supported by the device */
+ 352:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((cur_advert_type->advert_flags) & uuid_present)
+ 353:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 354:../mesh_common/components/connection_manager/cm_peripheral.c ****         uint8 *data = (uint8*)g_cm_peripheral_data.advert_params.
+ 355:../mesh_common/components/connection_manager/cm_peripheral.c ****                         advert_data.device_uuid.uuid;
+ 356:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 357:../mesh_common/components/connection_manager/cm_peripheral.c ****         uint16 length = g_cm_peripheral_data.advert_params.
+ 358:../mesh_common/components/connection_manager/cm_peripheral.c ****                           advert_data.device_uuid.length;
+ 359:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 360:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* One added for Length field, which will be added to Adv Data by
+ 361:../mesh_common/components/connection_manager/cm_peripheral.c ****          * GAP layer
+ 362:../mesh_common/components/connection_manager/cm_peripheral.c ****          */
+ 363:../mesh_common/components/connection_manager/cm_peripheral.c ****         length_added_to_adv += (length + 1);
+ 364:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 365:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the UUID data */
+ 366:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(length, data, ad_src_advertise);
+ 367:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 368:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 369:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Add device appearance to the advertisements */
+ 370:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((cur_advert_type->advert_flags) & appearance_present)
+ 371:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 372:../mesh_common/components/connection_manager/cm_peripheral.c ****         uint8 *data = g_cm_peripheral_data.advert_params.
+ 373:../mesh_common/components/connection_manager/cm_peripheral.c ****                       advert_data.device_appearance.value;
+ 374:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 375:../mesh_common/components/connection_manager/cm_peripheral.c ****         uint16 length = g_cm_peripheral_data.advert_params.
+ 376:../mesh_common/components/connection_manager/cm_peripheral.c ****                         advert_data.device_appearance.length;
+ 377:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 378:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* One added for Length field, which will be added to Adv Data by
+ 379:../mesh_common/components/connection_manager/cm_peripheral.c ****          * GAP layer
+ 380:../mesh_common/components/connection_manager/cm_peripheral.c ****          */
+ 381:../mesh_common/components/connection_manager/cm_peripheral.c ****         length_added_to_adv += (length + 1);
+ 382:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 383:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the appearance data */
+ 384:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(length, data, ad_src_advertise);
+ 385:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 386:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 387:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Add tx power value of device to the advertising data */
+ 388:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((cur_advert_type->advert_flags) & tx_power_present)
+ 389:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 390:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Tx power level value prefixed with 'Tx Power' AD Type */
+ 391:../mesh_common/components/connection_manager/cm_peripheral.c ****         uint8 device_tx_power[TX_POWER_VALUE_LENGTH] = {AD_TYPE_TX_POWER};
+ 392:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 393:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the read tx power level to device_tx_power
+ 394:../mesh_common/components/connection_manager/cm_peripheral.c ****          * Tx power level value is of 1 byte
+ 395:../mesh_common/components/connection_manager/cm_peripheral.c ****          */
+ 396:../mesh_common/components/connection_manager/cm_peripheral.c ****         device_tx_power[TX_POWER_VALUE_LENGTH - 1] =
+ 397:../mesh_common/components/connection_manager/cm_peripheral.c ****                         g_cm_peripheral_data.advert_params.advert_data.
+ 398:../mesh_common/components/connection_manager/cm_peripheral.c ****                         tx_power_level;
+ 399:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 400:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* One added for Length field, which will be added to Adv Data by
+ 401:../mesh_common/components/connection_manager/cm_peripheral.c ****          * GAP layer
+ 402:../mesh_common/components/connection_manager/cm_peripheral.c ****          */
+ 403:../mesh_common/components/connection_manager/cm_peripheral.c ****         length_added_to_adv += (TX_POWER_VALUE_LENGTH + 1);
+ 404:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 405:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the TX power */
+ 406:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(TX_POWER_VALUE_LENGTH, device_tx_power,
+ 407:../mesh_common/components/connection_manager/cm_peripheral.c ****                               ad_src_advertise);
+ 408:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 409:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 410:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Add manufacturer data to the advertising data */
+ 411:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((cur_advert_type->advert_flags) & manufacturer_data_present)
+ 412:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 413:../mesh_common/components/connection_manager/cm_peripheral.c ****         uint8 *data = g_cm_peripheral_data.advert_params.
+ 414:../mesh_common/components/connection_manager/cm_peripheral.c ****                       advert_data.manuf_data.value;
+ 415:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 416:../mesh_common/components/connection_manager/cm_peripheral.c ****         uint16 length = g_cm_peripheral_data.advert_params.
+ 417:../mesh_common/components/connection_manager/cm_peripheral.c ****                         advert_data.manuf_data.length;
+ 418:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 419:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* One added for Length field, which will be added to Adv Data by
+ 420:../mesh_common/components/connection_manager/cm_peripheral.c ****          * GAP layer
+ 421:../mesh_common/components/connection_manager/cm_peripheral.c ****          */
+ 422:../mesh_common/components/connection_manager/cm_peripheral.c ****         length_added_to_adv += (length + 1);
+ 423:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 424:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the appearance data */
+ 425:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(length, data, ad_src_advertise);
+ 426:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 427:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 428:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Add device name to the advertising data */
+ 429:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((cur_advert_type->advert_flags) & name_present)
+ 430:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 431:../mesh_common/components/connection_manager/cm_peripheral.c ****        /* Add the name */
+ 432:../mesh_common/components/connection_manager/cm_peripheral.c ****        addDeviceNameToAdvData(length_added_to_adv, 0);
+ 433:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 434:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 435:../mesh_common/components/connection_manager/cm_peripheral.c ****     else if((cur_advert_type->advert_flags) & name_present_scan_rsp)
+ 436:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 437:../mesh_common/components/connection_manager/cm_peripheral.c ****        /* Add the name to scan response packet */
+ 438:../mesh_common/components/connection_manager/cm_peripheral.c ****        addDeviceNameToScanRspData(0);
+ 439:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 440:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 441:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 442:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 443:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 444:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      startAdvertisements
+ 445:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 446:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 447:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Starts the advertising procedure
+ 448:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 449:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 450:../mesh_common/components/connection_manager/cm_peripheral.c ****  *     Nothing
+ 451:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 452:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 453:../mesh_common/components/connection_manager/cm_peripheral.c **** static void startAdvertisements(void)
+ 454:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 455:../mesh_common/components/connection_manager/cm_peripheral.c ****     uint16 connect_flags = 0;  /* connection flags */
+ 456:../mesh_common/components/connection_manager/cm_peripheral.c ****     CM_PERIPHERAL_ADVERT_TYPE_T *cur_advert_type = &g_cm_peripheral_data.
+ 457:../mesh_common/components/connection_manager/cm_peripheral.c ****                                                    advert_params.adv_type
+ 458:../mesh_common/components/connection_manager/cm_peripheral.c ****                                                    [g_cm_peripheral_data.
+ 459:../mesh_common/components/connection_manager/cm_peripheral.c ****                                                     cur_adv_type];
+ 460:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 461:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(cur_advert_type->advert_flags & local_address_random)
+ 462:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 463:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Local Bluetooth Address type is random */
+ 464:../mesh_common/components/connection_manager/cm_peripheral.c ****         connect_flags |= L2CAP_OWN_ADDR_TYPE_RANDOM;
+ 465:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 466:../mesh_common/components/connection_manager/cm_peripheral.c ****     else
+ 467:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 468:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Local Bluetooth Address type is public */
+ 469:../mesh_common/components/connection_manager/cm_peripheral.c ****         connect_flags |= L2CAP_OWN_ADDR_TYPE_PUBLIC;
+ 470:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 471:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 472:../mesh_common/components/connection_manager/cm_peripheral.c ****     if((cur_advert_type->advert_flags & directed_advert_supported) ||
+ 473:../mesh_common/components/connection_manager/cm_peripheral.c ****        (cur_advert_type->advert_flags & ldc_directed_advert_supported))
+ 474:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 475:../mesh_common/components/connection_manager/cm_peripheral.c ****         if(cur_advert_type->advert_flags & directed_advert_supported)
+ 476:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 477:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Directed advertisement type  */
+ 478:../mesh_common/components/connection_manager/cm_peripheral.c ****             connect_flags |= L2CAP_CONNECTION_SLAVE_DIRECTED;
+ 479:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 480:../mesh_common/components/connection_manager/cm_peripheral.c ****         else
+ 481:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 482:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Low duty cycle directed advertisement type  */
+ 483:../mesh_common/components/connection_manager/cm_peripheral.c ****             connect_flags |= L2CAP_CONNECTION_SLAVE_DIRECTED_LDC;
+ 484:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 485:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 486:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Set the Bluetooth Address for the directed advertising */
+ 487:../mesh_common/components/connection_manager/cm_peripheral.c ****         GapSetAdvAddress(&cur_advert_type->directed_bd_addr);
+ 488:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 489:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Set the Advertising state to directed advertising */
+ 490:../mesh_common/components/connection_manager/cm_peripheral.c ****         CMSetAdvState(cm_advert_state_directed_advertising);
+ 491:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 492:../mesh_common/components/connection_manager/cm_peripheral.c ****     else if (cur_advert_type->advert_flags & non_conn_advert_supported)
+ 493:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 494:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Set the GAP mode for peripheral */
+ 495:../mesh_common/components/connection_manager/cm_peripheral.c ****         HALGapSetPeripheralMode(g_cm_peripheral_data.advert_params.role,
+ 496:../mesh_common/components/connection_manager/cm_peripheral.c ****                             g_cm_peripheral_data.advert_params.bond,
+ 497:../mesh_common/components/connection_manager/cm_peripheral.c ****                             g_cm_peripheral_data.advert_params.security,
+ 498:../mesh_common/components/connection_manager/cm_peripheral.c ****                             cur_advert_type->discover,
+ 499:../mesh_common/components/connection_manager/cm_peripheral.c ****                             cur_advert_type->connect);
+ 500:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 501:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* clear the existing advertisement data, if any */
+ 502:../mesh_common/components/connection_manager/cm_peripheral.c ****         LsStoreAdvScanData(0, NULL, ad_src_advertise);
+ 503:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 504:../mesh_common/components/connection_manager/cm_peripheral.c ****         /*Set the advertisement interval,API accepts the value in microseconds*/
+ 505:../mesh_common/components/connection_manager/cm_peripheral.c ****         GapSetAdvInterval(cur_advert_type->adv_interval_min * MILLISECOND,
+ 506:../mesh_common/components/connection_manager/cm_peripheral.c ****                           cur_advert_type->adv_interval_max * MILLISECOND);
+ 507:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 508:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add advertisement data if any */
+ 509:../mesh_common/components/connection_manager/cm_peripheral.c ****         addAdvScanData(cur_advert_type);
+ 510:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 511:../mesh_common/components/connection_manager/cm_peripheral.c ****         if(cur_advert_type->advert_flags & local_address_random )
+ 512:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 513:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Start broadcasting */
+ 514:../mesh_common/components/connection_manager/cm_peripheral.c ****             LsStartStopAdvertise(TRUE, whitelist_disabled, ls_addr_type_random);
+ 515:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 516:../mesh_common/components/connection_manager/cm_peripheral.c ****         else
+ 517:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 518:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Start broadcasting */
+ 519:../mesh_common/components/connection_manager/cm_peripheral.c ****             LsStartStopAdvertise(TRUE, whitelist_disabled, ls_addr_type_public);
+ 520:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 521:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 522:../mesh_common/components/connection_manager/cm_peripheral.c ****         return;
+ 523:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 524:../mesh_common/components/connection_manager/cm_peripheral.c ****     else
+ 525:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 526:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Advertisement type undirected */
+ 527:../mesh_common/components/connection_manager/cm_peripheral.c ****         connect_flags |= L2CAP_CONNECTION_SLAVE_UNDIRECTED;
+ 528:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 529:../mesh_common/components/connection_manager/cm_peripheral.c ****         if(cur_advert_type->advert_flags & whitelist_supported)
+ 530:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 531:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Whitelist supported */
+ 532:../mesh_common/components/connection_manager/cm_peripheral.c ****             connect_flags |= L2CAP_CONNECTION_SLAVE_WHITELIST;
+ 533:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 534:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 535:../mesh_common/components/connection_manager/cm_peripheral.c ****         if(cur_advert_type->advert_flags & fast_advert_supported)
+ 536:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 537:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Set the Advertising state to fast advertising */
+ 538:../mesh_common/components/connection_manager/cm_peripheral.c ****             CMSetAdvState(cm_advert_state_fast_advertising);
+ 539:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 540:../mesh_common/components/connection_manager/cm_peripheral.c ****         if(cur_advert_type->advert_flags & slow_advert_supported)
+ 541:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 542:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Set the Advertising state to slow advertising */
+ 543:../mesh_common/components/connection_manager/cm_peripheral.c ****             CMSetAdvState(cm_advert_state_slow_advertising);
+ 544:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 545:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 546:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Add the advertisement and scan data */
+ 547:../mesh_common/components/connection_manager/cm_peripheral.c ****         addAdvScanData(cur_advert_type);
+ 548:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 549:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 550:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(!(cur_advert_type->advert_flags & directed_advert_supported))
+ 551:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 552:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Set the advertising intervals */
+ 553:../mesh_common/components/connection_manager/cm_peripheral.c ****         GapSetAdvInterval(cur_advert_type->adv_interval_min,
+ 554:../mesh_common/components/connection_manager/cm_peripheral.c ****                           cur_advert_type->adv_interval_max);
+ 555:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 556:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 557:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Set the GAP mode for peripheral */
+ 558:../mesh_common/components/connection_manager/cm_peripheral.c ****     HALGapSetPeripheralMode(g_cm_peripheral_data.advert_params.role,
+ 559:../mesh_common/components/connection_manager/cm_peripheral.c ****                             g_cm_peripheral_data.advert_params.bond,
+ 560:../mesh_common/components/connection_manager/cm_peripheral.c ****                             g_cm_peripheral_data.advert_params.security,
+ 561:../mesh_common/components/connection_manager/cm_peripheral.c ****                             cur_advert_type->discover,
+ 562:../mesh_common/components/connection_manager/cm_peripheral.c ****                             cur_advert_type->connect);
+ 563:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 564:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Start GATT connection in Slave role */
+ 565:../mesh_common/components/connection_manager/cm_peripheral.c ****     GattConnectReq(NULL, connect_flags);
+ 566:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 567:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Start advertisement timer */
+ 568:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(!(cur_advert_type->advert_flags & directed_advert_supported) &&
+ 569:../mesh_common/components/connection_manager/cm_peripheral.c ****                             cur_advert_type->timeout_value)
+ 570:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 571:../mesh_common/components/connection_manager/cm_peripheral.c ****         TimerDelete(g_cm_peripheral_data.advert_tid);
+ 572:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 573:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Start advertisement timer  */
+ 574:../mesh_common/components/connection_manager/cm_peripheral.c ****         g_cm_peripheral_data.advert_tid = TimerCreate(
+ 575:../mesh_common/components/connection_manager/cm_peripheral.c ****                                         cur_advert_type->timeout_value, TRUE,
+ 576:../mesh_common/components/connection_manager/cm_peripheral.c ****                                         gattAdvertTimerHandler);
+ 577:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 578:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 579:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 580:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 581:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 582:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 583:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      handleSignalGattConnectCfm
+ 584:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 585:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 586:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Handles the signal GATT_CONNECT_CFM
+ 587:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 588:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 589:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Nothing
+ 590:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 591:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 592:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 593:../mesh_common/components/connection_manager/cm_peripheral.c **** static void handleSignalGattConnectCfm(h_gatt_connect_cfm_t *p_event_data)
+ 594:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 595:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(!CMIsAdvertising())
+ 596:../mesh_common/components/connection_manager/cm_peripheral.c ****         return;
+ 597:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 598:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(p_event_data->result == HCI_ERROR_DIRECTED_ADVERTISING_TIMEOUT)
+ 599:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 600:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* HDC direct advertisement stopped */
+ 601:../mesh_common/components/connection_manager/cm_peripheral.c ****         CMPeripheralDirectAdvTimeout();
+ 602:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 603:../mesh_common/components/connection_manager/cm_peripheral.c ****         return;
+ 604:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 605:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 606:../mesh_common/components/connection_manager/cm_peripheral.c ****     /* Set the advertisement state to idle */
+ 607:../mesh_common/components/connection_manager/cm_peripheral.c ****     CMSetAdvState(cm_advert_state_idle);
+ 608:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 609:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 610:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 611:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 612:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      handleSignalLsCancelConnectCfm
+ 613:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 614:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 615:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Handles the HAL_GATT_CANCEL_CONNECT_CFM for peripheral
+ 616:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 617:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 618:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Nothing
+ 619:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 620:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 621:../mesh_common/components/connection_manager/cm_peripheral.c **** static void handleSignalLsCancelConnectCfm(h_gatt_cancel_connect_cfm_t
+ 622:../mesh_common/components/connection_manager/cm_peripheral.c ****                                            *p_event_data)
+ 623:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+ 624:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(!CMIsAdvertising())
+ 625:../mesh_common/components/connection_manager/cm_peripheral.c ****         return; /* Not for peripheral role */
+ 626:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 627:../mesh_common/components/connection_manager/cm_peripheral.c ****     if(g_cm_peripheral_data.stop_adverts)
+ 628:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 629:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Stop advertising was requested */
+ 630:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 631:../mesh_common/components/connection_manager/cm_peripheral.c ****         if(g_cm_peripheral_data.unbonding)
+ 632:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 633:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Clearing the bonding information */
+ 634:../mesh_common/components/connection_manager/cm_peripheral.c ****             ClearBondingInfo(GET_BOND_ID_TO_BE_UNBONDED);
+ 635:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 636:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Reset the unbonding flag */
+ 637:../mesh_common/components/connection_manager/cm_peripheral.c ****             g_cm_peripheral_data.unbonding = FALSE;
+ 638:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 639:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Reset the bond id to un bonded */
+ 640:../mesh_common/components/connection_manager/cm_peripheral.c ****             GET_BOND_ID_TO_BE_UNBONDED = CM_INVALID_BOND_ID;
+ 641:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 642:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 643:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Reset the stop advertisements flag */
+ 644:../mesh_common/components/connection_manager/cm_peripheral.c ****         g_cm_peripheral_data.stop_adverts = FALSE;
+ 645:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 646:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Move the Advertising state to idle */
+ 647:../mesh_common/components/connection_manager/cm_peripheral.c ****         CMSetAdvState(cm_advert_state_idle);
+ 648:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 649:../mesh_common/components/connection_manager/cm_peripheral.c ****     else
+ 650:../mesh_common/components/connection_manager/cm_peripheral.c ****     {
+ 651:../mesh_common/components/connection_manager/cm_peripheral.c ****         /* Check if more advertisement types are availble */
+ 652:../mesh_common/components/connection_manager/cm_peripheral.c ****         if(g_cm_peripheral_data.moreAdvertisementTypes)
+ 653:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 654:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* One of the advertisement type has expired */
+ 655:../mesh_common/components/connection_manager/cm_peripheral.c ****             startAdvertisements();
+ 656:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 657:../mesh_common/components/connection_manager/cm_peripheral.c ****         else
+ 658:../mesh_common/components/connection_manager/cm_peripheral.c ****         {
+ 659:../mesh_common/components/connection_manager/cm_peripheral.c ****             /* Move the Advertising state to idle */
+ 660:../mesh_common/components/connection_manager/cm_peripheral.c ****             CMSetAdvState(cm_advert_state_idle);
+ 661:../mesh_common/components/connection_manager/cm_peripheral.c ****         }
+ 662:../mesh_common/components/connection_manager/cm_peripheral.c ****     }
+ 663:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+ 664:../mesh_common/components/connection_manager/cm_peripheral.c **** #endif /* THIN_CM4_MESH_NODE */
+ 665:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 666:../mesh_common/components/connection_manager/cm_peripheral.c **** /*============================================================================*
+ 667:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  Public Function Implementations
+ 668:../mesh_common/components/connection_manager/cm_peripheral.c ****  *============================================================================*/
+ 669:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+ 670:../mesh_common/components/connection_manager/cm_peripheral.c **** /*----------------------------------------------------------------------------*
+ 671:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  NAME
+ 672:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      CMPeripheralInit
+ 673:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 674:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  DESCRIPTION
+ 675:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Initialises the peripheral module
+ 676:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 677:../mesh_common/components/connection_manager/cm_peripheral.c ****  *  RETURNS
+ 678:../mesh_common/components/connection_manager/cm_peripheral.c ****  *      Nothing
+ 679:../mesh_common/components/connection_manager/cm_peripheral.c ****  *
+ 680:../mesh_common/components/connection_manager/cm_peripheral.c ****  *---------------------------------------------------------------------------*/
+ 681:../mesh_common/components/connection_manager/cm_peripheral.c **** extern void CMPeripheralInit(void)
+ 682:../mesh_common/components/connection_manager/cm_peripheral.c **** {
+  20                 	r	#0x0001
+  21 0000 01 0B       	.LCFI0:
+  22                 		.loc 1 685 0
+ 683:../mesh_common/components/connection_manager/cm_peripheral.c **** le;
+ 684:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  23                 		X,#g_cm_peripheral_data+77
+  24 0001 00 00 00 18 		ld	AL,#0x0000
+  25 0003 00 14       		st	AL,@(0,X)
+  26 0004 00 26       		.loc 1 688 0
+ 685:../mesh_common/components/connection_manager/cm_peripheral.c ****   /* Initialise the bond id to removed flag */
+ 686:../mesh_common/components/connection_manager/cm_peripheral.c ****     g_cm_peripheral_data.bond_id_to_be_removed = CM_INVALID_BOND_ID;
+ 687:../mesh_common/components/connection_manager/cm_peripheral.c **** 
+  27                 	AL,#0xffff
+  28 0005 FF 14       		st	AL,@(0xffff,X)
+  29 0006 FF 26       		.loc 1 691 0
+ 688:../mesh_common/components/connection_manager/cm_peripheral.c ****  /*  Initialise the unbonding flag */
+ 689:../mesh_common/components/connection_manager/cm_peripheral.c ****     g_cm_peripheral_data.unbonding = FALSE;
+ 690:../mesh_common/components/connection_manager/cm_peripheral.c **** }
+  30                 		AL,#0x0000
+  31 0007 00 14       		st	AL,@(0xfffe,X)
+  32 0008 FE 26       		.loc 1 692 0
+ 691:../mesh_common/components/connection_manager/cm_peripheral.c **** fndef THIN_CM4_MESH_NODE
+  33                 	ave	#0x0001
+  34 0009 01 0F       	.LFE2:
+  35                 		.size	CMPeripheralInit, .-CMPeripheralInit
+  36                 		.global	__size_of_CMPeripheralInit
+  37                 		.equ	__size_of_CMPeripheralInit,. - CMPeripheralInit
+  38                 		.section	.bss.g_cm_peripheral_data,"aw",@nobits
+  39                 		.type	g_cm_peripheral_data, @object
+  40                 		.size	g_cm_peripheral_data, 78
+  41                 	g_cm_peripheral_data:
+  42                 		.space	78
+  43 0000 00 00 00 00 		.section	.debug_frame,"",@progbits
+  43      00 00 00 00 
+  43      00 00 00 00 
+  43      00 00 00 00 
+  43      00 00 00 00 
+  44                 	.Lframe0:
+  45                 		.4byte	.LECIE0-.LSCIE0
+  46 0000 00 00 00 00 	.LSCIE0:
+  47                 		.4byte	0xffffffff
+  48 0002 FF FF FF FF 		.1byte	0x1
+  49 0004 01          		.ascii "\000"
+  50 0004 00          		.1byte	0x1
+  51 0005 01          		.1byte	0x7f
+  52 0005 7F          		.1byte	0x3
+  53 0006 03          		.1byte	0xc
+  54 0006 0C          		.1byte	0x5
+  55 0007 05          		.1byte	0x0
+  56 0007 00          		.p2align	2
+  57                 	.LECIE0:
+  58                 	.LSFDE0:
+  59                 		.4byte	.LEFDE0-.LASFDE0
+  60 0008 00 00 00 00 	.LASFDE0:
+  61                 		.4byte	.Lframe0
+  62 000a 00 00 00 00 		.4byte	.LFB2
+  63 000c 00 00 00 00 		.4byte	.LFE2-.LFB2
+  64 000e 00 00 00 00 		.1byte	0x4
+  65 0010 41          		.4byte	.LCFI0-.LFB2
+  66                 		.1byte	0xe
+  67 0010 0E          		.1byte	0x1
+  68 0011 01          		.1byte	0x83
+  69 0011 83          		.1byte	0x1
+  70 0012 01          		.p2align	2
+  71 0012 00 00 00    	.LEFDE0:
+  72                 		.text
+  73                 	.Letext0:
+  74                 		.section	.debug_loc,"",@progbits
+  75                 	.Ldebug_loc0:
+  76                 	.LLST0:
+  77                 		.4byte	.LFB2
+  78 0000 00 00 00 00 		.4byte	.LCFI0
+  79 0002 00 00 00 00 		.2byte	0x1
+  80 0004 00 01       		.1byte	0x55
+  81 0005 55          		.4byte	.LCFI0
+  82 0005 00 00 00 00 		.4byte	.LFE2
+  83 0007 00 00 00 00 		.2byte	0x2
+  84 0009 00 02       		.1byte	0x75
+  85 000a 75          		.1byte	0x1
+  86 000b 01          		.4byte	0x0
+  87 000b 00 00 00 00 		.4byte	0x0
+  88 000d 00 00 00 00 		.file 2 "D:/CSR_uEnergy_SDK-2.6.1.7/tools/include/CSR101x_A05/gap_types.h"
+  89                 		.file 3 "D:/CSR_uEnergy_SDK-2.6.1.7/tools/include/CSR101x_A05/types.h"
+  90                 		.file 4 "D:/CSR_uEnergy_SDK-2.6.1.7/tools/include/CSR101x_A05/bluetooth.h"
+  91                 		.file 5 "D:/CSR_uEnergy_SDK-2.6.1.7/tools/include/CSR101x_A05/timer.h"
+  92                 		.file 6 "../mesh_common/components/connection_manager/cm_types.h"
+  93                 		.section	.debug_info
+  94                 		.4byte	0x58b
+  95 0000 00 00 05 8B 		.2byte	0x2
+  96 0002 00 02       		.4byte	.Ldebug_abbrev0
+  97 0003 00 00 00 00 		.1byte	0x4
+  98 0005 04          		.1byte	0x1
+  99 0005 01          		.4byte	.LASF103
+ 100 0006 00 00 00 00 		.1byte	0x1
+ 101 0008 01          		.4byte	.LASF104
+ 102 0008 00 00 00 00 		.4byte	.LASF105
+ 103 000a 00 00 00 00 		.4byte	0x0
+ 104 000c 00 00 00 00 		.4byte	0x0
+ 105 000e 00 00 00 00 		.4byte	.Ldebug_ranges0+0x0
+ 106 0010 00 00 00 00 		.4byte	.Ldebug_line0
+ 107 0012 00 00 00 00 		.1byte	0x2
+ 108 0014 02          		.1byte	0x2
+ 109 0015 02          		.1byte	0x2
+ 110 0015 02          		.1byte	0x22
+ 111 0016 22          		.4byte	0x50
+ 112 0016 00 00 00 50 		.1byte	0x3
+ 113 0018 03          		.4byte	.LASF0
+ 114 0019 00 00 00 00 		.1byte	0x0
+ 115 001b 00          		.1byte	0x3
+ 116 001b 03          		.4byte	.LASF1
+ 117 001c 00 00 00 00 		.1byte	0x1
+ 118 001e 01          		.1byte	0x3
+ 119 001e 03          		.4byte	.LASF2
+ 120 001f 00 00 00 00 		.1byte	0x2
+ 121 0021 02          		.1byte	0x3
+ 122 0021 03          		.4byte	.LASF3
+ 123 0022 00 00 00 00 		.1byte	0x3
+ 124 0024 03          		.1byte	0x3
+ 125 0024 03          		.4byte	.LASF4
+ 126 0025 00 00 00 00 		.1byte	0x4
+ 127 0027 04          		.1byte	0x0
+ 128 0027 00          		.1byte	0x4
+ 129 0028 04          		.4byte	.LASF9
+ 130 0028 00 00 00 00 		.1byte	0x2
+ 131 002a 02          		.1byte	0x4c
+ 132 002b 4C          		.4byte	0x29
+ 133 002b 00 00 00 29 		.1byte	0x2
+ 134 002d 02          		.1byte	0x2
+ 135 002e 02          		.1byte	0x2
+ 136 002e 02          		.1byte	0x58
+ 137 002f 58          		.4byte	0x7c
+ 138 002f 00 00 00 7C 		.1byte	0x3
+ 139 0031 03          		.4byte	.LASF5
+ 140 0032 00 00 00 00 		.1byte	0x0
+ 141 0034 00          		.1byte	0x3
+ 142 0034 03          		.4byte	.LASF6
+ 143 0035 00 00 00 00 		.1byte	0x1
+ 144 0037 01          		.1byte	0x3
+ 145 0037 03          		.4byte	.LASF7
+ 146 0038 00 00 00 00 		.1byte	0x2
+ 147 003a 02          		.1byte	0x3
+ 148 003a 03          		.4byte	.LASF8
+ 149 003b 00 00 00 00 		.1byte	0x3
+ 150 003d 03          		.1byte	0x0
+ 151 003d 00          		.1byte	0x4
+ 152 003e 04          		.4byte	.LASF10
+ 153 003e 00 00 00 00 		.1byte	0x2
+ 154 0040 02          		.1byte	0x76
+ 155 0041 76          		.4byte	0x5b
+ 156 0041 00 00 00 5B 		.1byte	0x2
+ 157 0043 02          		.1byte	0x2
+ 158 0044 02          		.1byte	0x2
+ 159 0044 02          		.1byte	0x7d
+ 160 0045 7D          		.4byte	0xa8
+ 161 0045 00 00 00 A8 		.1byte	0x3
+ 162 0047 03          		.4byte	.LASF11
+ 163 0048 00 00 00 00 		.1byte	0x0
+ 164 004a 00          		.1byte	0x3
+ 165 004a 03          		.4byte	.LASF12
+ 166 004b 00 00 00 00 		.1byte	0x1
+ 167 004d 01          		.1byte	0x3
+ 168 004d 03          		.4byte	.LASF13
+ 169 004e 00 00 00 00 		.1byte	0x2
+ 170 0050 02          		.1byte	0x3
+ 171 0050 03          		.4byte	.LASF14
+ 172 0051 00 00 00 00 		.1byte	0x3
+ 173 0053 03          		.1byte	0x0
+ 174 0053 00          		.1byte	0x4
+ 175 0054 04          		.4byte	.LASF15
+ 176 0054 00 00 00 00 		.1byte	0x2
+ 177 0056 02          		.1byte	0xa3
+ 178 0057 A3          		.4byte	0x87
+ 179 0057 00 00 00 87 		.1byte	0x2
+ 180 0059 02          		.1byte	0x2
+ 181 005a 02          		.1byte	0x2
+ 182 005a 02          		.1byte	0xaa
+ 183 005b AA          		.4byte	0xce
+ 184 005b 00 00 00 CE 		.1byte	0x3
+ 185 005d 03          		.4byte	.LASF16
+ 186 005e 00 00 00 00 		.1byte	0x0
+ 187 0060 00          		.1byte	0x3
+ 188 0060 03          		.4byte	.LASF17
+ 189 0061 00 00 00 00 		.1byte	0x1
+ 190 0063 01          		.1byte	0x3
+ 191 0063 03          		.4byte	.LASF18
+ 192 0064 00 00 00 00 		.1byte	0x2
+ 193 0066 02          		.1byte	0x0
+ 194 0066 00          		.1byte	0x4
+ 195 0067 04          		.4byte	.LASF19
+ 196 0067 00 00 00 00 		.1byte	0x2
+ 197 0069 02          		.1byte	0xbe
+ 198 006a BE          		.4byte	0xb3
+ 199 006a 00 00 00 B3 		.1byte	0x2
+ 200 006c 02          		.1byte	0x2
+ 201 006d 02          		.1byte	0x2
+ 202 006d 02          		.1byte	0xc6
+ 203 006e C6          		.4byte	0xf4
+ 204 006e 00 00 00 F4 		.1byte	0x3
+ 205 0070 03          		.4byte	.LASF20
+ 206 0071 00 00 00 00 		.1byte	0x0
+ 207 0073 00          		.1byte	0x3
+ 208 0073 03          		.4byte	.LASF21
+ 209 0074 00 00 00 00 		.1byte	0x1
+ 210 0076 01          		.1byte	0x3
+ 211 0076 03          		.4byte	.LASF22
+ 212 0077 00 00 00 00 		.1byte	0x2
+ 213 0079 02          		.1byte	0x0
+ 214 0079 00          		.1byte	0x4
+ 215 007a 04          		.4byte	.LASF23
+ 216 007a 00 00 00 00 		.1byte	0x2
+ 217 007c 02          		.1byte	0xdd
+ 218 007d DD          		.4byte	0xd9
+ 219 007d 00 00 00 D9 		.1byte	0x4
+ 220 007f 04          		.4byte	.LASF24
+ 221 0080 00 00 00 00 		.1byte	0x3
+ 222 0082 03          		.1byte	0x20
+ 223 0082 20          		.4byte	0x10a
+ 224 0083 00 00 01 0A 		.1byte	0x5
+ 225 0085 05          		.1byte	0x2
+ 226 0085 02          		.1byte	0x8
+ 227 0086 08          		.4byte	.LASF26
+ 228 0086 00 00 00 00 		.1byte	0x4
+ 229 0088 04          		.4byte	.LASF25
+ 230 0089 00 00 00 00 		.1byte	0x3
+ 231 008b 03          		.1byte	0x21
+ 232 008b 21          		.4byte	0x11c
+ 233 008c 00 00 01 1C 		.1byte	0x5
+ 234 008e 05          		.1byte	0x2
+ 235 008e 02          		.1byte	0x7
+ 236 008f 07          		.4byte	.LASF27
+ 237 008f 00 00 00 00 		.1byte	0x4
+ 238 0091 04          		.4byte	.LASF28
+ 239 0092 00 00 00 00 		.1byte	0x3
+ 240 0094 03          		.1byte	0x22
+ 241 0094 22          		.4byte	0x12e
+ 242 0095 00 00 01 2E 		.1byte	0x5
+ 243 0097 05          		.1byte	0x4
+ 244 0097 04          		.1byte	0x7
+ 245 0098 07          		.4byte	.LASF29
+ 246 0098 00 00 00 00 		.1byte	0x4
+ 247 009a 04          		.4byte	.LASF30
+ 248 009b 00 00 00 00 		.1byte	0x3
+ 249 009d 03          		.1byte	0x23
+ 250 009d 23          		.4byte	0x123
+ 251 009e 00 00 01 23 		.1byte	0x4
+ 252 00a0 04          		.4byte	.LASF31
+ 253 00a0 00 00 00 00 		.1byte	0x3
+ 254 00a2 03          		.1byte	0x25
+ 255 00a3 25          		.4byte	0x14b
+ 256 00a3 00 00 01 4B 		.1byte	0x5
+ 257 00a5 05          		.1byte	0x2
+ 258 00a6 02          		.1byte	0x6
+ 259 00a6 06          		.4byte	.LASF32
+ 260 00a7 00 00 00 00 		.1byte	0x5
+ 261 00a9 05          		.1byte	0x2
+ 262 00a9 02          		.1byte	0x5
+ 263 00aa 05          		.4byte	.LASF33
+ 264 00aa 00 00 00 00 		.1byte	0x5
+ 265 00ac 05          		.1byte	0x4
+ 266 00ad 04          		.1byte	0x5
+ 267 00ad 05          		.4byte	.LASF34
+ 268 00ae 00 00 00 00 		.1byte	0x4
+ 269 00b0 04          		.4byte	.LASF35
+ 270 00b0 00 00 00 00 		.1byte	0x3
+ 271 00b2 03          		.1byte	0x2c
+ 272 00b3 2C          		.4byte	0x16b
+ 273 00b3 00 00 01 6B 		.1byte	0x5
+ 274 00b5 05          		.1byte	0x2
+ 275 00b6 02          		.1byte	0x7
+ 276 00b6 07          		.4byte	.LASF36
+ 277 00b7 00 00 00 00 		.1byte	0x6
+ 278 00b9 06          		.1byte	0x8
+ 279 00b9 08          		.1byte	0x4
+ 280 00ba 04          		.1byte	0x35
+ 281 00ba 35          		.4byte	0x1a5
+ 282 00bb 00 00 01 A5 		.1byte	0x7
+ 283 00bd 07          		.ascii "lap\000"
+ 284 00bd 6C 61 70 00 		.1byte	0x4
+ 285 00bf 04          		.1byte	0x36
+ 286 00c0 36          		.4byte	0x135
+ 287 00c0 00 00 01 35 		.1byte	0x2
+ 288 00c2 02          		.1byte	0x23
+ 289 00c3 23          		.1byte	0x0
+ 290 00c3 00          		.1byte	0x7
+ 291 00c4 07          		.ascii "uap\000"
+ 292 00c4 75 61 70 00 		.1byte	0x4
+ 293 00c6 04          		.1byte	0x37
+ 294 00c7 37          		.4byte	0xff
+ 295 00c7 00 00 00 FF 		.1byte	0x2
+ 296 00c9 02          		.1byte	0x23
+ 297 00ca 23          		.1byte	0x2
+ 298 00ca 02          		.1byte	0x7
+ 299 00cb 07          		.ascii "nap\000"
+ 300 00cb 6E 61 70 00 		.1byte	0x4
+ 301 00cd 04          		.1byte	0x38
+ 302 00ce 38          		.4byte	0x111
+ 303 00ce 00 00 01 11 		.1byte	0x2
+ 304 00d0 02          		.1byte	0x23
+ 305 00d1 23          		.1byte	0x3
+ 306 00d1 03          		.1byte	0x0
+ 307 00d2 00          		.1byte	0x4
+ 308 00d2 04          		.4byte	.LASF37
+ 309 00d3 00 00 00 00 		.1byte	0x4
+ 310 00d5 04          		.1byte	0x39
+ 311 00d5 39          		.4byte	0x172
+ 312 00d6 00 00 01 72 		.1byte	0x6
+ 313 00d8 06          		.1byte	0xa
+ 314 00d8 0A          		.1byte	0x4
+ 315 00d9 04          		.1byte	0x3d
+ 316 00d9 3D          		.4byte	0x1d5
+ 317 00da 00 00 01 D5 		.1byte	0x8
+ 318 00dc 08          		.4byte	.LASF38
+ 319 00dc 00 00 00 00 		.1byte	0x4
+ 320 00de 04          		.1byte	0x3e
+ 321 00df 3E          		.4byte	0x111
+ 322 00df 00 00 01 11 		.1byte	0x2
+ 323 00e1 02          		.1byte	0x23
+ 324 00e2 23          		.1byte	0x0
+ 325 00e2 00          		.1byte	0x8
+ 326 00e3 08          		.4byte	.LASF39
+ 327 00e3 00 00 00 00 		.1byte	0x4
+ 328 00e5 04          		.1byte	0x3f
+ 329 00e6 3F          		.4byte	0x1a5
+ 330 00e6 00 00 01 A5 		.1byte	0x2
+ 331 00e8 02          		.1byte	0x23
+ 332 00e9 23          		.1byte	0x1
+ 333 00e9 01          		.1byte	0x0
+ 334 00ea 00          		.1byte	0x4
+ 335 00ea 04          		.4byte	.LASF40
+ 336 00eb 00 00 00 00 		.1byte	0x4
+ 337 00ed 04          		.1byte	0x40
+ 338 00ed 40          		.4byte	0x1b0
+ 339 00ee 00 00 01 B0 		.1byte	0x9
+ 340 00f0 09          		.1byte	0x2
+ 341 00f0 02          		.1byte	0x7
+ 342 00f1 07          		.1byte	0xa
+ 343 00f1 0A          		.1byte	0x2
+ 344 00f2 02          		.4byte	0xff
+ 345 00f2 00 00 00 FF 		.1byte	0x4
+ 346 00f4 04          		.4byte	.LASF41
+ 347 00f5 00 00 00 00 		.1byte	0x5
+ 348 00f7 05          		.1byte	0x27
+ 349 00f7 27          		.4byte	0x111
+ 350 00f8 00 00 01 11 		.1byte	0x4
+ 351 00fa 04          		.4byte	.LASF42
+ 352 00fa 00 00 00 00 		.1byte	0x6
+ 353 00fc 06          		.1byte	0x5f
+ 354 00fd 5F          		.4byte	0x111
+ 355 00fd 00 00 01 11 		.1byte	0x2
+ 356 00ff 02          		.1byte	0x2
+ 357 0100 02          		.1byte	0x6
+ 358 0100 06          		.1byte	0xaa
+ 359 0101 AA          		.4byte	0x220
+ 360 0101 00 00 02 20 		.1byte	0x3
+ 361 0103 03          		.4byte	.LASF43
+ 362 0104 00 00 00 00 		.1byte	0x0
+ 363 0106 00          		.1byte	0x3
+ 364 0106 03          		.4byte	.LASF44
+ 365 0107 00 00 00 00 		.1byte	0x1
+ 366 0109 01          		.1byte	0x3
+ 367 0109 03          		.4byte	.LASF45
+ 368 010a 00 00 00 00 		.1byte	0x2
+ 369 010c 02          		.1byte	0x3
+ 370 010c 03          		.4byte	.LASF46
+ 371 010d 00 00 00 00 		.1byte	0x3
+ 372 010f 03          		.1byte	0x0
+ 373 010f 00          		.1byte	0x4
+ 374 0110 04          		.4byte	.LASF47
+ 375 0110 00 00 00 00 		.1byte	0x6
+ 376 0112 06          		.1byte	0xb3
+ 377 0113 B3          		.4byte	0x1ff
+ 378 0113 00 00 01 FF 		.1byte	0x2
+ 379 0115 02          		.1byte	0x2
+ 380 0116 02          		.1byte	0x6
+ 381 0116 06          		.1byte	0xfb
+ 382 0117 FB          		.4byte	0x291
+ 383 0117 00 00 02 91 		.1byte	0x3
+ 384 0119 03          		.4byte	.LASF48
+ 385 011a 00 00 00 00 		.1byte	0x1
+ 386 011c 01          		.1byte	0x3
+ 387 011c 03          		.4byte	.LASF49
+ 388 011d 00 00 00 00 		.1byte	0x2
+ 389 011f 02          		.1byte	0x3
+ 390 011f 03          		.4byte	.LASF50
+ 391 0120 00 00 00 00 		.1byte	0x4
+ 392 0122 04          		.1byte	0x3
+ 393 0122 03          		.4byte	.LASF51
+ 394 0123 00 00 00 00 		.1byte	0x8
+ 395 0125 08          		.1byte	0x3
+ 396 0125 03          		.4byte	.LASF52
+ 397 0126 00 00 00 00 		.1byte	0x10
+ 398 0128 10          		.1byte	0x3
+ 399 0128 03          		.4byte	.LASF53
+ 400 0129 00 00 00 00 		.1byte	0x20
+ 401 012b 20          		.1byte	0x3
+ 402 012b 03          		.4byte	.LASF54
+ 403 012c 00 00 00 00 		.1byte	0xc0,0x0
+ 404 012e C0 00       		.1byte	0x3
+ 405 012f 03          		.4byte	.LASF55
+ 406 012f 00 00 00 00 		.1byte	0x80,0x1
+ 407 0131 80 01       		.1byte	0x3
+ 408 0132 03          		.4byte	.LASF56
+ 409 0133 00 00 00 00 		.1byte	0x80,0x2
+ 410 0135 80 02       		.1byte	0x3
+ 411 0136 03          		.4byte	.LASF57
+ 412 0136 00 00 00 00 		.1byte	0x80,0x4
+ 413 0138 80 04       		.1byte	0x3
+ 414 0139 03          		.4byte	.LASF58
+ 415 013a 00 00 00 00 		.1byte	0x80,0x8
+ 416 013c 80 08       		.1byte	0x3
+ 417 013d 03          		.4byte	.LASF59
+ 418 013d 00 00 00 00 		.1byte	0x80,0x10
+ 419 013f 80 10       		.1byte	0x3
+ 420 0140 03          		.4byte	.LASF60
+ 421 0141 00 00 00 00 		.1byte	0x80,0x20
+ 422 0143 80 20       		.1byte	0x3
+ 423 0144 03          		.4byte	.LASF61
+ 424 0144 00 00 00 00 		.1byte	0x80,0xc0,0x0
+ 425 0146 80 C0 00    		.1byte	0x0
+ 426 0148 00          		.1byte	0xb
+ 427 0148 0B          		.4byte	.LASF62
+ 428 0149 00 00 00 00 		.1byte	0x6
+ 429 014b 06          		.2byte	0x117
+ 430 014b 01 17       		.4byte	0x22b
+ 431 014c 00 00 02 2B 		.1byte	0xc
+ 432 014e 0C          		.1byte	0x4
+ 433 014f 04          		.1byte	0x6
+ 434 014f 06          		.2byte	0x18d
+ 435 0150 01 8D       		.4byte	0x2c5
+ 436 0151 00 00 02 C5 		.1byte	0xd
+ 437 0153 0D          		.4byte	.LASF63
+ 438 0153 00 00 00 00 		.1byte	0x6
+ 439 0155 06          		.2byte	0x18e
+ 440 0156 01 8E       		.4byte	0x1e3
+ 441 0157 00 00 01 E3 		.1byte	0x2
+ 442 0159 02          		.1byte	0x23
+ 443 0159 23          		.1byte	0x0
+ 444 015a 00          		.1byte	0xd
+ 445 015a 0D          		.4byte	.LASF64
+ 446 015b 00 00 00 00 		.1byte	0x6
+ 447 015d 06          		.2byte	0x190
+ 448 015d 01 90       		.4byte	0x111
+ 449 015e 00 00 01 11 		.1byte	0x2
+ 450 0160 02          		.1byte	0x23
+ 451 0161 23          		.1byte	0x1
+ 452 0161 01          		.1byte	0x0
+ 453 0162 00          		.1byte	0xb
+ 454 0162 0B          		.4byte	.LASF65
+ 455 0163 00 00 00 00 		.1byte	0x6
+ 456 0165 06          		.2byte	0x192
+ 457 0165 01 92       		.4byte	0x29d
+ 458 0166 00 00 02 9D 		.1byte	0xc
+ 459 0168 0C          		.1byte	0x4
+ 460 0169 04          		.1byte	0x6
+ 461 0169 06          		.2byte	0x197
+ 462 016a 01 97       		.4byte	0x2f9
+ 463 016b 00 00 02 F9 		.1byte	0xd
+ 464 016d 0D          		.4byte	.LASF66
+ 465 016d 00 00 00 00 		.1byte	0x6
+ 466 016f 06          		.2byte	0x198
+ 467 0170 01 98       		.4byte	0x1e3
+ 468 0171 00 00 01 E3 		.1byte	0x2
+ 469 0173 02          		.1byte	0x23
+ 470 0173 23          		.1byte	0x0
+ 471 0174 00          		.1byte	0xd
+ 472 0174 0D          		.4byte	.LASF64
+ 473 0175 00 00 00 00 		.1byte	0x6
+ 474 0177 06          		.2byte	0x19a
+ 475 0177 01 9A       		.4byte	0x111
+ 476 0178 00 00 01 11 		.1byte	0x2
+ 477 017a 02          		.1byte	0x23
+ 478 017b 23          		.1byte	0x1
+ 479 017b 01          		.1byte	0x0
+ 480 017c 00          		.1byte	0xb
+ 481 017c 0B          		.4byte	.LASF67
+ 482 017d 00 00 00 00 		.1byte	0x6
+ 483 017f 06          		.2byte	0x19c
+ 484 017f 01 9C       		.4byte	0x2d1
+ 485 0180 00 00 02 D1 		.1byte	0xc
+ 486 0182 0C          		.1byte	0x4
+ 487 0183 04          		.1byte	0x6
+ 488 0183 06          		.2byte	0x1a0
+ 489 0184 01 A0       		.4byte	0x32d
+ 490 0185 00 00 03 2D 		.1byte	0xd
+ 491 0187 0D          		.4byte	.LASF68
+ 492 0187 00 00 00 00 		.1byte	0x6
+ 493 0189 06          		.2byte	0x1a1
+ 494 018a 01 A1       		.4byte	0x1e3
+ 495 018b 00 00 01 E3 		.1byte	0x2
+ 496 018d 02          		.1byte	0x23
+ 497 018d 23          		.1byte	0x0
+ 498 018e 00          		.1byte	0xd
+ 499 018e 0D          		.4byte	.LASF64
+ 500 018f 00 00 00 00 		.1byte	0x6
+ 501 0191 06          		.2byte	0x1a3
+ 502 0191 01 A3       		.4byte	0x111
+ 503 0192 00 00 01 11 		.1byte	0x2
+ 504 0194 02          		.1byte	0x23
+ 505 0195 23          		.1byte	0x1
+ 506 0195 01          		.1byte	0x0
+ 507 0196 00          		.1byte	0xb
+ 508 0196 0B          		.4byte	.LASF69
+ 509 0197 00 00 00 00 		.1byte	0x6
+ 510 0199 06          		.2byte	0x1a5
+ 511 0199 01 A5       		.4byte	0x305
+ 512 019a 00 00 03 05 		.1byte	0xc
+ 513 019c 0C          		.1byte	0x4
+ 514 019d 04          		.1byte	0x6
+ 515 019d 06          		.2byte	0x1a9
+ 516 019e 01 A9       		.4byte	0x361
+ 517 019f 00 00 03 61 		.1byte	0xd
+ 518 01a1 0D          		.4byte	.LASF68
+ 519 01a1 00 00 00 00 		.1byte	0x6
+ 520 01a3 06          		.2byte	0x1aa
+ 521 01a4 01 AA       		.4byte	0x1e3
+ 522 01a5 00 00 01 E3 		.1byte	0x2
+ 523 01a7 02          		.1byte	0x23
+ 524 01a7 23          		.1byte	0x0
+ 525 01a8 00          		.1byte	0xd
+ 526 01a8 0D          		.4byte	.LASF64
+ 527 01a9 00 00 00 00 		.1byte	0x6
+ 528 01ab 06          		.2byte	0x1ac
+ 529 01ab 01 AC       		.4byte	0x111
+ 530 01ac 00 00 01 11 		.1byte	0x2
+ 531 01ae 02          		.1byte	0x23
+ 532 01af 23          		.1byte	0x1
+ 533 01af 01          		.1byte	0x0
+ 534 01b0 00          		.1byte	0xb
+ 535 01b0 0B          		.4byte	.LASF70
+ 536 01b1 00 00 00 00 		.1byte	0x6
+ 537 01b3 06          		.2byte	0x1ae
+ 538 01b3 01 AE       		.4byte	0x339
+ 539 01b4 00 00 03 39 		.1byte	0xc
+ 540 01b6 0C          		.1byte	0x16
+ 541 01b7 16          		.1byte	0x6
+ 542 01b7 06          		.2byte	0x1b2
+ 543 01b8 01 B2       		.4byte	0x3d1
+ 544 01b9 00 00 03 D1 		.1byte	0xd
+ 545 01bb 0D          		.4byte	.LASF71
+ 546 01bb 00 00 00 00 		.1byte	0x6
+ 547 01bd 06          		.2byte	0x1b3
+ 548 01be 01 B3       		.4byte	0x2c5
+ 549 01bf 00 00 02 C5 		.1byte	0x2
+ 550 01c1 02          		.1byte	0x23
+ 551 01c1 23          		.1byte	0x0
+ 552 01c2 00          		.1byte	0xd
+ 553 01c2 0D          		.4byte	.LASF72
+ 554 01c3 00 00 00 00 		.1byte	0x6
+ 555 01c5 06          		.2byte	0x1b6
+ 556 01c5 01 B6       		.4byte	0x2c5
+ 557 01c6 00 00 02 C5 		.1byte	0x2
+ 558 01c8 02          		.1byte	0x23
+ 559 01c9 23          		.1byte	0x2
+ 560 01c9 02          		.1byte	0xd
+ 561 01ca 0D          		.4byte	.LASF73
+ 562 01ca 00 00 00 00 		.1byte	0x6
+ 563 01cc 06          		.2byte	0x1b8
+ 564 01cd 01 B8       		.4byte	0x32d
+ 565 01ce 00 00 03 2D 		.1byte	0x2
+ 566 01d0 02          		.1byte	0x23
+ 567 01d0 23          		.1byte	0x4
+ 568 01d1 04          		.1byte	0xd
+ 569 01d1 0D          		.4byte	.LASF74
+ 570 01d2 00 00 00 00 		.1byte	0x6
+ 571 01d4 06          		.2byte	0x1ba
+ 572 01d4 01 BA       		.4byte	0x2f9
+ 573 01d5 00 00 02 F9 		.1byte	0x2
+ 574 01d7 02          		.1byte	0x23
+ 575 01d8 23          		.1byte	0x6
+ 576 01d8 06          		.1byte	0xd
+ 577 01d9 0D          		.4byte	.LASF75
+ 578 01d9 00 00 00 00 		.1byte	0x6
+ 579 01db 06          		.2byte	0x1bc
+ 580 01dc 01 BC       		.4byte	0x361
+ 581 01dd 00 00 03 61 		.1byte	0x2
+ 582 01df 02          		.1byte	0x23
+ 583 01df 23          		.1byte	0x8
+ 584 01e0 08          		.1byte	0xd
+ 585 01e0 0D          		.4byte	.LASF76
+ 586 01e1 00 00 00 00 		.1byte	0x6
+ 587 01e3 06          		.2byte	0x1be
+ 588 01e3 01 BE       		.4byte	0x140
+ 589 01e4 00 00 01 40 		.1byte	0x2
+ 590 01e6 02          		.1byte	0x23
+ 591 01e7 23          		.1byte	0xa
+ 592 01e7 0A          		.1byte	0x0
+ 593 01e8 00          		.1byte	0xb
+ 594 01e8 0B          		.4byte	.LASF77
+ 595 01e9 00 00 00 00 		.1byte	0x6
+ 596 01eb 06          		.2byte	0x1c0
+ 597 01eb 01 C0       		.4byte	0x36d
+ 598 01ec 00 00 03 6D 		.1byte	0xc
+ 599 01ee 0C          		.1byte	0x1c
+ 600 01ef 1C          		.1byte	0x6
+ 601 01ef 06          		.2byte	0x1c4
+ 602 01f0 01 C4       		.4byte	0x450
+ 603 01f1 00 00 04 50 		.1byte	0xd
+ 604 01f3 0D          		.4byte	.LASF78
+ 605 01f3 00 00 00 00 		.1byte	0x6
+ 606 01f5 06          		.2byte	0x1c5
+ 607 01f6 01 C5       		.4byte	0x7c
+ 608 01f7 00 00 00 7C 		.1byte	0x2
+ 609 01f9 02          		.1byte	0x23
+ 610 01f9 23          		.1byte	0x0
+ 611 01fa 00          		.1byte	0xd
+ 612 01fa 0D          		.4byte	.LASF79
+ 613 01fb 00 00 00 00 		.1byte	0x6
+ 614 01fd 06          		.2byte	0x1c7
+ 615 01fd 01 C7       		.4byte	0xa8
+ 616 01fe 00 00 00 A8 		.1byte	0x2
+ 617 0200 02          		.1byte	0x23
+ 618 0201 23          		.1byte	0x1
+ 619 0201 01          		.1byte	0xd
+ 620 0202 0D          		.4byte	.LASF80
+ 621 0202 00 00 00 00 		.1byte	0x6
+ 622 0204 06          		.2byte	0x1c9
+ 623 0205 01 C9       		.4byte	0x291
+ 624 0206 00 00 02 91 		.1byte	0x2
+ 625 0208 02          		.1byte	0x23
+ 626 0208 23          		.1byte	0x2
+ 627 0209 02          		.1byte	0xd
+ 628 0209 0D          		.4byte	.LASF81
+ 629 020a 00 00 00 00 		.1byte	0x6
+ 630 020c 06          		.2byte	0x1cb
+ 631 020c 01 CB       		.4byte	0x123
+ 632 020d 00 00 01 23 		.1byte	0x2
+ 633 020f 02          		.1byte	0x23
+ 634 0210 23          		.1byte	0x3
+ 635 0210 03          		.1byte	0xd
+ 636 0211 0D          		.4byte	.LASF82
+ 637 0211 00 00 00 00 		.1byte	0x6
+ 638 0213 06          		.2byte	0x1cd
+ 639 0214 01 CD       		.4byte	0x123
+ 640 0215 00 00 01 23 		.1byte	0x2
+ 641 0217 02          		.1byte	0x23
+ 642 0217 23          		.1byte	0x5
+ 643 0218 05          		.1byte	0xd
+ 644 0218 0D          		.4byte	.LASF83
+ 645 0219 00 00 00 00 		.1byte	0x6
+ 646 021b 06          		.2byte	0x1cf
+ 647 021b 01 CF       		.4byte	0x123
+ 648 021c 00 00 01 23 		.1byte	0x2
+ 649 021e 02          		.1byte	0x23
+ 650 021f 23          		.1byte	0x7
+ 651 021f 07          		.1byte	0xd
+ 652 0220 0D          		.4byte	.LASF84
+ 653 0220 00 00 00 00 		.1byte	0x6
+ 654 0222 06          		.2byte	0x1d1
+ 655 0223 01 D1       		.4byte	0x1d5
+ 656 0224 00 00 01 D5 		.1byte	0x2
+ 657 0226 02          		.1byte	0x23
+ 658 0226 23          		.1byte	0x9
+ 659 0227 09          		.1byte	0x0
+ 660 0227 00          		.1byte	0xb
+ 661 0228 0B          		.4byte	.LASF85
+ 662 0228 00 00 00 00 		.1byte	0x6
+ 663 022a 06          		.2byte	0x1d3
+ 664 022b 01 D3       		.4byte	0x3dd
+ 665 022c 00 00 03 DD 		.1byte	0xc
+ 666 022e 0C          		.1byte	0x8e
+ 667 022e 8E          		.1byte	0x6
+ 668 022f 06          		.2byte	0x1d7
+ 669 022f 01 D7       		.4byte	0x4c0
+ 670 0230 00 00 04 C0 		.1byte	0xd
+ 671 0232 0D          		.4byte	.LASF86
+ 672 0233 00 00 00 00 		.1byte	0x6
+ 673 0235 06          		.2byte	0x1d8
+ 674 0235 01 D8       		.4byte	0xce
+ 675 0236 00 00 00 CE 		.1byte	0x2
+ 676 0238 02          		.1byte	0x23
+ 677 0239 23          		.1byte	0x0
+ 678 0239 00          		.1byte	0xd
+ 679 023a 0D          		.4byte	.LASF87
+ 680 023a 00 00 00 00 		.1byte	0x6
+ 681 023c 06          		.2byte	0x1da
+ 682 023d 01 DA       		.4byte	0xf4
+ 683 023e 00 00 00 F4 		.1byte	0x2
+ 684 0240 02          		.1byte	0x23
+ 685 0240 23          		.1byte	0x1
+ 686 0241 01          		.1byte	0xd
+ 687 0241 0D          		.4byte	.LASF88
+ 688 0242 00 00 00 00 		.1byte	0x6
+ 689 0244 06          		.2byte	0x1dc
+ 690 0244 01 DC       		.4byte	0x50
+ 691 0245 00 00 00 50 		.1byte	0x2
+ 692 0247 02          		.1byte	0x23
+ 693 0248 23          		.1byte	0x2
+ 694 0248 02          		.1byte	0xd
+ 695 0249 0D          		.4byte	.LASF89
+ 696 0249 00 00 00 00 		.1byte	0x6
+ 697 024b 06          		.2byte	0x1de
+ 698 024c 01 DE       		.4byte	0x3d1
+ 699 024d 00 00 03 D1 		.1byte	0x2
+ 700 024f 02          		.1byte	0x23
+ 701 024f 23          		.1byte	0x3
+ 702 0250 03          		.1byte	0xd
+ 703 0250 0D          		.4byte	.LASF90
+ 704 0251 00 00 00 00 		.1byte	0x6
+ 705 0253 06          		.2byte	0x1e0
+ 706 0253 01 E0       		.4byte	0x4c0
+ 707 0254 00 00 04 C0 		.1byte	0x2
+ 708 0256 02          		.1byte	0x23
+ 709 0257 23          		.1byte	0xe
+ 710 0257 0E          		.1byte	0xd
+ 711 0258 0D          		.4byte	.LASF91
+ 712 0258 00 00 00 00 		.1byte	0x6
+ 713 025a 06          		.2byte	0x1e2
+ 714 025b 01 E2       		.4byte	0x111
+ 715 025c 00 00 01 11 		.1byte	0x2
+ 716 025e 02          		.1byte	0x23
+ 717 025e 23          		.1byte	0x46
+ 718 025f 46          		.1byte	0x0
+ 719 025f 00          		.1byte	0xe
+ 720 0260 0E          		.4byte	0x450
+ 721 0260 00 00 04 50 		.4byte	0x4d0
+ 722 0262 00 00 04 D0 		.1byte	0xf
+ 723 0264 0F          		.4byte	0x1e0
+ 724 0265 00 00 01 E0 		.1byte	0x3
+ 725 0267 03          		.1byte	0x0
+ 726 0267 00          		.1byte	0xb
+ 727 0268 0B          		.4byte	.LASF92
+ 728 0268 00 00 00 00 		.1byte	0x6
+ 729 026a 06          		.2byte	0x1e4
+ 730 026b 01 E4       		.4byte	0x45c
+ 731 026c 00 00 04 5C 		.1byte	0x5
+ 732 026e 05          		.1byte	0x2
+ 733 026e 02          		.1byte	0x8
+ 734 026f 08          		.4byte	.LASF93
+ 735 026f 00 00 00 00 		.1byte	0x6
+ 736 0271 06          		.1byte	0x9c
+ 737 0272 9C          		.1byte	0x1
+ 738 0272 01          		.1byte	0x4b
+ 739 0273 4B          		.4byte	0x55c
+ 740 0273 00 00 05 5C 		.1byte	0x8
+ 741 0275 08          		.4byte	.LASF94
+ 742 0276 00 00 00 00 		.1byte	0x1
+ 743 0278 01          		.1byte	0x4d
+ 744 0278 4D          		.4byte	0x4d0
+ 745 0279 00 00 04 D0 		.1byte	0x2
+ 746 027b 02          		.1byte	0x23
+ 747 027b 23          		.1byte	0x0
+ 748 027c 00          		.1byte	0x8
+ 749 027c 08          		.4byte	.LASF95
+ 750 027d 00 00 00 00 		.1byte	0x1
+ 751 027f 01          		.1byte	0x50
+ 752 027f 50          		.4byte	0x111
+ 753 0280 00 00 01 11 		.1byte	0x2
+ 754 0282 02          		.1byte	0x23
+ 755 0282 23          		.1byte	0x47
+ 756 0283 47          		.1byte	0x8
+ 757 0283 08          		.4byte	.LASF96
+ 758 0284 00 00 00 00 		.1byte	0x1
+ 759 0286 01          		.1byte	0x53
+ 760 0286 53          		.4byte	0x1e9
+ 761 0287 00 00 01 E9 		.1byte	0x2
+ 762 0289 02          		.1byte	0x23
+ 763 0289 23          		.1byte	0x48
+ 764 028a 48          		.1byte	0x8
+ 765 028a 08          		.4byte	.LASF97
+ 766 028b 00 00 00 00 		.1byte	0x1
+ 767 028d 01          		.1byte	0x56
+ 768 028d 56          		.4byte	0x160
+ 769 028e 00 00 01 60 		.1byte	0x2
+ 770 0290 02          		.1byte	0x23
+ 771 0290 23          		.1byte	0x49
+ 772 0291 49          		.1byte	0x8
+ 773 0291 08          		.4byte	.LASF98
+ 774 0292 00 00 00 00 		.1byte	0x1
+ 775 0294 01          		.1byte	0x59
+ 776 0294 59          		.4byte	0x160
+ 777 0295 00 00 01 60 		.1byte	0x2
+ 778 0297 02          		.1byte	0x23
+ 779 0297 23          		.1byte	0x4a
+ 780 0298 4A          		.1byte	0x8
+ 781 0298 08          		.4byte	.LASF99
+ 782 0299 00 00 00 00 		.1byte	0x1
+ 783 029b 01          		.1byte	0x5c
+ 784 029b 5C          		.4byte	0x160
+ 785 029c 00 00 01 60 		.1byte	0x2
+ 786 029e 02          		.1byte	0x23
+ 787 029e 23          		.1byte	0x4b
+ 788 029f 4B          		.1byte	0x8
+ 789 029f 08          		.4byte	.LASF100
+ 790 02a0 00 00 00 00 		.1byte	0x1
+ 791 02a2 01          		.1byte	0x5f
+ 792 02a2 5F          		.4byte	0x1f4
+ 793 02a3 00 00 01 F4 		.1byte	0x2
+ 794 02a5 02          		.1byte	0x23
+ 795 02a5 23          		.1byte	0x4c
+ 796 02a6 4C          		.1byte	0x8
+ 797 02a6 08          		.4byte	.LASF101
+ 798 02a7 00 00 00 00 		.1byte	0x1
+ 799 02a9 01          		.1byte	0x62
+ 800 02a9 62          		.4byte	0x220
+ 801 02aa 00 00 02 20 		.1byte	0x2
+ 802 02ac 02          		.1byte	0x23
+ 803 02ac 23          		.1byte	0x4d
+ 804 02ad 4D          		.1byte	0x0
+ 805 02ad 00          		.1byte	0x4
+ 806 02ae 04          		.4byte	.LASF102
+ 807 02ae 00 00 00 00 		.1byte	0x1
+ 808 02b0 01          		.1byte	0x64
+ 809 02b1 64          		.4byte	0x4e3
+ 810 02b1 00 00 04 E3 		.1byte	0x10
+ 811 02b3 10          		.1byte	0x1
+ 812 02b4 01          		.4byte	.LASF106
+ 813 02b4 00 00 00 00 		.1byte	0x1
+ 814 02b6 01          		.2byte	0x2ab
+ 815 02b7 02 AB       		.1byte	0x1
+ 816 02b8 01          		.4byte	.LFB2
+ 817 02b8 00 00 00 00 		.4byte	.LFE2
+ 818 02ba 00 00 00 00 		.4byte	.LLST0
+ 819 02bc 00 00 00 00 		.1byte	0x11
+ 820 02be 11          		.4byte	.LASF107
+ 821 02bf 00 00 00 00 		.1byte	0x1
+ 822 02c1 01          		.1byte	0x6b
+ 823 02c1 6B          		.4byte	0x55c
+ 824 02c2 00 00 05 5C 		.1byte	0x5
+ 825 02c4 05          		.1byte	0x3
+ 826 02c4 03          		.4byte	g_cm_peripheral_data
+ 827 02c5 00 00 00 00 		.1byte	0x0
+ 828 02c7 00          		.section	.debug_abbrev
+ 829                 		.1byte	0x1
+ 830 0000 01          		.1byte	0x11
+ 831 0000 11          		.1byte	0x1
+ 832 0001 01          		.1byte	0x25
+ 833 0001 25          		.1byte	0xe
+ 834 0002 0E          		.1byte	0x13
+ 835 0002 13          		.1byte	0xb
+ 836 0003 0B          		.1byte	0x3
+ 837 0003 03          		.1byte	0xe
+ 838 0004 0E          		.1byte	0x1b
+ 839 0004 1B          		.1byte	0xe
+ 840 0005 0E          		.1byte	0x11
+ 841 0005 11          		.1byte	0x1
+ 842 0006 01          		.1byte	0x52
+ 843 0006 52          		.1byte	0x1
+ 844 0007 01          		.1byte	0x55
+ 845 0007 55          		.1byte	0x6
+ 846 0008 06          		.1byte	0x10
+ 847 0008 10          		.1byte	0x6
+ 848 0009 06          		.1byte	0x0
+ 849 0009 00          		.1byte	0x0
+ 850 000a 00          		.1byte	0x2
+ 851 000a 02          		.1byte	0x4
+ 852 000b 04          		.1byte	0x1
+ 853 000b 01          		.1byte	0xb
+ 854 000c 0B          		.1byte	0xb
+ 855 000c 0B          		.1byte	0x3a
+ 856 000d 3A          		.1byte	0xb
+ 857 000d 0B          		.1byte	0x3b
+ 858 000e 3B          		.1byte	0xb
+ 859 000e 0B          		.1byte	0x1
+ 860 000f 01          		.1byte	0x13
+ 861 000f 13          		.1byte	0x0
+ 862 0010 00          		.1byte	0x0
+ 863 0010 00          		.1byte	0x3
+ 864 0011 03          		.1byte	0x28
+ 865 0011 28          		.1byte	0x0
+ 866 0012 00          		.1byte	0x3
+ 867 0012 03          		.1byte	0xe
+ 868 0013 0E          		.1byte	0x1c
+ 869 0013 1C          		.1byte	0xd
+ 870 0014 0D          		.1byte	0x0
+ 871 0014 00          		.1byte	0x0
+ 872 0015 00          		.1byte	0x4
+ 873 0015 04          		.1byte	0x16
+ 874 0016 16          		.1byte	0x0
+ 875 0016 00          		.1byte	0x3
+ 876 0017 03          		.1byte	0xe
+ 877 0017 0E          		.1byte	0x3a
+ 878 0018 3A          		.1byte	0xb
+ 879 0018 0B          		.1byte	0x3b
+ 880 0019 3B          		.1byte	0xb
+ 881 0019 0B          		.1byte	0x49
+ 882 001a 49          		.1byte	0x13
+ 883 001a 13          		.1byte	0x0
+ 884 001b 00          		.1byte	0x0
+ 885 001b 00          		.1byte	0x5
+ 886 001c 05          		.1byte	0x24
+ 887 001c 24          		.1byte	0x0
+ 888 001d 00          		.1byte	0xb
+ 889 001d 0B          		.1byte	0xb
+ 890 001e 0B          		.1byte	0x3e
+ 891 001e 3E          		.1byte	0xb
+ 892 001f 0B          		.1byte	0x3
+ 893 001f 03          		.1byte	0xe
+ 894 0020 0E          		.1byte	0x0
+ 895 0020 00          		.1byte	0x0
+ 896 0021 00          		.1byte	0x6
+ 897 0021 06          		.1byte	0x13
+ 898 0022 13          		.1byte	0x1
+ 899 0022 01          		.1byte	0xb
+ 900 0023 0B          		.1byte	0xb
+ 901 0023 0B          		.1byte	0x3a
+ 902 0024 3A          		.1byte	0xb
+ 903 0024 0B          		.1byte	0x3b
+ 904 0025 3B          		.1byte	0xb
+ 905 0025 0B          		.1byte	0x1
+ 906 0026 01          		.1byte	0x13
+ 907 0026 13          		.1byte	0x0
+ 908 0027 00          		.1byte	0x0
+ 909 0027 00          		.1byte	0x7
+ 910 0028 07          		.1byte	0xd
+ 911 0028 0D          		.1byte	0x0
+ 912 0029 00          		.1byte	0x3
+ 913 0029 03          		.1byte	0x8
+ 914 002a 08          		.1byte	0x3a
+ 915 002a 3A          		.1byte	0xb
+ 916 002b 0B          		.1byte	0x3b
+ 917 002b 3B          		.1byte	0xb
+ 918 002c 0B          		.1byte	0x49
+ 919 002c 49          		.1byte	0x13
+ 920 002d 13          		.1byte	0x38
+ 921 002d 38          		.1byte	0xa
+ 922 002e 0A          		.1byte	0x0
+ 923 002e 00          		.1byte	0x0
+ 924 002f 00          		.1byte	0x8
+ 925 002f 08          		.1byte	0xd
+ 926 0030 0D          		.1byte	0x0
+ 927 0030 00          		.1byte	0x3
+ 928 0031 03          		.1byte	0xe
+ 929 0031 0E          		.1byte	0x3a
+ 930 0032 3A          		.1byte	0xb
+ 931 0032 0B          		.1byte	0x3b
+ 932 0033 3B          		.1byte	0xb
+ 933 0033 0B          		.1byte	0x49
+ 934 0034 49          		.1byte	0x13
+ 935 0034 13          		.1byte	0x38
+ 936 0035 38          		.1byte	0xa
+ 937 0035 0A          		.1byte	0x0
+ 938 0036 00          		.1byte	0x0
+ 939 0036 00          		.1byte	0x9
+ 940 0037 09          		.1byte	0x24
+ 941 0037 24          		.1byte	0x0
+ 942 0038 00          		.1byte	0xb
+ 943 0038 0B          		.1byte	0xb
+ 944 0039 0B          		.1byte	0x3e
+ 945 0039 3E          		.1byte	0xb
+ 946 003a 0B          		.1byte	0x0
+ 947 003a 00          		.1byte	0x0
+ 948 003b 00          		.1byte	0xa
+ 949 003b 0A          		.1byte	0xf
+ 950 003c 0F          		.1byte	0x0
+ 951 003c 00          		.1byte	0xb
+ 952 003d 0B          		.1byte	0xb
+ 953 003d 0B          		.1byte	0x49
+ 954 003e 49          		.1byte	0x13
+ 955 003e 13          		.1byte	0x0
+ 956 003f 00          		.1byte	0x0
+ 957 003f 00          		.1byte	0xb
+ 958 0040 0B          		.1byte	0x16
+ 959 0040 16          		.1byte	0x0
+ 960 0041 00          		.1byte	0x3
+ 961 0041 03          		.1byte	0xe
+ 962 0042 0E          		.1byte	0x3a
+ 963 0042 3A          		.1byte	0xb
+ 964 0043 0B          		.1byte	0x3b
+ 965 0043 3B          		.1byte	0x5
+ 966 0044 05          		.1byte	0x49
+ 967 0044 49          		.1byte	0x13
+ 968 0045 13          		.1byte	0x0
+ 969 0045 00          		.1byte	0x0
+ 970 0046 00          		.1byte	0xc
+ 971 0046 0C          		.1byte	0x13
+ 972 0047 13          		.1byte	0x1
+ 973 0047 01          		.1byte	0xb
+ 974 0048 0B          		.1byte	0xb
+ 975 0048 0B          		.1byte	0x3a
+ 976 0049 3A          		.1byte	0xb
+ 977 0049 0B          		.1byte	0x3b
+ 978 004a 3B          		.1byte	0x5
+ 979 004a 05          		.1byte	0x1
+ 980 004b 01          		.1byte	0x13
+ 981 004b 13          		.1byte	0x0
+ 982 004c 00          		.1byte	0x0
+ 983 004c 00          		.1byte	0xd
+ 984 004d 0D          		.1byte	0xd
+ 985 004d 0D          		.1byte	0x0
+ 986 004e 00          		.1byte	0x3
+ 987 004e 03          		.1byte	0xe
+ 988 004f 0E          		.1byte	0x3a
+ 989 004f 3A          		.1byte	0xb
+ 990 0050 0B          		.1byte	0x3b
+ 991 0050 3B          		.1byte	0x5
+ 992 0051 05          		.1byte	0x49
+ 993 0051 49          		.1byte	0x13
+ 994 0052 13          		.1byte	0x38
+ 995 0052 38          		.1byte	0xa
+ 996 0053 0A          		.1byte	0x0
+ 997 0053 00          		.1byte	0x0
+ 998 0054 00          		.1byte	0xe
+ 999 0054 0E          		.1byte	0x1
+ 1000 0055 01          		.1byte	0x1
+ 1001 0055 01          		.1byte	0x49
+ 1002 0056 49          		.1byte	0x13
+ 1003 0056 13          		.1byte	0x1
+ 1004 0057 01          		.1byte	0x13
+ 1005 0057 13          		.1byte	0x0
+ 1006 0058 00          		.1byte	0x0
+ 1007 0058 00          		.1byte	0xf
+ 1008 0059 0F          		.1byte	0x21
+ 1009 0059 21          		.1byte	0x0
+ 1010 005a 00          		.1byte	0x49
+ 1011 005a 49          		.1byte	0x13
+ 1012 005b 13          		.1byte	0x2f
+ 1013 005b 2F          		.1byte	0xb
+ 1014 005c 0B          		.1byte	0x0
+ 1015 005c 00          		.1byte	0x0
+ 1016 005d 00          		.1byte	0x10
+ 1017 005d 10          		.1byte	0x2e
+ 1018 005e 2E          		.1byte	0x0
+ 1019 005e 00          		.1byte	0x3f
+ 1020 005f 3F          		.1byte	0xc
+ 1021 005f 0C          		.1byte	0x3
+ 1022 0060 03          		.1byte	0xe
+ 1023 0060 0E          		.1byte	0x3a
+ 1024 0061 3A          		.1byte	0xb
+ 1025 0061 0B          		.1byte	0x3b
+ 1026 0062 3B          		.1byte	0x5
+ 1027 0062 05          		.1byte	0x27
+ 1028 0063 27          		.1byte	0xc
+ 1029 0063 0C          		.1byte	0x11
+ 1030 0064 11          		.1byte	0x1
+ 1031 0064 01          		.1byte	0x12
+ 1032 0065 12          		.1byte	0x1
+ 1033 0065 01          		.1byte	0x40
+ 1034 0066 40          		.1byte	0x6
+ 1035 0066 06          		.1byte	0x0
+ 1036 0067 00          		.1byte	0x0
+ 1037 0067 00          		.1byte	0x11
+ 1038 0068 11          		.1byte	0x34
+ 1039 0068 34          		.1byte	0x0
+ 1040 0069 00          		.1byte	0x3
+ 1041 0069 03          		.1byte	0xe
+ 1042 006a 0E          		.1byte	0x3a
+ 1043 006a 3A          		.1byte	0xb
+ 1044 006b 0B          		.1byte	0x3b
+ 1045 006b 3B          		.1byte	0xb
+ 1046 006c 0B          		.1byte	0x49
+ 1047 006c 49          		.1byte	0x13
+ 1048 006d 13          		.1byte	0x2
+ 1049 006d 02          		.1byte	0xa
+ 1050 006e 0A          		.1byte	0x0
+ 1051 006e 00          		.1byte	0x0
+ 1052 006f 00          		.1byte	0x0
+ 1053 006f 00          		.section	.debug_pubnames,"",@progbits
+ 1054                 		.4byte	0x23
+ 1055 0000 00 00 00 23 		.2byte	0x2
+ 1056 0002 00 02       		.4byte	.Ldebug_info0
+ 1057 0003 00 00 00 00 		.4byte	0x58f
+ 1058 0005 00 00 05 8F 		.4byte	0x567
+ 1059 0007 00 00 05 67 		.ascii "CMPeripheralInit\000"
+ 1060 0009 43 4D 50 65 		.4byte	0x0
+ 1060      72 69 70 68 
+ 1060      65 72 61 6C 
+ 1060      49 6E 69 74 
+ 1060      00 
+ 1061 0011 00 00 00 00 		.section	.debug_aranges,"",@progbits
+ 1062                 		.4byte	0x1c
+ 1063 0000 00 00 00 1C 		.2byte	0x2
+ 1064 0002 00 02       		.4byte	.Ldebug_info0
+ 1065 0003 00 00 00 00 		.1byte	0x4
+ 1066 0005 04          		.1byte	0x0
+ 1067 0005 00          		.2byte	0x0
+ 1068 0006 00 00       		.2byte	0x0
+ 1069 0007 00 00       		.4byte	.LFB2
+ 1070 0008 00 00 00 00 		.4byte	.LFE2-.LFB2
+ 1071 000a 00 00 00 00 		.4byte	0x0
+ 1072 000c 00 00 00 00 		.4byte	0x0
+ 1073 000e 00 00 00 00 		.section	.debug_ranges,"",@progbits
+ 1074                 	.Ldebug_ranges0:
+ 1075                 		.4byte	.Ltext0
+ 1076 0000 00 00 00 00 		.4byte	.Letext0
+ 1077 0002 00 00 00 00 		.4byte	.LFB2
+ 1078 0004 00 00 00 00 		.4byte	.LFE2
+ 1079 0006 00 00 00 00 		.4byte	0x0
+ 1080 0008 00 00 00 00 		.4byte	0x0
+ 1081 000a 00 00 00 00 		.section	.debug_str,"MS",@progbits,1
+ 1082                 	.LASF55:
+ 1083                 		.ascii "appearance_present\000"
+ 1084 0000 61 70 70 65 	.LASF94:
+ 1084      61 72 61 6E 
+ 1084      63 65 5F 70 
+ 1084      72 65 73 65 
+ 1084      6E 74 00 
+ 1085                 		.ascii "advert_params\000"
+ 1086 0009 61 64 76 65 	.LASF14:
+ 1086      72 74 5F 70 
+ 1086      61 72 61 6D 
+ 1086      73 00 
+ 1087                 		.ascii "gap_mode_connect_undirected\000"
+ 1088 0010 67 61 70 5F 	.LASF85:
+ 1088      6D 6F 64 65 
+ 1088      5F 63 6F 6E 
+ 1088      6E 65 63 74 
+ 1088      5F 75 6E 64 
+ 1089                 		.ascii "CM_PERIPHERAL_ADVERT_TYPE_T\000"
+ 1090 001e 43 4D 5F 50 	.LASF61:
+ 1090      45 52 49 50 
+ 1090      48 45 52 41 
+ 1090      4C 5F 41 44 
+ 1090      56 45 52 54 
+ 1091                 		.ascii "uuid_128_present\000"
+ 1092 002c 75 75 69 64 	.LASF19:
+ 1092      5F 31 32 38 
+ 1092      5F 70 72 65 
+ 1092      73 65 6E 74 
+ 1092      00 
+ 1093                 		.ascii "gap_mode_bond\000"
+ 1094 0035 67 61 70 5F 	.LASF69:
+ 1094      6D 6F 64 65 
+ 1094      5F 62 6F 6E 
+ 1094      64 00 
+ 1095                 		.ascii "CM_DEVICE_APPEARANCE_T\000"
+ 1096 003c 43 4D 5F 44 	.LASF106:
+ 1096      45 56 49 43 
+ 1096      45 5F 41 50 
+ 1096      50 45 41 52 
+ 1096      41 4E 43 45 
+ 1097                 		.ascii "CMPeripheralInit\000"
+ 1098 0047 43 4D 50 65 	.LASF81:
+ 1098      72 69 70 68 
+ 1098      65 72 61 6C 
+ 1098      49 6E 69 74 
+ 1098      00 
+ 1099                 		.ascii "adv_interval_min\000"
+ 1100 0050 61 64 76 5F 	.LASF53:
+ 1100      69 6E 74 65 
+ 1100      72 76 61 6C 
+ 1100      5F 6D 69 6E 
+ 1100      00 
+ 1101                 		.ascii "name_present\000"
+ 1102 0058 6E 61 6D 65 	.LASF3:
+ 1102      5F 70 72 65 
+ 1102      73 65 6E 74 
+ 1102      00 
+ 1103                 		.ascii "gap_role_peripheral\000"
+ 1104 005f 67 61 70 5F 	.LASF33:
+ 1104      72 6F 6C 65 
+ 1104      5F 70 65 72 
+ 1104      69 70 68 65 
+ 1104      72 61 6C 00 
+ 1105                 		.ascii "short int\000"
+ 1106 0069 73 68 6F 72 	.LASF21:
+ 1106      74 20 69 6E 
+ 1106      74 00 
+ 1107                 		.ascii "gap_mode_security_unauthenticate\000"
+ 1108 006e 67 61 70 5F 	.LASF90:
+ 1108      6D 6F 64 65 
+ 1108      5F 73 65 63 
+ 1108      75 72 69 74 
+ 1108      79 5F 75 6E 
+ 1109                 		.ascii "adv_type\000"
+ 1110 007e 61 64 76 5F 	.LASF64:
+ 1110      74 79 70 65 
+ 1110      00 
+ 1111                 		.ascii "length\000"
+ 1112 0083 6C 65 6E 67 	.LASF73:
+ 1112      74 68 00 
+ 1113                 		.ascii "device_appearance\000"
+ 1114 0086 64 65 76 69 	.LASF51:
+ 1114      63 65 5F 61 
+ 1114      70 70 65 61 
+ 1114      72 61 6E 63 
+ 1114      65 00 
+ 1115                 		.ascii "fast_advert_supported\000"
+ 1116 008f 66 61 73 74 	.LASF96:
+ 1116      5F 61 64 76 
+ 1116      65 72 74 5F 
+ 1116      73 75 70 70 
+ 1116      6F 72 74 65 
+ 1117                 		.ascii "advert_tid\000"
+ 1118 009a 61 64 76 65 	.LASF52:
+ 1118      72 74 5F 74 
+ 1118      69 64 00 
+ 1119                 		.ascii "slow_advert_supported\000"
+ 1120 00a0 73 6C 6F 77 	.LASF87:
+ 1120      5F 61 64 76 
+ 1120      65 72 74 5F 
+ 1120      73 75 70 70 
+ 1120      6F 72 74 65 
+ 1121                 		.ascii "security\000"
+ 1122 00ab 73 65 63 75 	.LASF45:
+ 1122      72 69 74 79 
+ 1122      00 
+ 1123                 		.ascii "cm_advert_state_fast_advertising\000"
+ 1124 00af 63 6D 5F 61 	.LASF76:
+ 1124      64 76 65 72 
+ 1124      74 5F 73 74 
+ 1124      61 74 65 5F 
+ 1124      66 61 73 74 
+ 1125                 		.ascii "tx_power_level\000"
+ 1126 00c0 74 78 5F 70 	.LASF68:
+ 1126      6F 77 65 72 
+ 1126      5F 6C 65 76 
+ 1126      65 6C 00 
+ 1127                 		.ascii "value\000"
+ 1128 00c7 76 61 6C 75 	.LASF77:
+ 1128      65 00 
+ 1129                 		.ascii "CM_PERIPHERAL_ADVERT_DATA_T\000"
+ 1130 00ca 43 4D 5F 50 	.LASF102:
+ 1130      45 52 49 50 
+ 1130      48 45 52 41 
+ 1130      4C 5F 41 44 
+ 1130      56 45 52 54 
+ 1131                 		.ascii "CM_PERIPHERAL_DATA_T\000"
+ 1132 00d8 43 4D 5F 50 	.LASF25:
+ 1132      45 52 49 50 
+ 1132      48 45 52 41 
+ 1132      4C 5F 44 41 
+ 1132      54 41 5F 54 
+ 1133                 		.ascii "uint16\000"
+ 1134 00e3 75 69 6E 74 	.LASF84:
+ 1134      31 36 00 
+ 1135                 		.ascii "directed_bd_addr\000"
+ 1136 00e6 64 69 72 65 	.LASF7:
+ 1136      63 74 65 64 
+ 1136      5F 62 64 5F 
+ 1136      61 64 64 72 
+ 1136      00 
+ 1137                 		.ascii "gap_mode_discover_limited\000"
+ 1138 00ef 67 61 70 5F 	.LASF79:
+ 1138      6D 6F 64 65 
+ 1138      5F 64 69 73 
+ 1138      63 6F 76 65 
+ 1138      72 5F 6C 69 
+ 1139                 		.ascii "connect\000"
+ 1140 00fc 63 6F 6E 6E 	.LASF24:
+ 1140      65 63 74 00 
+ 1141                 		.ascii "uint8\000"
+ 1142 0100 75 69 6E 74 	.LASF4:
+ 1142      38 00 
+ 1143                 		.ascii "gap_role_central\000"
+ 1144 0103 67 61 70 5F 	.LASF35:
+ 1144      72 6F 6C 65 
+ 1144      5F 63 65 6E 
+ 1144      74 72 61 6C 
+ 1144      00 
+ 1145                 		.ascii "bool\000"
+ 1146 010b 62 6F 6F 6C 	.LASF107:
+ 1146      00 
+ 1147                 		.ascii "g_cm_peripheral_data\000"
+ 1148 010e 67 5F 63 6D 	.LASF104:
+ 1148      5F 70 65 72 
+ 1148      69 70 68 65 
+ 1148      72 61 6C 5F 
+ 1148      64 61 74 61 
+ 1149                 		.ascii "../mesh_common/components/connection_manager/cm_peripheral.c\000"
+ 1150 0118 2E 2E 2F 6D 	.LASF39:
+ 1150      65 73 68 5F 
+ 1150      63 6F 6D 6D 
+ 1150      6F 6E 2F 63 
+ 1150      6F 6D 70 6F 
+ 1151                 		.ascii "addr\000"
+ 1152 0137 61 64 64 72 	.LASF31:
+ 1152      00 
+ 1153                 		.ascii "int8\000"
+ 1154 0139 69 6E 74 38 	.LASF13:
+ 1154      00 
+ 1155                 		.ascii "gap_mode_connect_directed\000"
+ 1156 013c 67 61 70 5F 	.LASF70:
+ 1156      6D 6F 64 65 
+ 1156      5F 63 6F 6E 
+ 1156      6E 65 63 74 
+ 1156      5F 64 69 72 
+ 1157                 		.ascii "CM_DEVICE_MANUFACTURER_DATA_T\000"
+ 1158 0149 43 4D 5F 44 	.LASF97:
+ 1158      45 56 49 43 
+ 1158      45 5F 4D 41 
+ 1158      4E 55 46 41 
+ 1158      43 54 55 52 
+ 1159                 		.ascii "stop_adverts\000"
+ 1160 0158 73 74 6F 70 	.LASF34:
+ 1160      5F 61 64 76 
+ 1160      65 72 74 73 
+ 1160      00 
+ 1161                 		.ascii "long int\000"
+ 1162 015e 6C 6F 6E 67 	.LASF5:
+ 1162      20 69 6E 74 
+ 1162      00 
+ 1163                 		.ascii "gap_mode_discover_null\000"
+ 1164 0163 67 61 70 5F 	.LASF63:
+ 1164      6D 6F 64 65 
+ 1164      5F 64 69 73 
+ 1164      63 6F 76 65 
+ 1164      72 5F 6E 75 
+ 1165                 		.ascii "uuid\000"
+ 1166 016e 75 75 69 64 	.LASF1:
+ 1166      00 
+ 1167                 		.ascii "gap_role_broadcaster\000"
+ 1168 0171 67 61 70 5F 	.LASF75:
+ 1168      72 6F 6C 65 
+ 1168      5F 62 72 6F 
+ 1168      61 64 63 61 
+ 1168      73 74 65 72 
+ 1169                 		.ascii "manuf_data\000"
+ 1170 017b 6D 61 6E 75 	.LASF6:
+ 1170      66 5F 64 61 
+ 1170      74 61 00 
+ 1171                 		.ascii "gap_mode_discover_no\000"
+ 1172 0181 67 61 70 5F 	.LASF86:
+ 1172      6D 6F 64 65 
+ 1172      5F 64 69 73 
+ 1172      63 6F 76 65 
+ 1172      72 5F 6E 6F 
+ 1173                 		.ascii "bond\000"
+ 1174 018b 62 6F 6E 64 	.LASF11:
+ 1174      00 
+ 1175                 		.ascii "gap_mode_connect_null\000"
+ 1176 018e 67 61 70 5F 	.LASF0:
+ 1176      6D 6F 64 65 
+ 1176      5F 63 6F 6E 
+ 1176      6E 65 63 74 
+ 1176      5F 6E 75 6C 
+ 1177                 		.ascii "gap_role_null\000"
+ 1178 0199 67 61 70 5F 	.LASF30:
+ 1178      72 6F 6C 65 
+ 1178      5F 6E 75 6C 
+ 1178      6C 00 
+ 1179                 		.ascii "uint24\000"
+ 1180 01a0 75 69 6E 74 	.LASF26:
+ 1180      32 34 00 
+ 1181                 		.ascii "unsigned char\000"
+ 1182 01a3 75 6E 73 69 	.LASF16:
+ 1182      67 6E 65 64 
+ 1182      20 63 68 61 
+ 1182      72 00 
+ 1183                 		.ascii "gap_mode_bond_null\000"
+ 1184 01aa 67 61 70 5F 	.LASF74:
+ 1184      6D 6F 64 65 
+ 1184      5F 62 6F 6E 
+ 1184      64 5F 6E 75 
+ 1184      6C 6C 00 
+ 1185                 		.ascii "device_name\000"
+ 1186 01b4 64 65 76 69 	.LASF62:
+ 1186      63 65 5F 6E 
+ 1186      61 6D 65 00 
+ 1187                 		.ascii "cm_adv_flags\000"
+ 1188 01ba 63 6D 5F 61 	.LASF103:
+ 1188      64 76 5F 66 
+ 1188      6C 61 67 73 
+ 1188      00 
+ 1189                 		.ascii "GNU C 4.3.4 CSR version 29 for xap []\000"
+ 1190 01c0 47 4E 55 20 	.LASF100:
+ 1190      43 20 34 2E 
+ 1190      33 2E 34 20 
+ 1190      43 53 52 20 
+ 1190      76 65 72 73 
+ 1191                 		.ascii "bond_id_to_be_removed\000"
+ 1192 01d3 62 6F 6E 64 	.LASF32:
+ 1192      5F 69 64 5F 
+ 1192      74 6F 5F 62 
+ 1192      65 5F 72 65 
+ 1192      6D 6F 76 65 
+ 1193                 		.ascii "signed char\000"
+ 1194 01de 73 69 67 6E 	.LASF38:
+ 1194      65 64 20 63 
+ 1194      68 61 72 00 
+ 1195                 		.ascii "type\000"
+ 1196 01e4 74 79 70 65 	.LASF88:
+ 1196      00 
+ 1197                 		.ascii "role\000"
+ 1198 01e7 72 6F 6C 65 	.LASF105:
+ 1198      00 
+ 1199                 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-5-2\\apps\\csrmesh_2_1_node - xm-data-block\\applic
+ 1200 01e9 45 3A 5C 43 	.LASF67:
+ 1200      53 52 5F 75 
+ 1200      45 6E 65 72 
+ 1200      67 79 5F 53 
+ 1200      44 4B 2D 32 
+ 1201                 		.ascii "CM_DEVICE_NAME_T\000"
+ 1202 0223 43 4D 5F 44 	.LASF40:
+ 1202      45 56 49 43 
+ 1202      45 5F 4E 41 
+ 1202      4D 45 5F 54 
+ 1202      00 
+ 1203                 		.ascii "TYPED_BD_ADDR_T\000"
+ 1204 022c 54 59 50 45 	.LASF46:
+ 1204      44 5F 42 44 
+ 1204      5F 41 44 44 
+ 1204      52 5F 54 00 
+ 1205                 		.ascii "cm_advert_state_slow_advertising\000"
+ 1206 0234 63 6D 5F 61 	.LASF8:
+ 1206      64 76 65 72 
+ 1206      74 5F 73 74 
+ 1206      61 74 65 5F 
+ 1206      73 6C 6F 77 
+ 1207                 		.ascii "gap_mode_discover_general\000"
+ 1208 0244 67 61 70 5F 	.LASF49:
+ 1208      6D 6F 64 65 
+ 1208      5F 64 69 73 
+ 1208      63 6F 76 65 
+ 1208      72 5F 67 65 
+ 1209                 		.ascii "directed_advert_supported\000"
+ 1210 0251 64 69 72 65 	.LASF95:
+ 1210      63 74 65 64 
+ 1210      5F 61 64 76 
+ 1210      65 72 74 5F 
+ 1210      73 75 70 70 
+ 1211                 		.ascii "cur_adv_type\000"
+ 1212 025e 63 75 72 5F 	.LASF72:
+ 1212      61 64 76 5F 
+ 1212      74 79 70 65 
+ 1212      00 
+ 1213                 		.ascii "device_uuid_128\000"
+ 1214 0265 64 65 76 69 	.LASF27:
+ 1214      63 65 5F 75 
+ 1214      75 69 64 5F 
+ 1214      31 32 38 00 
+ 1215                 		.ascii "short unsigned int\000"
+ 1216 026d 73 68 6F 72 	.LASF43:
+ 1216      74 20 75 6E 
+ 1216      73 69 67 6E 
+ 1216      65 64 20 69 
+ 1216      6E 74 00 
+ 1217                 		.ascii "cm_advert_state_idle\000"
+ 1218 0276 63 6D 5F 61 	.LASF56:
+ 1218      64 76 65 72 
+ 1218      74 5F 73 74 
+ 1218      61 74 65 5F 
+ 1218      69 64 6C 65 
+ 1219                 		.ascii "tx_power_present\000"
+ 1220 0281 74 78 5F 70 	.LASF2:
+ 1220      6F 77 65 72 
+ 1220      5F 70 72 65 
+ 1220      73 65 6E 74 
+ 1220      00 
+ 1221                 		.ascii "gap_role_observer\000"
+ 1222 0289 67 61 70 5F 	.LASF37:
+ 1222      72 6F 6C 65 
+ 1222      5F 6F 62 73 
+ 1222      65 72 76 65 
+ 1222      72 00 
+ 1223                 		.ascii "BD_ADDR_T\000"
+ 1224 0292 42 44 5F 41 	.LASF93:
+ 1224      44 44 52 5F 
+ 1224      54 00 
+ 1225                 		.ascii "char\000"
+ 1226 0297 63 68 61 72 	.LASF99:
+ 1226      00 
+ 1227                 		.ascii "unbonding\000"
+ 1228 029a 75 6E 62 6F 	.LASF41:
+ 1228      6E 64 69 6E 
+ 1228      67 00 
+ 1229                 		.ascii "timer_id\000"
+ 1230 029f 74 69 6D 65 	.LASF57:
+ 1230      72 5F 69 64 
+ 1230      00 
+ 1231                 		.ascii "local_address_random\000"
+ 1232 02a3 6C 6F 63 61 	.LASF42:
+ 1232      6C 5F 61 64 
+ 1232      64 72 65 73 
+ 1232      73 5F 72 61 
+ 1232      6E 64 6F 6D 
+ 1233                 		.ascii "bond_handle_id\000"
+ 1234 02ae 62 6F 6E 64 	.LASF47:
+ 1234      5F 68 61 6E 
+ 1234      64 6C 65 5F 
+ 1234      69 64 00 
+ 1235                 		.ascii "cm_advert_state\000"
+ 1236 02b5 63 6D 5F 61 	.LASF44:
+ 1236      64 76 65 72 
+ 1236      74 5F 73 74 
+ 1236      61 74 65 00 
+ 1237                 		.ascii "cm_advert_state_directed_advertising\000"
+ 1238 02bd 63 6D 5F 61 	.LASF28:
+ 1238      64 76 65 72 
+ 1238      74 5F 73 74 
+ 1238      61 74 65 5F 
+ 1238      64 69 72 65 
+ 1239                 		.ascii "uint32\000"
+ 1240 02d0 75 69 6E 74 	.LASF29:
+ 1240      33 32 00 
+ 1241                 		.ascii "long unsigned int\000"
+ 1242 02d3 6C 6F 6E 67 	.LASF10:
+ 1242      20 75 6E 73 
+ 1242      69 67 6E 65 
+ 1242      64 20 69 6E 
+ 1242      74 00 
+ 1243                 		.ascii "gap_mode_discover\000"
+ 1244 02dc 67 61 70 5F 	.LASF54:
+ 1244      6D 6F 64 65 
+ 1244      5F 64 69 73 
+ 1244      63 6F 76 65 
+ 1244      72 00 
+ 1245                 		.ascii "uuid_present\000"
+ 1246 02e5 75 75 69 64 	.LASF98:
+ 1246      5F 70 72 65 
+ 1246      73 65 6E 74 
+ 1246      00 
+ 1247                 		.ascii "moreAdvertisementTypes\000"
+ 1248 02ec 6D 6F 72 65 	.LASF50:
+ 1248      41 64 76 65 
+ 1248      72 74 69 73 
+ 1248      65 6D 65 6E 
+ 1248      74 54 79 70 
+ 1249                 		.ascii "ldc_directed_advert_supported\000"
+ 1250 02f7 6C 64 63 5F 	.LASF89:
+ 1250      64 69 72 65 
+ 1250      63 74 65 64 
+ 1250      5F 61 64 76 
+ 1250      65 72 74 5F 
+ 1251                 		.ascii "advert_data\000"
+ 1252 0306 61 64 76 65 	.LASF92:
+ 1252      72 74 5F 64 
+ 1252      61 74 61 00 
+ 1253                 		.ascii "CM_PERIPHERAL_ADVERT_PARAMETERS_T\000"
+ 1254 030c 43 4D 5F 50 	.LASF23:
+ 1254      45 52 49 50 
+ 1254      48 45 52 41 
+ 1254      4C 5F 41 44 
+ 1254      56 45 52 54 
+ 1255                 		.ascii "gap_mode_security\000"
+ 1256 031d 67 61 70 5F 	.LASF91:
+ 1256      6D 6F 64 65 
+ 1256      5F 73 65 63 
+ 1256      75 72 69 74 
+ 1256      79 00 
+ 1257                 		.ascii "num_adv_types\000"
+ 1258 0326 6E 75 6D 5F 	.LASF15:
+ 1258      61 64 76 5F 
+ 1258      74 79 70 65 
+ 1258      73 00 
+ 1259                 		.ascii "gap_mode_connect\000"
+ 1260 032d 67 61 70 5F 	.LASF83:
+ 1260      6D 6F 64 65 
+ 1260      5F 63 6F 6E 
+ 1260      6E 65 63 74 
+ 1260      00 
+ 1261                 		.ascii "timeout_value\000"
+ 1262 0336 74 69 6D 65 	.LASF9:
+ 1262      6F 75 74 5F 
+ 1262      76 61 6C 75 
+ 1262      65 00 
+ 1263                 		.ascii "gap_role\000"
+ 1264 033d 67 61 70 5F 	.LASF66:
+ 1264      72 6F 6C 65 
+ 1264      00 
+ 1265                 		.ascii "name\000"
+ 1266 0341 6E 61 6D 65 	.LASF65:
+ 1266      00 
+ 1267                 		.ascii "CM_DEVICE_CM_UUID_T\000"
+ 1268 0344 43 4D 5F 44 	.LASF22:
+ 1268      45 56 49 43 
+ 1268      45 5F 43 4D 
+ 1268      5F 55 55 49 
+ 1268      44 5F 54 00 
+ 1269                 		.ascii "gap_mode_security_authenticate\000"
+ 1270 034e 67 61 70 5F 	.LASF17:
+ 1270      6D 6F 64 65 
+ 1270      5F 73 65 63 
+ 1270      75 72 69 74 
+ 1270      79 5F 61 75 
+ 1271                 		.ascii "gap_mode_bond_no\000"
+ 1272 035d 67 61 70 5F 	.LASF80:
+ 1272      6D 6F 64 65 
+ 1272      5F 62 6F 6E 
+ 1272      64 5F 6E 6F 
+ 1272      00 
+ 1273                 		.ascii "advert_flags\000"
+ 1274 0366 61 64 76 65 	.LASF71:
+ 1274      72 74 5F 66 
+ 1274      6C 61 67 73 
+ 1274      00 
+ 1275                 		.ascii "device_uuid\000"
+ 1276 036c 64 65 76 69 	.LASF12:
+ 1276      63 65 5F 75 
+ 1276      75 69 64 00 
+ 1277                 		.ascii "gap_mode_connect_no\000"
+ 1278 0372 67 61 70 5F 	.LASF36:
+ 1278      6D 6F 64 65 
+ 1278      5F 63 6F 6E 
+ 1278      6E 65 63 74 
+ 1278      5F 6E 6F 00 
+ 1279                 		.ascii "unsigned int\000"
+ 1280 037c 75 6E 73 69 	.LASF20:
+ 1280      67 6E 65 64 
+ 1280      20 69 6E 74 
+ 1280      00 
+ 1281                 		.ascii "gap_mode_security_none\000"
+ 1282 0383 67 61 70 5F 	.LASF60:
+ 1282      6D 6F 64 65 
+ 1282      5F 73 65 63 
+ 1282      75 72 69 74 
+ 1282      79 5F 6E 6F 
+ 1283                 		.ascii "non_conn_advert_supported\000"
+ 1284 038e 6E 6F 6E 5F 	.LASF18:
+ 1284      63 6F 6E 6E 
+ 1284      5F 61 64 76 
+ 1284      65 72 74 5F 
+ 1284      73 75 70 70 
+ 1285                 		.ascii "gap_mode_bond_yes\000"
+ 1286 039b 67 61 70 5F 	.LASF58:
+ 1286      6D 6F 64 65 
+ 1286      5F 62 6F 6E 
+ 1286      64 5F 79 65 
+ 1286      73 00 
+ 1287                 		.ascii "manufacturer_data_present\000"
+ 1288 03a4 6D 61 6E 75 	.LASF101:
+ 1288      66 61 63 74 
+ 1288      75 72 65 72 
+ 1288      5F 64 61 74 
+ 1288      61 5F 70 72 
+ 1289                 		.ascii "advert_state\000"
+ 1290 03b1 61 64 76 65 	.LASF78:
+ 1290      72 74 5F 73 
+ 1290      74 61 74 65 
+ 1290      00 
+ 1291                 		.ascii "discover\000"
+ 1292 03b8 64 69 73 63 	.LASF82:
+ 1292      6F 76 65 72 
+ 1292      00 
+ 1293                 		.ascii "adv_interval_max\000"
+ 1294 03bc 61 64 76 5F 	.LASF48:
+ 1294      69 6E 74 65 
+ 1294      72 76 61 6C 
+ 1294      5F 6D 61 78 
+ 1294      00 
+ 1295                 		.ascii "whitelist_supported\000"
+ 1296 03c5 77 68 69 74 	.LASF59:
+ 1296      65 6C 69 73 
+ 1296      74 5F 73 75 
+ 1296      70 70 6F 72 
+ 1296      74 65 64 00 
+ 1297                 		.ascii "name_present_scan_rsp\000"
+ 1298 03cf 6E 61 6D 65 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"
+ 1298      5F 70 72 65 
+ 1298      73 65 6E 74 
+ 1298      5F 73 63 61 
+ 1298      6E 5F 72 73 
+ 1299                 	...

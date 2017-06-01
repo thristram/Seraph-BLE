@@ -1,0 +1,1001 @@
+   1                 		.file	"battery_hw.c"
+   2                 		.variant xap2+
+   3                 	
+   4                 		.small
+   5                 	
+   6                 		.section	.debug_abbrev,"",@progbits
+   7                 	.Ldebug_abbrev0:
+   8                 		.section	.debug_info,"",@progbits
+   9                 	.Ldebug_info0:
+  10                 		.section	.debug_line,"",@progbits
+  11                 	.Ldebug_line0:
+  12 0000 00 00 00 00 		.text
+  12      00 02 00 00 
+  12      00 00 01 01 
+  12      FB 0E 0D 00 
+  12      01 01 01 01 
+  13                 	.Ltext0:
+  14                 		.section	.text.ReadBatteryLevel,"ax",@progbits
+  15                 		.global	ReadBatteryLevel
+  16                 		.type	ReadBatteryLevel, @function
+  17                 	ReadBatteryLevel:
+  18                 	.LFB2:
+  19                 		.file 1 "../mesh_common/mesh/drivers/battery_hw.c"
+   0:../mesh_common/mesh/drivers/battery_hw.c **** /******************************************************************************
+   1:../mesh_common/mesh/drivers/battery_hw.c ****  *  Copyright 2015 - 2016 Qualcomm Technologies International, Ltd.
+   2:../mesh_common/mesh/drivers/battery_hw.c ****  *  Bluetooth Low Energy CSRmesh 2.1
+   3:../mesh_common/mesh/drivers/battery_hw.c ****  *  Application version 2.1.0
+   4:../mesh_common/mesh/drivers/battery_hw.c ****  *
+   5:../mesh_common/mesh/drivers/battery_hw.c ****  *  FILE
+   6:../mesh_common/mesh/drivers/battery_hw.c ****  *    battery_hw.c
+   7:../mesh_common/mesh/drivers/battery_hw.c ****  *
+   8:../mesh_common/mesh/drivers/battery_hw.c ****  * DESCRIPTION
+   9:../mesh_common/mesh/drivers/battery_hw.c ****  *    This file defines routines for reading current Battery level
+  10:../mesh_common/mesh/drivers/battery_hw.c ****  *
+  11:../mesh_common/mesh/drivers/battery_hw.c ****  ******************************************************************************/
+  12:../mesh_common/mesh/drivers/battery_hw.c **** 
+  13:../mesh_common/mesh/drivers/battery_hw.c **** /*=============================================================================*
+  14:../mesh_common/mesh/drivers/battery_hw.c ****  *  SDK Header Files
+  15:../mesh_common/mesh/drivers/battery_hw.c ****  *============================================================================*/
+  16:../mesh_common/mesh/drivers/battery_hw.c **** #include <gatt.h>
+  17:../mesh_common/mesh/drivers/battery_hw.c **** #include <battery.h>
+  18:../mesh_common/mesh/drivers/battery_hw.c **** 
+  19:../mesh_common/mesh/drivers/battery_hw.c **** /*=============================================================================*
+  20:../mesh_common/mesh/drivers/battery_hw.c ****  *  Local Header Files
+  21:../mesh_common/mesh/drivers/battery_hw.c ****  *============================================================================*/
+  22:../mesh_common/mesh/drivers/battery_hw.c **** 
+  23:../mesh_common/mesh/drivers/battery_hw.c **** #include "battery_hw.h"
+  24:../mesh_common/mesh/drivers/battery_hw.c **** #include "battery_server.h"
+  25:../mesh_common/mesh/drivers/battery_hw.c **** #include "app_util.h"
+  26:../mesh_common/mesh/drivers/battery_hw.c **** #include "core_mesh_handler.h"
+  27:../mesh_common/mesh/drivers/battery_hw.c **** #include "user_config.h"
+  28:../mesh_common/mesh/drivers/battery_hw.c **** /*=============================================================================*
+  29:../mesh_common/mesh/drivers/battery_hw.c ****  *  Public Function Implementations
+  30:../mesh_common/mesh/drivers/battery_hw.c ****  *============================================================================*/
+  31:../mesh_common/mesh/drivers/battery_hw.c **** 
+  32:../mesh_common/mesh/drivers/battery_hw.c **** /*-----------------------------------------------------------------------------*
+  33:../mesh_common/mesh/drivers/battery_hw.c ****  *  NAME
+  34:../mesh_common/mesh/drivers/battery_hw.c ****  *      ReadBatteryLevel
+  35:../mesh_common/mesh/drivers/battery_hw.c ****  *
+  36:../mesh_common/mesh/drivers/battery_hw.c ****  *  DESCRIPTION
+  37:../mesh_common/mesh/drivers/battery_hw.c ****  *      This function reads the battery level 
+  38:../mesh_common/mesh/drivers/battery_hw.c ****  *
+  39:../mesh_common/mesh/drivers/battery_hw.c ****  *  RETURNS
+  40:../mesh_common/mesh/drivers/battery_hw.c ****  *      Battery Level in percent
+  41:../mesh_common/mesh/drivers/battery_hw.c ****  *
+  42:../mesh_common/mesh/drivers/battery_hw.c ****  *----------------------------------------------------------------------------*/
+  43:../mesh_common/mesh/drivers/battery_hw.c **** extern uint8 ReadBatteryLevel(void)
+  44:../mesh_common/mesh/drivers/battery_hw.c **** {
+  20                 		#0x0003
+  21 0000 03 0B       	.LCFI0:
+  22                 		.loc 1 50 0
+  45:../mesh_common/mesh/drivers/battery_hw.c **** 
+  46:../mesh_common/mesh/drivers/battery_hw.c **** 
+  47:../mesh_common/mesh/drivers/battery_hw.c ****     /* Read battery voltage and level it with minimum voltage */
+  48:../mesh_common/mesh/drivers/battery_hw.c ****     bat_voltage = BatteryReadVoltage();
+  49:../mesh_common/mesh/drivers/battery_hw.c **** 
+  23                 	r	BatteryReadVoltage
+  24 0001 00 00 00 00 		.loc 1 53 0
+  24      00 9C 
+  50:../mesh_common/mesh/drivers/battery_hw.c ****  /* Read battery voltage and level it with minimum voltage */
+  51:../mesh_common/mesh/drivers/battery_hw.c ****     bat_voltage = BatteryReadVoltage();
+  52:../mesh_common/mesh/drivers/battery_hw.c **** 
+  25                 	mp	AL,#0x0708
+  26 0004 07 00 08 84 	.LVL0:
+  27                 		bcc	.L2
+  28 0006 00 00 00 00 		ld	AL,#0x0708
+  28      00 F8 
+  29 0009 07 00 08 14 	.L2:
+  30                 		.loc 1 61 0
+  53:../mesh_common/mesh/drivers/battery_hw.c ****  /* Read battery voltage and level it with minimum voltage */
+  54:../mesh_common/mesh/drivers/battery_hw.c ****     bat_voltage = BatteryReadVoltage();
+  55:../mesh_common/mesh/drivers/battery_hw.c **** 
+  56:../mesh_common/mesh/drivers/battery_hw.c ****     /* Level the read battery voltage to the minimum value */
+  57:../mesh_common/mesh/drivers/battery_hw.c ****     if(bat_voltage < BATTERY_FLAT_BATTERY_VOLTAGE)
+  58:../mesh_common/mesh/drivers/battery_hw.c ****     {
+  59:../mesh_common/mesh/drivers/battery_hw.c ****         bat_voltage = BATTERY_FLAT_BATTERY_VOLTAGE;
+  60:../mesh_common/mesh/drivers/battery_hw.c ****     }
+  31                 	,#0x0000
+  32 000b 00 10       		add	AL,#0xf8f8
+  33 000c F9 00 F8 34 		addc	AH,#0xffff
+  34 000e FF 40       		ld	X,@$XAP_AH
+  35 000f 00 00 00 19 		st	AL,@0xfff8
+  36 0011 F8 25       	.LVL1:
+  37                 		ld	AL,@$XAP_UXL
+  38 0012 00 00 00 15 		smult	#0x0064
+  39 0014 64 90       		ld	X,@$XAP_AL
+  40 0015 00 00 00 19 		ld	AL,@0xfff8
+  41 0017 F8 15       		umult	#0x0064
+  42 0018 00 09 64 90 		st	AL,@0xfff9
+  43 001a F9 25       		st	AH,@0xfff8
+  44 001b F8 21       		add	X,@0xfff8
+  45 001c F8 39       		ld	AH,#0x0000
+  46 001d 00 10       		st	AH,@(0,Y)
+  47 001e 00 23       		ld	AL,#0x04b0
+  48 001f 05 00 B0 14 		st	AL,@(0x0001,Y)
+  49 0021 01 27       		ld	AL,@0xfff9
+  50 0022 F9 15       		ld	AH,@$XAP_UXL
+  51 0023 00 00 00 11 		bsr	__udivhi3
+  52 0025 00 00 00 00 		tst	@$XAP_AH
+  52      00 9C 
+  53 0028 00 00 00 99 		bne	.L5
+  54 002a 00 00 00 00 		cmp	AL,#0x0065
+  54      00 F0 
+  55 002d 65 84       		bcs	.L4
+  56 002e 00 00 00 00 	.L5:
+  56      00 FC 
+  57                 		ld	AL,#0x0064
+  58 0031 64 14       	.L4:
+  59                 		.loc 1 71 0
+  61:../mesh_common/mesh/drivers/battery_hw.c **** e < BATTERY_FLAT_BATTERY_VOLTAGE)
+  62:../mesh_common/mesh/drivers/battery_hw.c ****     {
+  63:../mesh_common/mesh/drivers/battery_hw.c ****         bat_voltage = BATTERY_FLAT_BATTERY_VOLTAGE;
+  64:../mesh_common/mesh/drivers/battery_hw.c ****     }
+  65:../mesh_common/mesh/drivers/battery_hw.c **** 
+  66:../mesh_common/mesh/drivers/battery_hw.c ****     bat_voltage -= BATTERY_FLAT_BATTERY_VOLTAGE;
+  67:../mesh_common/mesh/drivers/battery_hw.c **** 
+  68:../mesh_common/mesh/drivers/battery_hw.c ****     /* Get battery level in percent */
+  69:../mesh_common/mesh/drivers/battery_hw.c ****     bat_level = (bat_voltage * 100) / (BATTERY_FULL_BATTERY_VOLTAGE - 
+  70:../mesh_common/mesh/drivers/battery_hw.c ****                                                   BATTERY_FLAT_BATTERY_VOLTAGE);
+  60                 	ReadBatteryLevel, .-ReadBatteryLevel
+  61 0032 03 0F       		.global	__size_of_ReadBatteryLevel
+  62                 		.equ	__size_of_ReadBatteryLevel,. - ReadBatteryLevel
+  63                 		.section	.text.SendLowBatteryIndication,"ax",@progbits
+  64                 		.global	SendLowBatteryIndication
+  65                 		.type	SendLowBatteryIndication, @function
+  66                 	SendLowBatteryIndication:
+  67                 	.LFB5:
+  68                 		.loc 1 142 0
+  69                 		.loc 1 145 0
+  70                 		bra	ReadBatteryLevel
+  71:../mesh_common/mesh/drivers/battery_hw.c **** VOLTAGE - 
+  72:../mesh_common/mesh/drivers/battery_hw.c ****                                                   BATTERY_FLAT_BATTERY_VOLTAGE);
+  73:../mesh_common/mesh/drivers/battery_hw.c **** 
+  74:../mesh_common/mesh/drivers/battery_hw.c ****     /* Check the precision errors */
+  75:../mesh_common/mesh/drivers/battery_hw.c ****     if(bat_level > 100)
+  76:../mesh_common/mesh/drivers/battery_hw.c ****     {
+  77:../mesh_common/mesh/drivers/battery_hw.c ****         bat_level = 100;
+  78:../mesh_common/mesh/drivers/battery_hw.c ****     }
+  79:../mesh_common/mesh/drivers/battery_hw.c **** 
+  80:../mesh_common/mesh/drivers/battery_hw.c ****     return (uint8)bat_level;
+  81:../mesh_common/mesh/drivers/battery_hw.c **** }
+  82:../mesh_common/mesh/drivers/battery_hw.c **** 
+  83:../mesh_common/mesh/drivers/battery_hw.c **** /*----------------------------------------------------------------------------*
+  84:../mesh_common/mesh/drivers/battery_hw.c ****  *  NAME
+  85:../mesh_common/mesh/drivers/battery_hw.c ****  *      CheckLowBatteryVoltage
+  86:../mesh_common/mesh/drivers/battery_hw.c ****  *
+  87:../mesh_common/mesh/drivers/battery_hw.c ****  *  DESCRIPTION
+  88:../mesh_common/mesh/drivers/battery_hw.c ****  *      This function checks if the current battery volatage level has dropped 
+  89:../mesh_common/mesh/drivers/battery_hw.c ****  *      below low threshold voltage.
+  90:../mesh_common/mesh/drivers/battery_hw.c ****  *
+  91:../mesh_common/mesh/drivers/battery_hw.c ****  *  RETURNS
+  92:../mesh_common/mesh/drivers/battery_hw.c ****  *      Boolean-True or False
+  93:../mesh_common/mesh/drivers/battery_hw.c ****  *
+  94:../mesh_common/mesh/drivers/battery_hw.c ****  *---------------------------------------------------------------------------*/
+  95:../mesh_common/mesh/drivers/battery_hw.c **** extern bool CheckLowBatteryVoltage(void)
+  96:../mesh_common/mesh/drivers/battery_hw.c **** {
+  97:../mesh_common/mesh/drivers/battery_hw.c ****     bool low_battery = FALSE;
+  98:../mesh_common/mesh/drivers/battery_hw.c **** 
+  99:../mesh_common/mesh/drivers/battery_hw.c **** #ifdef CSR101x_A05
+ 100:../mesh_common/mesh/drivers/battery_hw.c ****     if(BatteryReadVoltage() <= BatteryReadLowThreshold())
+ 101:../mesh_common/mesh/drivers/battery_hw.c **** #else
+ 102:../mesh_common/mesh/drivers/battery_hw.c ****     if(BatteryReadVoltage() <= BATTERY_THRESHOLD_VOLTAGE)
+ 103:../mesh_common/mesh/drivers/battery_hw.c **** #endif /* CSR101x_A05 */
+ 104:../mesh_common/mesh/drivers/battery_hw.c ****     {
+ 105:../mesh_common/mesh/drivers/battery_hw.c ****         low_battery = TRUE;
+ 106:../mesh_common/mesh/drivers/battery_hw.c ****         /* Broadcast battery state if it reduces below the threshold value */
+ 107:../mesh_common/mesh/drivers/battery_hw.c ****         SendLowBatteryIndication();
+ 108:../mesh_common/mesh/drivers/battery_hw.c ****     }
+ 109:../mesh_common/mesh/drivers/battery_hw.c ****     return low_battery;
+ 110:../mesh_common/mesh/drivers/battery_hw.c **** }
+ 111:../mesh_common/mesh/drivers/battery_hw.c **** 
+ 112:../mesh_common/mesh/drivers/battery_hw.c **** /*----------------------------------------------------------------------------*
+ 113:../mesh_common/mesh/drivers/battery_hw.c ****  *  NAME
+ 114:../mesh_common/mesh/drivers/battery_hw.c ****  *      GetBatteryState
+ 115:../mesh_common/mesh/drivers/battery_hw.c ****  *
+ 116:../mesh_common/mesh/drivers/battery_hw.c ****  *  DESCRIPTION
+ 117:../mesh_common/mesh/drivers/battery_hw.c ****  *      This function returns the battery state based on the present voltage 
+ 118:../mesh_common/mesh/drivers/battery_hw.c ****  *      and the threshold voltage set.
+ 119:../mesh_common/mesh/drivers/battery_hw.c ****  *
+ 120:../mesh_common/mesh/drivers/battery_hw.c ****  *  RETURNS
+ 121:../mesh_common/mesh/drivers/battery_hw.c ****  *      State of the battery
+ 122:../mesh_common/mesh/drivers/battery_hw.c ****  *
+ 123:../mesh_common/mesh/drivers/battery_hw.c ****  *---------------------------------------------------------------------------*/
+ 124:../mesh_common/mesh/drivers/battery_hw.c **** extern uint8 GetBatteryState(void)
+ 125:../mesh_common/mesh/drivers/battery_hw.c **** {
+ 126:../mesh_common/mesh/drivers/battery_hw.c ****     uint8 battery_state = BATTERY_STATE_POWERING_DEVICE;
+ 127:../mesh_common/mesh/drivers/battery_hw.c **** 
+ 128:../mesh_common/mesh/drivers/battery_hw.c **** #ifdef CSR101x_A05
+ 129:../mesh_common/mesh/drivers/battery_hw.c ****     if(BatteryReadVoltage() <= BatteryReadLowThreshold())
+ 130:../mesh_common/mesh/drivers/battery_hw.c **** #else
+ 131:../mesh_common/mesh/drivers/battery_hw.c ****     if(BatteryReadVoltage() <= BATTERY_THRESHOLD_VOLTAGE)
+ 132:../mesh_common/mesh/drivers/battery_hw.c **** #endif /* CSR101x_A05 */
+ 133:../mesh_common/mesh/drivers/battery_hw.c ****     {
+ 134:../mesh_common/mesh/drivers/battery_hw.c ****         battery_state = BATTERY_STATE_NEEDS_REPLACEMENT;
+ 135:../mesh_common/mesh/drivers/battery_hw.c ****     }
+ 136:../mesh_common/mesh/drivers/battery_hw.c ****     return battery_state;
+ 137:../mesh_common/mesh/drivers/battery_hw.c **** }
+ 138:../mesh_common/mesh/drivers/battery_hw.c **** 
+ 139:../mesh_common/mesh/drivers/battery_hw.c **** /*----------------------------------------------------------------------------*
+ 140:../mesh_common/mesh/drivers/battery_hw.c ****  *  NAME
+ 141:../mesh_common/mesh/drivers/battery_hw.c ****  *      SendLowBatteryIndication
+  71                 	ze	SendLowBatteryIndication, .-SendLowBatteryIndication
+ 142:../mesh_common/mesh/drivers/battery_hw.c **** ndLowBatteryIndication
+ 143:../mesh_common/mesh/drivers/battery_hw.c ****  *
+ 144:../mesh_common/mesh/drivers/battery_hw.c ****  *  DESCRIPTION
+  72                 	.global	__size_of_SendLowBatteryIndication
+  73 0000 00 00 00 00 		.equ	__size_of_SendLowBatteryIndication,. - SendLowBatteryIndication
+  73      00 E0 
+  74                 		.section	.text.GetBatteryState,"ax",@progbits
+  75                 		.global	GetBatteryState
+  76                 		.type	GetBatteryState, @function
+  77                 	GetBatteryState:
+  78                 	.LFB4:
+  79                 		.loc 1 115 0
+  80                 		enter	#0x0002
+  81                 	.LCFI1:
+  82                 		.loc 1 119 0
+ 115:../mesh_common/mesh/drivers/battery_hw.c **** {
+  83                 	yReadVoltage
+  84 0000 02 0B       		st	AL,@(0,Y)
+  85                 		bsr	BatteryReadLowThreshold
+ 119:../mesh_common/mesh/drivers/battery_hw.c ****     if(BatteryReadVoltage() <= BatteryReadLowThreshold())
+  86                 		X,@(0,Y)
+  87 0001 00 00 00 00 		cmp	X,@$XAP_AL
+  87      00 9C 
+  88 0004 00 27       		bcz	.L15
+  89 0005 00 00 00 00 		bra	.L17
+  89      00 9C 
+  90 0008 00 1B       	.L15:
+  91 0009 00 00 00 89 		ld	AL,#0x0010
+  92 000b 00 00 00 00 	.LVL2:
+  92      00 2C 
+  93 000e 00 00 00 00 		bra	.L13
+  93      00 E0 
+  94                 	.LVL3:
+  95 0011 10 14       	.L17:
+  96                 		ld	AL,#0x0001
+  97 0012 00 00 00 00 	.LVL4:
+  97      00 E0 
+  98                 	.L13:
+  99                 	.LVL5:
+ 100 0015 01 14       		.loc 1 127 0
+ 101                 		leave	#0x0002
+ 102                 	.LFE4:
+ 103                 		.size	GetBatteryState, .-GetBatteryState
+ 127:../mesh_common/mesh/drivers/battery_hw.c **** }
+ 104                 	_GetBatteryState
+ 105 0016 02 0F       		.equ	__size_of_GetBatteryState,. - GetBatteryState
+ 106                 		.section	.text.CheckLowBatteryVoltage,"ax",@progbits
+ 107                 		.global	CheckLowBatteryVoltage
+ 108                 		.type	CheckLowBatteryVoltage, @function
+ 109                 	CheckLowBatteryVoltage:
+ 110                 	.LFB3:
+ 111                 		.loc 1 86 0
+ 112                 		enter	#0x0002
+ 113                 	.LCFI2:
+ 114                 		.loc 1 90 0
+  86:../mesh_common/mesh/drivers/battery_hw.c **** {
+ 115                 	yReadVoltage
+ 116 0000 02 0B       		st	AL,@(0,Y)
+ 117                 		bsr	BatteryReadLowThreshold
+  90:../mesh_common/mesh/drivers/battery_hw.c ****     if(BatteryReadVoltage() <= BatteryReadLowThreshold())
+ 118                 		X,@(0,Y)
+ 119 0001 00 00 00 00 		cmp	X,@$XAP_AL
+ 119      00 9C 
+ 120 0004 00 27       		bcz	.L19
+ 121 0005 00 00 00 00 		ld	AL,#0x0000
+ 121      00 9C 
+ 122 0008 00 1B       	.LVL6:
+ 123 0009 00 00 00 89 		bra	.L20
+ 124 000b 00 00 00 00 	.LVL7:
+ 124      00 2C 
+ 125 000e 00 14       	.L19:
+ 126                 		.loc 1 97 0
+ 127 000f 00 00 00 00 		bsr	SendLowBatteryIndication
+ 127      00 E0 
+ 128                 		ld	AL,#0x0001
+ 129                 	.LVL8:
+  97:../mesh_common/mesh/drivers/battery_hw.c ****         SendLowBatteryIndication();
+ 130                 	
+ 131 0012 00 00 00 00 		.loc 1 100 0
+ 131      00 9C 
+ 132 0015 01 14       		leave	#0x0002
+ 133                 	.LFE3:
+ 134                 		.size	CheckLowBatteryVoltage, .-CheckLowBatteryVoltage
+ 135                 		.global	__size_of_CheckLowBatteryVoltage
+ 100:../mesh_common/mesh/drivers/battery_hw.c **** }
+ 136                 		__size_of_CheckLowBatteryVoltage,. - CheckLowBatteryVoltage
+ 137 0016 02 0F       		.section	.debug_frame,"",@progbits
+ 138                 	.Lframe0:
+ 139                 		.4byte	.LECIE0-.LSCIE0
+ 140                 	.LSCIE0:
+ 141                 		.4byte	0xffffffff
+ 142                 		.1byte	0x1
+ 143                 		.ascii "\000"
+ 144 0000 00 00 00 00 		.1byte	0x1
+ 145                 		.1byte	0x7f
+ 146 0002 FF FF FF FF 		.1byte	0x3
+ 147 0004 01          		.1byte	0xc
+ 148 0004 00          		.1byte	0x5
+ 149 0005 01          		.1byte	0x0
+ 150 0005 7F          		.p2align	2
+ 151 0006 03          	.LECIE0:
+ 152 0006 0C          	.LSFDE0:
+ 153 0007 05          		.4byte	.LEFDE0-.LASFDE0
+ 154 0007 00          	.LASFDE0:
+ 155                 		.4byte	.Lframe0
+ 156                 		.4byte	.LFB2
+ 157                 		.4byte	.LFE2-.LFB2
+ 158 0008 00 00 00 00 		.1byte	0x4
+ 159                 		.4byte	.LCFI0-.LFB2
+ 160 000a 00 00 00 00 		.1byte	0xe
+ 161 000c 00 00 00 00 		.1byte	0x3
+ 162 000e 00 00 00 00 		.1byte	0x83
+ 163 0010 41          		.1byte	0x1
+ 164                 		.p2align	2
+ 165 0010 0E          	.LEFDE0:
+ 166 0011 03          	.LSFDE2:
+ 167 0011 83          		.4byte	.LEFDE2-.LASFDE2
+ 168 0012 01          	.LASFDE2:
+ 169 0012 00 00 00    		.4byte	.Lframe0
+ 170                 		.4byte	.LFB5
+ 171                 		.4byte	.LFE5-.LFB5
+ 172 0014 00 00 00 00 		.p2align	2
+ 173                 	.LEFDE2:
+ 174 0016 00 00 00 00 	.LSFDE4:
+ 175 0018 00 00 00 00 		.4byte	.LEFDE4-.LASFDE4
+ 176 001a 00 00 00 00 	.LASFDE4:
+ 177                 		.4byte	.Lframe0
+ 178                 		.4byte	.LFB4
+ 179                 		.4byte	.LFE4-.LFB4
+ 180 001c 00 00 00 00 		.1byte	0x4
+ 181                 		.4byte	.LCFI1-.LFB4
+ 182 001e 00 00 00 00 		.1byte	0xe
+ 183 0020 00 00 00 00 		.1byte	0x2
+ 184 0022 00 00 00 00 		.1byte	0x83
+ 185 0024 41          		.1byte	0x1
+ 186                 		.p2align	2
+ 187 0024 0E          	.LEFDE4:
+ 188 0025 02          	.LSFDE6:
+ 189 0025 83          		.4byte	.LEFDE6-.LASFDE6
+ 190 0026 01          	.LASFDE6:
+ 191 0026 00 00 00    		.4byte	.Lframe0
+ 192                 		.4byte	.LFB3
+ 193                 		.4byte	.LFE3-.LFB3
+ 194 0028 00 00 00 00 		.1byte	0x4
+ 195                 		.4byte	.LCFI2-.LFB3
+ 196 002a 00 00 00 00 		.1byte	0xe
+ 197 002c 00 00 00 00 		.1byte	0x2
+ 198 002e 00 00 00 00 		.1byte	0x83
+ 199 0030 41          		.1byte	0x1
+ 200                 		.p2align	2
+ 201 0030 0E          	.LEFDE6:
+ 202 0031 02          		.text
+ 203 0031 83          	.Letext0:
+ 204 0032 01          		.section	.debug_loc,"",@progbits
+ 205 0032 00 00 00    	.Ldebug_loc0:
+ 206                 	.LLST0:
+ 207                 		.4byte	.LFB2
+ 208                 		.4byte	.LCFI0
+ 209                 		.2byte	0x1
+ 210                 		.1byte	0x55
+ 211                 		.4byte	.LCFI0
+ 212 0000 00 00 00 00 		.4byte	.LFE2
+ 213 0002 00 00 00 00 		.2byte	0x2
+ 214 0004 00 01       		.1byte	0x75
+ 215 0005 55          		.1byte	0x3
+ 216 0005 00 00 00 00 		.4byte	0x0
+ 217 0007 00 00 00 00 		.4byte	0x0
+ 218 0009 00 02       	.LLST2:
+ 219 000a 75          		.4byte	.LFB4
+ 220 000b 03          		.4byte	.LCFI1
+ 221 000b 00 00 00 00 		.2byte	0x1
+ 222 000d 00 00 00 00 		.1byte	0x55
+ 223                 		.4byte	.LCFI1
+ 224 000f 00 00 00 00 		.4byte	.LFE4
+ 225 0011 00 00 00 00 		.2byte	0x2
+ 226 0013 00 01       		.1byte	0x75
+ 227 0014 55          		.1byte	0x2
+ 228 0015 00 00 00 00 		.4byte	0x0
+ 229 0017 00 00 00 00 		.4byte	0x0
+ 230 0019 00 02       	.LLST3:
+ 231 001a 75          		.4byte	.LVL2
+ 232 001a 02          		.4byte	.LVL3
+ 233 001b 00 00 00 00 		.2byte	0x1
+ 234 001d 00 00 00 00 		.1byte	0x51
+ 235                 		.4byte	.LVL4
+ 236 001f 00 00 00 00 		.4byte	.LVL5
+ 237 0021 00 00 00 00 		.2byte	0x1
+ 238 0023 00 01       		.1byte	0x51
+ 239 0024 51          		.4byte	0x0
+ 240 0024 00 00 00 00 		.4byte	0x0
+ 241 0026 00 00 00 00 	.LLST4:
+ 242 0028 00 01       		.4byte	.LFB3
+ 243 0029 51          		.4byte	.LCFI2
+ 244 002a 00 00 00 00 		.2byte	0x1
+ 245 002c 00 00 00 00 		.1byte	0x55
+ 246                 		.4byte	.LCFI2
+ 247 002e 00 00 00 00 		.4byte	.LFE3
+ 248 0030 00 00 00 00 		.2byte	0x2
+ 249 0032 00 01       		.1byte	0x75
+ 250 0033 55          		.1byte	0x2
+ 251 0033 00 00 00 00 		.4byte	0x0
+ 252 0035 00 00 00 00 		.4byte	0x0
+ 253 0037 00 02       	.LLST5:
+ 254 0038 75          		.4byte	.LVL6
+ 255 0039 02          		.4byte	.LVL7
+ 256 0039 00 00 00 00 		.2byte	0x1
+ 257 003b 00 00 00 00 		.1byte	0x51
+ 258                 		.4byte	.LVL8
+ 259 003d 00 00 00 00 		.4byte	.LVL9
+ 260 003f 00 00 00 00 		.2byte	0x1
+ 261 0041 00 01       		.1byte	0x51
+ 262 0042 51          		.4byte	0x0
+ 263 0043 00 00 00 00 		.4byte	0x0
+ 264 0045 00 00 00 00 		.file 2 "D:/CSR_uEnergy_SDK-2.6.1.7/tools/include/CSR101x_A05/types.h"
+ 265 0047 00 01       		.file 3 "../mesh_common/mesh/include/csr_types.h"
+ 266 0048 51          		.file 4 "../mesh_common/mesh/include/battery_model.h"
+ 267 0048 00 00 00 00 		.section	.debug_info
+ 268 004a 00 00 00 00 		.4byte	0x178
+ 269                 		.2byte	0x2
+ 270                 		.4byte	.Ldebug_abbrev0
+ 271                 		.1byte	0x4
+ 272                 		.1byte	0x1
+ 273 0000 00 00 01 78 		.4byte	.LASF24
+ 274 0002 00 02       		.1byte	0x1
+ 275 0003 00 00 00 00 		.4byte	.LASF25
+ 276 0005 04          		.4byte	.LASF26
+ 277 0005 01          		.4byte	0x0
+ 278 0006 00 00 00 00 		.4byte	0x0
+ 279 0008 01          		.4byte	.Ldebug_ranges0+0x0
+ 280 0008 00 00 00 00 		.4byte	.Ldebug_line0
+ 281 000a 00 00 00 00 		.1byte	0x2
+ 282 000c 00 00 00 00 		.4byte	.LASF2
+ 283 000e 00 00 00 00 		.1byte	0x2
+ 284 0010 00 00 00 00 		.1byte	0x20
+ 285 0012 00 00 00 00 		.4byte	0x34
+ 286 0014 02          		.1byte	0x3
+ 287 0015 00 00 00 00 		.1byte	0x2
+ 288 0017 02          		.1byte	0x8
+ 289 0017 20          		.4byte	.LASF0
+ 290 0018 00 00 00 34 		.1byte	0x3
+ 291 001a 03          		.1byte	0x2
+ 292 001a 02          		.1byte	0x7
+ 293 001b 08          		.4byte	.LASF1
+ 294 001b 00 00 00 00 		.1byte	0x2
+ 295 001d 03          		.4byte	.LASF3
+ 296 001e 02          		.1byte	0x2
+ 297 001e 07          		.1byte	0x22
+ 298 001f 00 00 00 00 		.4byte	0x4d
+ 299 0021 02          		.1byte	0x3
+ 300 0021 00 00 00 00 		.1byte	0x4
+ 301 0023 02          		.1byte	0x7
+ 302 0024 22          		.4byte	.LASF4
+ 303 0024 00 00 00 4D 		.1byte	0x3
+ 304 0026 03          		.1byte	0x2
+ 305 0027 04          		.1byte	0x6
+ 306 0027 07          		.4byte	.LASF5
+ 307 0028 00 00 00 00 		.1byte	0x3
+ 308 002a 03          		.1byte	0x2
+ 309 002a 02          		.1byte	0x5
+ 310 002b 06          		.4byte	.LASF6
+ 311 002b 00 00 00 00 		.1byte	0x3
+ 312 002d 03          		.1byte	0x4
+ 313 002e 02          		.1byte	0x5
+ 314 002e 05          		.4byte	.LASF7
+ 315 002f 00 00 00 00 		.1byte	0x2
+ 316 0031 03          		.4byte	.LASF8
+ 317 0031 04          		.1byte	0x2
+ 318 0032 05          		.1byte	0x2c
+ 319 0032 00 00 00 00 		.4byte	0x74
+ 320 0034 02          		.1byte	0x3
+ 321 0035 00 00 00 00 		.1byte	0x2
+ 322 0037 02          		.1byte	0x7
+ 323 0037 2C          		.4byte	.LASF9
+ 324 0038 00 00 00 74 		.1byte	0x4
+ 325 003a 03          		.1byte	0x2
+ 326 003a 02          		.1byte	0x7
+ 327 003b 07          		.1byte	0x2
+ 328 003b 00 00 00 00 		.4byte	.LASF10
+ 329 003d 04          		.1byte	0x3
+ 330 003e 02          		.1byte	0x3f
+ 331 003e 07          		.4byte	0x29
+ 332 003f 02          		.1byte	0x3
+ 333 003f 00 00 00 00 		.1byte	0x2
+ 334 0041 03          		.1byte	0x8
+ 335 0042 3F          		.4byte	.LASF11
+ 336 0042 00 00 00 29 		.1byte	0x5
+ 337 0044 03          		.1byte	0x6
+ 338 0045 02          		.1byte	0x4
+ 339 0045 08          		.1byte	0x26
+ 340 0046 00 00 00 00 		.4byte	0xc3
+ 341 0048 05          		.1byte	0x6
+ 342 0048 06          		.4byte	.LASF12
+ 343 0049 04          		.1byte	0x4
+ 344 0049 26          		.1byte	0x27
+ 345 004a 00 00 00 C3 		.4byte	0x7e
+ 346 004c 06          		.1byte	0x2
+ 347 004c 00 00 00 00 		.1byte	0x23
+ 348 004e 04          		.1byte	0x0
+ 349 004f 27          		.1byte	0x6
+ 350 004f 00 00 00 7E 		.4byte	.LASF13
+ 351 0051 02          		.1byte	0x4
+ 352 0052 23          		.1byte	0x28
+ 353 0052 00          		.4byte	0x7e
+ 354 0053 06          		.1byte	0x2
+ 355 0053 00 00 00 00 		.1byte	0x23
+ 356 0055 04          		.1byte	0x1
+ 357 0056 28          		.1byte	0x7
+ 358 0056 00 00 00 7E 		.ascii "tid\000"
+ 359 0058 02          		.1byte	0x4
+ 360 0059 23          		.1byte	0x29
+ 361 0059 01          		.4byte	0x7e
+ 362 005a 07          		.1byte	0x2
+ 363 005a 74 69 64 00 		.1byte	0x23
+ 364 005c 04          		.1byte	0x2
+ 365 005d 29          		.1byte	0x0
+ 366 005d 00 00 00 7E 		.1byte	0x2
+ 367 005f 02          		.4byte	.LASF14
+ 368 0060 23          		.1byte	0x4
+ 369 0060 02          		.1byte	0x2a
+ 370 0061 00          		.4byte	0x90
+ 371 0061 02          		.1byte	0x8
+ 372 0062 00 00 00 00 		.1byte	0x1
+ 373 0064 04          		.4byte	.LASF18
+ 374 0064 2A          		.1byte	0x1
+ 375 0065 00 00 00 90 		.1byte	0x2d
+ 376 0067 08          		.1byte	0x1
+ 377 0067 01          		.4byte	0x29
+ 378 0068 00 00 00 00 		.4byte	.LFB2
+ 379 006a 01          		.4byte	.LFE2
+ 380 006a 2D          		.4byte	.LLST0
+ 381 006b 01          		.4byte	0x102
+ 382 006b 00 00 00 29 		.1byte	0x9
+ 383 006d 00 00 00 00 		.4byte	.LASF15
+ 384 006f 00 00 00 00 		.1byte	0x1
+ 385 0071 00 00 00 00 		.1byte	0x2e
+ 386 0073 00 00 01 02 		.4byte	0x42
+ 387 0075 09          		.1byte	0x9
+ 388 0076 00 00 00 00 		.4byte	.LASF16
+ 389 0078 01          		.1byte	0x1
+ 390 0078 2E          		.1byte	0x2f
+ 391 0079 00 00 00 42 		.4byte	0x42
+ 392 007b 09          		.1byte	0x0
+ 393 007b 00 00 00 00 		.1byte	0xa
+ 394 007d 01          		.1byte	0x1
+ 395 007e 2F          		.4byte	.LASF20
+ 396 007e 00 00 00 42 		.1byte	0x1
+ 397 0080 00          		.1byte	0x8e
+ 398 0081 0A          		.1byte	0x1
+ 399 0081 01          		.4byte	.LFB5
+ 400 0082 00 00 00 00 		.4byte	.LFE5
+ 401 0084 01          		.1byte	0x1
+ 402 0084 8E          		.1byte	0x55
+ 403 0085 01          		.4byte	0x125
+ 404 0085 00 00 00 00 		.1byte	0x9
+ 405 0087 00 00 00 00 		.4byte	.LASF17
+ 406 0089 01          		.1byte	0x1
+ 407 008a 55          		.1byte	0x8f
+ 408 008a 00 00 01 25 		.4byte	0xc3
+ 409 008c 09          		.1byte	0x0
+ 410 008d 00 00 00 00 		.1byte	0x8
+ 411 008f 01          		.1byte	0x1
+ 412 008f 8F          		.4byte	.LASF19
+ 413 0090 00 00 00 C3 		.1byte	0x1
+ 414 0092 00          		.1byte	0x73
+ 415 0092 08          		.1byte	0x1
+ 416 0093 01          		.4byte	0x29
+ 417 0093 00 00 00 00 		.4byte	.LFB4
+ 418 0095 01          		.4byte	.LFE4
+ 419 0096 73          		.4byte	.LLST2
+ 420 0096 01          		.4byte	0x152
+ 421 0097 00 00 00 29 		.1byte	0xb
+ 422 0099 00 00 00 00 		.4byte	.LASF22
+ 423 009b 00 00 00 00 		.1byte	0x1
+ 424 009d 00 00 00 00 		.1byte	0x74
+ 425 009f 00 00 01 52 		.4byte	0x29
+ 426 00a1 0B          		.4byte	.LLST3
+ 427 00a1 00 00 00 00 		.1byte	0x0
+ 428 00a3 01          		.1byte	0xc
+ 429 00a4 74          		.1byte	0x1
+ 430 00a4 00 00 00 29 		.4byte	.LASF21
+ 431 00a6 00 00 00 00 		.1byte	0x1
+ 432 00a8 00          		.1byte	0x56
+ 433 00a9 0C          		.1byte	0x1
+ 434 00a9 01          		.4byte	0x69
+ 435 00aa 00 00 00 00 		.4byte	.LFB3
+ 436 00ac 01          		.4byte	.LFE3
+ 437 00ac 56          		.4byte	.LLST4
+ 438 00ad 01          		.1byte	0xb
+ 439 00ad 00 00 00 69 		.4byte	.LASF23
+ 440 00af 00 00 00 00 		.1byte	0x1
+ 441 00b1 00 00 00 00 		.1byte	0x57
+ 442 00b3 00 00 00 00 		.4byte	0x69
+ 443 00b5 0B          		.4byte	.LLST5
+ 444 00b6 00 00 00 00 		.1byte	0x0
+ 445 00b8 01          		.1byte	0x0
+ 446 00b8 57          		.section	.debug_abbrev
+ 447 00b9 00 00 00 69 		.1byte	0x1
+ 448 00bb 00 00 00 00 		.1byte	0x11
+ 449 00bd 00          		.1byte	0x1
+ 450 00bd 00          		.1byte	0x25
+ 451                 		.1byte	0xe
+ 452 0000 01          		.1byte	0x13
+ 453 0000 11          		.1byte	0xb
+ 454 0001 01          		.1byte	0x3
+ 455 0001 25          		.1byte	0xe
+ 456 0002 0E          		.1byte	0x1b
+ 457 0002 13          		.1byte	0xe
+ 458 0003 0B          		.1byte	0x11
+ 459 0003 03          		.1byte	0x1
+ 460 0004 0E          		.1byte	0x52
+ 461 0004 1B          		.1byte	0x1
+ 462 0005 0E          		.1byte	0x55
+ 463 0005 11          		.1byte	0x6
+ 464 0006 01          		.1byte	0x10
+ 465 0006 52          		.1byte	0x6
+ 466 0007 01          		.1byte	0x0
+ 467 0007 55          		.1byte	0x0
+ 468 0008 06          		.1byte	0x2
+ 469 0008 10          		.1byte	0x16
+ 470 0009 06          		.1byte	0x0
+ 471 0009 00          		.1byte	0x3
+ 472 000a 00          		.1byte	0xe
+ 473 000a 02          		.1byte	0x3a
+ 474 000b 16          		.1byte	0xb
+ 475 000b 00          		.1byte	0x3b
+ 476 000c 03          		.1byte	0xb
+ 477 000c 0E          		.1byte	0x49
+ 478 000d 3A          		.1byte	0x13
+ 479 000d 0B          		.1byte	0x0
+ 480 000e 3B          		.1byte	0x0
+ 481 000e 0B          		.1byte	0x3
+ 482 000f 49          		.1byte	0x24
+ 483 000f 13          		.1byte	0x0
+ 484 0010 00          		.1byte	0xb
+ 485 0010 00          		.1byte	0xb
+ 486 0011 03          		.1byte	0x3e
+ 487 0011 24          		.1byte	0xb
+ 488 0012 00          		.1byte	0x3
+ 489 0012 0B          		.1byte	0xe
+ 490 0013 0B          		.1byte	0x0
+ 491 0013 3E          		.1byte	0x0
+ 492 0014 0B          		.1byte	0x4
+ 493 0014 03          		.1byte	0x24
+ 494 0015 0E          		.1byte	0x0
+ 495 0015 00          		.1byte	0xb
+ 496 0016 00          		.1byte	0xb
+ 497 0016 04          		.1byte	0x3e
+ 498 0017 24          		.1byte	0xb
+ 499 0017 00          		.1byte	0x0
+ 500 0018 0B          		.1byte	0x0
+ 501 0018 0B          		.1byte	0x5
+ 502 0019 3E          		.1byte	0x13
+ 503 0019 0B          		.1byte	0x1
+ 504 001a 00          		.1byte	0xb
+ 505 001a 00          		.1byte	0xb
+ 506 001b 05          		.1byte	0x3a
+ 507 001b 13          		.1byte	0xb
+ 508 001c 01          		.1byte	0x3b
+ 509 001c 0B          		.1byte	0xb
+ 510 001d 0B          		.1byte	0x1
+ 511 001d 3A          		.1byte	0x13
+ 512 001e 0B          		.1byte	0x0
+ 513 001e 3B          		.1byte	0x0
+ 514 001f 0B          		.1byte	0x6
+ 515 001f 01          		.1byte	0xd
+ 516 0020 13          		.1byte	0x0
+ 517 0020 00          		.1byte	0x3
+ 518 0021 00          		.1byte	0xe
+ 519 0021 06          		.1byte	0x3a
+ 520 0022 0D          		.1byte	0xb
+ 521 0022 00          		.1byte	0x3b
+ 522 0023 03          		.1byte	0xb
+ 523 0023 0E          		.1byte	0x49
+ 524 0024 3A          		.1byte	0x13
+ 525 0024 0B          		.1byte	0x38
+ 526 0025 3B          		.1byte	0xa
+ 527 0025 0B          		.1byte	0x0
+ 528 0026 49          		.1byte	0x0
+ 529 0026 13          		.1byte	0x7
+ 530 0027 38          		.1byte	0xd
+ 531 0027 0A          		.1byte	0x0
+ 532 0028 00          		.1byte	0x3
+ 533 0028 00          		.1byte	0x8
+ 534 0029 07          		.1byte	0x3a
+ 535 0029 0D          		.1byte	0xb
+ 536 002a 00          		.1byte	0x3b
+ 537 002a 03          		.1byte	0xb
+ 538 002b 08          		.1byte	0x49
+ 539 002b 3A          		.1byte	0x13
+ 540 002c 0B          		.1byte	0x38
+ 541 002c 3B          		.1byte	0xa
+ 542 002d 0B          		.1byte	0x0
+ 543 002d 49          		.1byte	0x0
+ 544 002e 13          		.1byte	0x8
+ 545 002e 38          		.1byte	0x2e
+ 546 002f 0A          		.1byte	0x1
+ 547 002f 00          		.1byte	0x3f
+ 548 0030 00          		.1byte	0xc
+ 549 0030 08          		.1byte	0x3
+ 550 0031 2E          		.1byte	0xe
+ 551 0031 01          		.1byte	0x3a
+ 552 0032 3F          		.1byte	0xb
+ 553 0032 0C          		.1byte	0x3b
+ 554 0033 03          		.1byte	0xb
+ 555 0033 0E          		.1byte	0x27
+ 556 0034 3A          		.1byte	0xc
+ 557 0034 0B          		.1byte	0x49
+ 558 0035 3B          		.1byte	0x13
+ 559 0035 0B          		.1byte	0x11
+ 560 0036 27          		.1byte	0x1
+ 561 0036 0C          		.1byte	0x12
+ 562 0037 49          		.1byte	0x1
+ 563 0037 13          		.1byte	0x40
+ 564 0038 11          		.1byte	0x6
+ 565 0038 01          		.1byte	0x1
+ 566 0039 12          		.1byte	0x13
+ 567 0039 01          		.1byte	0x0
+ 568 003a 40          		.1byte	0x0
+ 569 003a 06          		.1byte	0x9
+ 570 003b 01          		.1byte	0x34
+ 571 003b 13          		.1byte	0x0
+ 572 003c 00          		.1byte	0x3
+ 573 003c 00          		.1byte	0xe
+ 574 003d 09          		.1byte	0x3a
+ 575 003d 34          		.1byte	0xb
+ 576 003e 00          		.1byte	0x3b
+ 577 003e 03          		.1byte	0xb
+ 578 003f 0E          		.1byte	0x49
+ 579 003f 3A          		.1byte	0x13
+ 580 0040 0B          		.1byte	0x0
+ 581 0040 3B          		.1byte	0x0
+ 582 0041 0B          		.1byte	0xa
+ 583 0041 49          		.1byte	0x2e
+ 584 0042 13          		.1byte	0x1
+ 585 0042 00          		.1byte	0x3f
+ 586 0043 00          		.1byte	0xc
+ 587 0043 0A          		.1byte	0x3
+ 588 0044 2E          		.1byte	0xe
+ 589 0044 01          		.1byte	0x3a
+ 590 0045 3F          		.1byte	0xb
+ 591 0045 0C          		.1byte	0x3b
+ 592 0046 03          		.1byte	0xb
+ 593 0046 0E          		.1byte	0x27
+ 594 0047 3A          		.1byte	0xc
+ 595 0047 0B          		.1byte	0x11
+ 596 0048 3B          		.1byte	0x1
+ 597 0048 0B          		.1byte	0x12
+ 598 0049 27          		.1byte	0x1
+ 599 0049 0C          		.1byte	0x40
+ 600 004a 11          		.1byte	0xa
+ 601 004a 01          		.1byte	0x1
+ 602 004b 12          		.1byte	0x13
+ 603 004b 01          		.1byte	0x0
+ 604 004c 40          		.1byte	0x0
+ 605 004c 0A          		.1byte	0xb
+ 606 004d 01          		.1byte	0x34
+ 607 004d 13          		.1byte	0x0
+ 608 004e 00          		.1byte	0x3
+ 609 004e 00          		.1byte	0xe
+ 610 004f 0B          		.1byte	0x3a
+ 611 004f 34          		.1byte	0xb
+ 612 0050 00          		.1byte	0x3b
+ 613 0050 03          		.1byte	0xb
+ 614 0051 0E          		.1byte	0x49
+ 615 0051 3A          		.1byte	0x13
+ 616 0052 0B          		.1byte	0x2
+ 617 0052 3B          		.1byte	0x6
+ 618 0053 0B          		.1byte	0x0
+ 619 0053 49          		.1byte	0x0
+ 620 0054 13          		.1byte	0xc
+ 621 0054 02          		.1byte	0x2e
+ 622 0055 06          		.1byte	0x1
+ 623 0055 00          		.1byte	0x3f
+ 624 0056 00          		.1byte	0xc
+ 625 0056 0C          		.1byte	0x3
+ 626 0057 2E          		.1byte	0xe
+ 627 0057 01          		.1byte	0x3a
+ 628 0058 3F          		.1byte	0xb
+ 629 0058 0C          		.1byte	0x3b
+ 630 0059 03          		.1byte	0xb
+ 631 0059 0E          		.1byte	0x27
+ 632 005a 3A          		.1byte	0xc
+ 633 005a 0B          		.1byte	0x49
+ 634 005b 3B          		.1byte	0x13
+ 635 005b 0B          		.1byte	0x11
+ 636 005c 27          		.1byte	0x1
+ 637 005c 0C          		.1byte	0x12
+ 638 005d 49          		.1byte	0x1
+ 639 005d 13          		.1byte	0x40
+ 640 005e 11          		.1byte	0x6
+ 641 005e 01          		.1byte	0x0
+ 642 005f 12          		.1byte	0x0
+ 643 005f 01          		.1byte	0x0
+ 644 0060 40          		.section	.debug_pubnames,"",@progbits
+ 645 0060 06          		.4byte	0x6f
+ 646 0061 00          		.2byte	0x2
+ 647 0061 00          		.4byte	.Ldebug_info0
+ 648 0062 00          		.4byte	0x17c
+ 649                 		.4byte	0xce
+ 650 0000 00 00 00 6F 		.ascii "ReadBatteryLevel\000"
+ 651 0002 00 02       		.4byte	0x102
+ 652 0003 00 00 00 00 		.ascii "SendLowBatteryIndication\000"
+ 653 0005 00 00 01 7C 		.4byte	0x125
+ 654 0007 00 00 00 CE 		.ascii "GetBatteryState\000"
+ 655 0009 52 65 61 64 		.4byte	0x152
+ 655      42 61 74 74 
+ 655      65 72 79 4C 
+ 655      65 76 65 6C 
+ 655      00 
+ 656 0011 00 00 01 02 		.ascii "CheckLowBatteryVoltage\000"
+ 657 0013 53 65 6E 64 		.4byte	0x0
+ 657      4C 6F 77 42 
+ 657      61 74 74 65 
+ 657      72 79 49 6E 
+ 657      64 69 63 61 
+ 658 0020 00 00 01 25 		.section	.debug_aranges,"",@progbits
+ 659 0022 47 65 74 42 		.4byte	0x34
+ 659      61 74 74 65 
+ 659      72 79 53 74 
+ 659      61 74 65 00 
+ 660 002a 00 00 01 52 		.2byte	0x2
+ 661 002c 43 68 65 63 		.4byte	.Ldebug_info0
+ 661      6B 4C 6F 77 
+ 661      42 61 74 74 
+ 661      65 72 79 56 
+ 661      6F 6C 74 61 
+ 662 0037 00 00 00 00 		.1byte	0x4
+ 663                 		.1byte	0x0
+ 664 0000 00 00 00 34 		.2byte	0x0
+ 665 0002 00 02       		.2byte	0x0
+ 666 0003 00 00 00 00 		.4byte	.LFB2
+ 667 0005 04          		.4byte	.LFE2-.LFB2
+ 668 0005 00          		.4byte	.LFB5
+ 669 0006 00 00       		.4byte	.LFE5-.LFB5
+ 670 0007 00 00       		.4byte	.LFB4
+ 671 0008 00 00 00 00 		.4byte	.LFE4-.LFB4
+ 672 000a 00 00 00 00 		.4byte	.LFB3
+ 673 000c 00 00 00 00 		.4byte	.LFE3-.LFB3
+ 674 000e 00 00 00 00 		.4byte	0x0
+ 675 0010 00 00 00 00 		.4byte	0x0
+ 676 0012 00 00 00 00 		.section	.debug_ranges,"",@progbits
+ 677 0014 00 00 00 00 	.Ldebug_ranges0:
+ 678 0016 00 00 00 00 		.4byte	.Ltext0
+ 679 0018 00 00 00 00 		.4byte	.Letext0
+ 680 001a 00 00 00 00 		.4byte	.LFB2
+ 681                 		.4byte	.LFE2
+ 682                 		.4byte	.LFB5
+ 683 0000 00 00 00 00 		.4byte	.LFE5
+ 684 0002 00 00 00 00 		.4byte	.LFB4
+ 685 0004 00 00 00 00 		.4byte	.LFE4
+ 686 0006 00 00 00 00 		.4byte	.LFB3
+ 687 0008 00 00 00 00 		.4byte	.LFE3
+ 688 000a 00 00 00 00 		.4byte	0x0
+ 689 000c 00 00 00 00 		.4byte	0x0
+ 690 000e 00 00 00 00 		.section	.debug_str,"MS",@progbits,1
+ 691 0010 00 00 00 00 	.LASF3:
+ 692 0012 00 00 00 00 		.ascii "uint32\000"
+ 693 0014 00 00 00 00 	.LASF9:
+ 694 0016 00 00 00 00 		.ascii "unsigned int\000"
+ 695                 	.LASF2:
+ 696                 		.ascii "uint8\000"
+ 697 0000 75 69 6E 74 	.LASF23:
+ 697      33 32 00 
+ 698                 		.ascii "low_battery\000"
+ 699 0003 75 6E 73 69 	.LASF26:
+ 699      67 6E 65 64 
+ 699      20 69 6E 74 
+ 699      00 
+ 700                 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-5-2\\apps\\csrmesh_2_1_node - xm-data-block\\applic
+ 701 000a 75 69 6E 74 	.LASF4:
+ 701      38 00 
+ 702                 		.ascii "long unsigned int\000"
+ 703 000d 6C 6F 77 5F 	.LASF6:
+ 703      62 61 74 74 
+ 703      65 72 79 00 
+ 704                 		.ascii "short int\000"
+ 705 0013 45 3A 5C 43 	.LASF17:
+ 705      53 52 5F 75 
+ 705      45 6E 65 72 
+ 705      67 79 5F 53 
+ 705      44 4B 2D 32 
+ 706                 		.ascii "batt_state\000"
+ 707 004d 6C 6F 6E 67 	.LASF20:
+ 707      20 75 6E 73 
+ 707      69 67 6E 65 
+ 707      64 20 69 6E 
+ 707      74 00 
+ 708                 		.ascii "SendLowBatteryIndication\000"
+ 709 0056 73 68 6F 72 	.LASF8:
+ 709      74 20 69 6E 
+ 709      74 00 
+ 710                 		.ascii "bool\000"
+ 711 005b 62 61 74 74 	.LASF18:
+ 711      5F 73 74 61 
+ 711      74 65 00 
+ 712                 		.ascii "ReadBatteryLevel\000"
+ 713 0060 53 65 6E 64 	.LASF0:
+ 713      4C 6F 77 42 
+ 713      61 74 74 65 
+ 713      72 79 49 6E 
+ 713      64 69 63 61 
+ 714                 		.ascii "unsigned char\000"
+ 715 006d 62 6F 6F 6C 	.LASF11:
+ 715      00 
+ 716                 		.ascii "char\000"
+ 717 006f 52 65 61 64 	.LASF10:
+ 717      42 61 74 74 
+ 717      65 72 79 4C 
+ 717      65 76 65 6C 
+ 717      00 
+ 718                 		.ascii "CsrUint8\000"
+ 719 0078 75 6E 73 69 	.LASF14:
+ 719      67 6E 65 64 
+ 719      20 63 68 61 
+ 719      72 00 
+ 720                 		.ascii "CSRMESH_BATTERY_STATE_T\000"
+ 721 007f 63 68 61 72 	.LASF12:
+ 721      00 
+ 722                 		.ascii "batterylevel\000"
+ 723 0081 43 73 72 55 	.LASF13:
+ 723      69 6E 74 38 
+ 723      00 
+ 724                 		.ascii "batterystate\000"
+ 725 0086 43 53 52 4D 	.LASF22:
+ 725      45 53 48 5F 
+ 725      42 41 54 54 
+ 725      45 52 59 5F 
+ 725      53 54 41 54 
+ 726                 		.ascii "battery_state\000"
+ 727 0092 62 61 74 74 	.LASF7:
+ 727      65 72 79 6C 
+ 727      65 76 65 6C 
+ 727      00 
+ 728                 		.ascii "long int\000"
+ 729 0098 62 61 74 74 	.LASF15:
+ 729      65 72 79 73 
+ 729      74 61 74 65 
+ 729      00 
+ 730                 		.ascii "bat_voltage\000"
+ 731 009f 62 61 74 74 	.LASF19:
+ 731      65 72 79 5F 
+ 731      73 74 61 74 
+ 731      65 00 
+ 732                 		.ascii "GetBatteryState\000"
+ 733 00a6 6C 6F 6E 67 	.LASF1:
+ 733      20 69 6E 74 
+ 733      00 
+ 734                 		.ascii "short unsigned int\000"
+ 735 00aa 62 61 74 5F 	.LASF5:
+ 735      76 6F 6C 74 
+ 735      61 67 65 00 
+ 736                 		.ascii "signed char\000"
+ 737 00b0 47 65 74 42 	.LASF24:
+ 737      61 74 74 65 
+ 737      72 79 53 74 
+ 737      61 74 65 00 
+ 738                 		.ascii "GNU C 4.3.4 CSR version 29 for xap []\000"
+ 739 00b8 73 68 6F 72 	.LASF25:
+ 739      74 20 75 6E 
+ 739      73 69 67 6E 
+ 739      65 64 20 69 
+ 739      6E 74 00 
+ 740                 		.ascii "../mesh_common/mesh/drivers/battery_hw.c\000"
+ 741 00c2 73 69 67 6E 	.LASF21:
+ 741      65 64 20 63 
+ 741      68 61 72 00 
+ 742                 		.ascii "CheckLowBatteryVoltage\000"
+ 743 00c8 47 4E 55 20 	.LASF16:
+ 743      43 20 34 2E 
+ 743      33 2E 34 20 
+ 743      43 53 52 20 
+ 743      76 65 72 73 
+ 744                 		.ascii "bat_level\000"
+ 745 00db 2E 2E 2F 6D 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"
+ 745      65 73 68 5F 
+ 745      63 6F 6D 6D 
+ 745      6F 6E 2F 6D 
+ 745      65 73 68 2F 
+ 746                 	...
