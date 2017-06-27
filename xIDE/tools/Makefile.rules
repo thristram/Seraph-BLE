@@ -1,0 +1,7 @@
+# -*-Makefile-*-
+#
+# uEnergy SDK common rules
+#
+
+MAKE_MODE := legacy
+include $(SDK)/Makefile.common.rules

@@ -1,0 +1,29 @@
+// uEnergyOTAUpdateTool.idl : type library source for uEnergyOTAUpdateTool.exe
+
+// This file will be processed by the MIDL compiler to produce the
+// type library (uEnergyOTAUpdateTool.tlb).
+
+[ uuid(F81E03AE-5CAC-48DB-8F61-E70EAB1B6008), version(1.0) ]
+library uEnergyOTAUpdateTool
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	//  Primary dispatch interface for CuEnergyOTAUpdateToolDoc
+	
+	[ uuid(AEE4B565-A36E-4F96-B5C7-60643E21FCD3) ]
+	dispinterface IuEnergyOTAUpdateTool
+	{
+		properties:
+			
+		methods:
+	};
+
+	//  Class information for CuEnergyOTAUpdateToolDoc
+	
+	[ uuid(D6E0F2B4-8530-471F-B869-86D34F48C074) ]
+	coclass uEnergyOTAUpdateTool
+	{
+		[default] dispinterface IuEnergyOTAUpdateTool;
+	};
+};

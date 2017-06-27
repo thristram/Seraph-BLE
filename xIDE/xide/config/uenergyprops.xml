@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<properties envId="{............}">
+    <propertygroup name="General">
+        <appliesto selector="c"/>
+        <property type="boolean" key="includeinbuild" name="Include in build" defaultvalue="1">
+            <description>
+            <![CDATA[
+            Select 'Yes' to include this file in the build.
+            ]]>
+            </description>
+        </property>
+    </propertygroup>
+    <propertygroup name="General">
+        <appliesto selector="asm"/>
+        <property type="boolean" key="includeinbuild" name="Include in build" defaultvalue="1">
+            <description>
+            <![CDATA[
+            Select 'Yes' to include this file in the build.
+            ]]>
+            </description>
+        </property>
+    </propertygroup>
+    <propertygroup name="General">
+        <appliesto selector="db"/>
+        <property type="boolean" key="includeinbuild" name="Include in build" defaultvalue="1">
+            <description>
+            <![CDATA[
+            Select 'Yes' to include this file in the build.
+            ]]>
+            </description>
+        </property>
+    </propertygroup>
+    <propertygroup name="General">
+        <appliesto selector="keyr"/>
+        <property type="boolean" key="includeinbuild" name="Include in build" defaultvalue="1">
+            <description>
+            <![CDATA[
+            Select 'Yes' to include this file in the build.
+            ]]>
+            </description>
+        </property>
+    </propertygroup>
+
+    <group name="Build System">
+        <propertygroup name="General">
+            <appliesto selector="project"/>
+            <property type="text" key="output" name="Output Name" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    Specify the name that you want to give the output file.
+                    <p>
+                    If you leave this blank, then the project name will be used.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="list" key="output_type" internalkey="OUTPUT_TYPE" format="passthrough" name="Output Type" defaultvalue="0">
+                <option internalval="0">Executable</option>
+                <option internalval="1">Library</option>
+                <description>
+                    <![CDATA[
+                    Select the type of the output produced by the build.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="list" key="download_into" internalkey="USE_FLASH" format="passthrough" name="NVM Type" defaultvalue="0">
+                <option internalval="0">EEPROM</option>
+                <option internalval="1">FLASH</option>
+                <description>
+                    <![CDATA[
+                    Select the type of <b>Non-Volatile Memory (NVM)</b> the application image
+                    will be downloaded to.
+                    <p>
+                    A macro is defined during compilation to let the application know
+                    which NVM type it is being built for. If <b>EEPROM</b> is selected
+                    <tt>NVM_TYPE_EEPROM</tt> will be defined, for <b>FLASH</b> the macro
+                    <tt>NVM_TYPE_FLASH</tt> will be defined.
+                    <p>
+                    <b>Notes:</b> 
+                    <ol>
+                    <li>When changing this property it may also be necessary to modify
+                    the configuration store - specifically <tt>nvm_start_address</tt>, 
+                    <tt>nvm_size</tt>, <tt>nvm_num_spi_blocks</tt> and <tt>spi_flash_block_size</tt>.
+                    <li>When changing this property it may also be necessary to modify the <b>Slot 1 Address (OTA Update Bootloader)</b> and <b>Slot 2 Address (OTA Update Bootloader)</b> properties. See the property descriptions in xIDE for more information.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="boolean" key="erase_nvm" internalkey="ERASE_NVM" format="passthrough" name="Erase NVM" defaultvalue="1">
+                <description>
+                    <![CDATA[
+                    Select whether to erase the <b>Non-Volatile Memory (NVM)</b> prior to
+                    downloading the image.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="file" key="csr101x_a05_keyr" internalkey="CSFILE_CSR101x_A05" format="passthrough" name="CS Key File" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    Specify the name of the <b>Configuration Store (CS)</b> key definition
+                    file (<tt>.keyr</tt>). For example:
+                    <p>
+                    <tt>example.keyr</tt>
+                    <p>
+                    The <tt>$(SDK_INSTALL_PATH)</tt> macro may be used to insert the path to
+                    the SDK installation folder (e.g.
+                    <tt>C:/CSR_uEnergy_SDK-&lt;version&gt;</tt>).
+                    <p>
+                    See <i>xIDE User Guide</i>&nbsp; in the Support Documentation for further
+                    information about macros and project properties.
+                    <p>
+                    <b>Notes:</b>
+                    <ol>
+                    <li>If the file is not present in the project folder, specify the
+                    absolute path, or the path relative to the project folder.
+                    <li>The specified path and filename are case sensitive.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="file" key="master_db" internalkey="MASTER_DB" format="passthrough" name="Master Database" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    Select a GATT database file to use as master. <b>This file must be
+                    included in the project.</b>
+                    <p>
+                    A master database file typically contains <tt>#include</tt> statements to
+                    select particular database files from the project and build them in a
+                    specific order.
+                    <p>
+                    If no master database file is specified then the build looks for a
+                    database called <tt>app_gatt_db.db</tt>. If found, this is used as the
+                    master database.
+                    <p>
+                    The build will process the database files and generate a header file named
+                    after the master database, which may be included in other source files
+                    (e.g. if the master database is called <tt>master_db.db</tt>, then the
+                    file <tt>master_db.h</tt> will be generated). If no master database is
+                    specified, then the header file will be called <tt>app_gatt_db.h</tt>.
+                    <p>
+                    The <tt>$(SDK_INSTALL_PATH)</tt> macro may be used to insert the path to
+                    the SDK installation folder (e.g.
+                    <tt>C:/CSR_uEnergy_SDK-&lt;version&gt;</tt>).
+                    <p>
+                    See <i>xIDE User Guide</i>&nbsp; in the Support Documentation for further
+                    information about macros and project properties.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="libs" name="Libraries" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    Specify the libraries to be used in the project. These are passed to GCC
+                    using the <tt>-l</tt> command line option. See the GCC manual pages for
+                    more information.
+                    <p>
+                    Multiple libraries should be separated with white space. For example:
+                    <p>
+                    <tt>library1 library2</tt>
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="libpaths" internalkey="LIBPATHS" format="passthrough" name="Library Search Paths" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    Specify the folders to search for libraries used in the project. These
+                    are passed to GCC using the <tt>-L</tt> command line option in the order
+                    stated. See the GCC manual pages for more information.
+                    <p>
+                    The project folder is automatically included first in the list, and
+                    the default SDK library folder is automatically included last in the
+                    list.
+                    <p>
+                    Multiple folders should be separated with white space. For example:
+                    <p>
+                    <tt>../library1 ../library2</tt>
+                    <p>
+                    Recursive paths are specified using an ellipsis (<tt>...</tt>). For
+                    example: <tt>../library1/...</tt> adds <tt>../library1</tt> and all its
+                    sub-folders to the list.
+                    <p>
+                    The <tt>$(TARGET_HARDWARE)</tt> macro may be used to insert the target
+                    hardware name (e.g. <tt>CSR101x_A05</tt>). For example:
+                    <tt>../library/depend_Release_$(TARGET_HARDWARE)</tt>
+                    <p>
+                    The <tt>$(SDK_INSTALL_PATH)</tt> macro may be used to insert the path to
+                    the SDK installation folder (e.g.
+                    <tt>C:/CSR_uEnergy_SDK-&lt;version&gt;</tt>).
+                    <p>
+                    See <i>xIDE User Guide</i>&nbsp; in the Support Documentation for further
+                    information about macros and project properties.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="incpaths" internalkey="INCPATHS" format="passthrough" name="Include Paths" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    Specify the folders to search for included header files used in the
+                    project. These are passed to GCC using the <tt>-I</tt> command line 
+                    option in the order stated. See the GCC manual pages for more
+                    information.
+                    <p>
+                    The project folder is automatically included first in the list, and the
+                    default SDK include folder is automatically included last in the list.
+                    <p>
+                    Multiple folders should be separated with white space. For example:
+                    <p>
+                    <tt>../include1 ../include2</tt>
+                    <p>
+                    Recursive paths are specified using an ellipsis (<tt>...</tt>). For
+                    example: <tt>../include1/...</tt> adds <tt>../include1</tt> and all
+                    its sub-folders to the list.
+                    <p>
+                    The <tt>$(SDK_INSTALL_PATH)</tt> macro may be used to insert the path to
+                    the SDK installation folder (e.g.
+                    <tt>C:/CSR_uEnergy_SDK-&lt;version&gt;</tt>).
+                    <p>
+                    See <i>xIDE User Guide</i>&nbsp; in the Support Documentation for further
+                    information about macros and project properties.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="defines" name="Define Macros" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    Specify preprocessor macros to define. These are passed to GCC using the
+                    <tt>-D</tt> command line option. See the GCC manual pages for more
+                    information.
+                    <p>
+                    Multiple macros should be separated with a comma. For example:
+                    <p>
+                    <tt>MACRO1, MACRO2</tt>
+                    ]]>
+                </description>
+            </property>
+
+            <property type="boolean" key="strip_symbols" internalkey="STRIP_SYMBOLS" format="passthrough" name="Strip Symbols" defaultvalue="0">
+                <description>
+                    <![CDATA[
+                    <b>Only applicable when the Output Type is Library</b>
+                    <p>
+                    Strip debug and unnecessary symbols from the output library file.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="flash_clock" internalkey="FLASH_CLOCK" format="passthrough" name="Flash Clock PIO">
+                <description>
+                    <![CDATA[
+                    Select the PIO port to use for communicating clock signals with Flash
+                    NVM.
+                    <p>
+                    Range: [0, 15]
+                    <p>
+                    <b>Note:</b> PIO3 and PIO4 are reserved for the MOSI and CSB SPI lines
+                    respectively.
+                    <p>
+                    This property is only used when the <b>NVM Type</b> is set to
+                    <b>FLASH</b>, and the Flash device capacity is greater than 512-kbits.
+                    <p>
+                    See <i>Interfacing Large Serial Flash and EEPROM Application
+                    Note</i>&nbsp; in the Support Documentation for further information.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="flash_miso" internalkey="FLASH_MISO" format="passthrough" name="Flash MISO PIO">
+                <description>
+                    <![CDATA[
+                    Select the PIO port to use for communicating MISO signals with Flash NVM.
+                    <p>
+                    Range: [0, 15]
+                    <p>
+                    <b>Note:</b> PIO3 and PIO4 are reserved for the MOSI and CSB SPI lines
+                    respectively.
+                    <p>
+                    This property is only used when the <b>NVM Type</b> is set to
+                    <b>FLASH</b>, and the Flash device capacity is greater than 512-kbits.
+                    <p>
+                    See <i>Interfacing Large Serial Flash and EEPROM Application
+                    Note</i>&nbsp; in the Support Documentation for further information.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="boolean" key="otau_bootloader" internalkey="OTAU_BOOTLOADER" format="passthrough" name="Include OTA Update Bootloader" defaultvalue="0">
+                <description>
+                    <![CDATA[
+                    Select <b>Yes</b> to include the CSR OTA Update Bootloader in the
+                    application image. If the application supports the CSR OTA Update Service
+                    this will make it possible to update a device over-the-air using an
+                    OTA Update host application.
+                    <p>
+                    The original application image, without the bootloader, will still be
+                    built as <tt>&lt;Output Name&gt;_update.img</tt>.
+                    <p>
+                    See <i>Modifying an Application to Support OTA Update</i>&nbsp; in the
+                    Support Documentation for further information.
+                    ]]>
+                </description>
+            </property>
+            
+            <property type="file" key="otau_keyr" internalkey="OTAU_CSFILE" format="passthrough" name="CS Key File (OTA Update Bootloader)" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    <b>Only applicable when the OTA Update Bootloader is included</b>
+                    <p>
+                    Specify the name of the Configuration Store key definition file
+                    (<tt>.keyr</tt>) to be used by the CSR OTA Update Bootloader. For
+                    example:
+                    <p>
+                    <tt>otau_bootloader.keyr</tt>
+                    <p>
+                    The <tt>$(SDK_INSTALL_PATH)</tt> macro may be used to insert the path to
+                    the SDK installation folder (e.g.
+                    <tt>C:/CSR_uEnergy_SDK-&lt;version&gt;</tt>).
+                    <p>
+                    See <i>xIDE User Guide</i>&nbsp; in the Support Documentation for further
+                    information about macros and project properties.
+                    <p>
+                    <b>Notes:</b>
+                    <ol>
+                    <li>If the file is not present in the project folder, specify the
+                    absolute path, or the path relative to the project folder.
+                    <li>The specified path and filename are case sensitive.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="otau_name" internalkey="OTAU_NAME" format="passthrough" name="Device Name (OTA Update Bootloader)" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    <b>Only applicable when the OTA Update Bootloader is included</b>
+                    <p>
+                    Specify the name of the device advertised while the CSR OTA Update
+                    Bootloader is searching for an OTA Update host.
+                    <p>
+                    The device name may be up to 16 characters long. If a longer name is
+                    supplied then it shall be truncated.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="otau_secret" internalkey="OTAU_SECRET" format="passthrough" name="Authentication Key (OTA Update Bootloader)" defaultvalue="">
+                <description>
+                    <![CDATA[
+                    <b>Only applicable when the OTA Update Bootloader is included</b>
+                    <p>
+                    Specify an authentication key that may be issued by an OTA Update
+                    host to authenticate itself to the device.
+                    <p>
+                    This property may be left blank if no authentication is required for
+                    over-the-air updates.
+                    <p>
+                    The authentication key is a 32-digit (128-bit) hexadecimal value. All
+                    32 digits in the key must be specified. The application will fail to
+                    build if a key is specified with the wrong length.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="list" key="otau_version" internalkey="OTAU_VERSION" format="passthrough" name="Version (OTA Update Bootloader)" defaultvalue="1">
+                <option internalval="6">6</option>
+                <option internalval="7">7</option>
+                <description>
+                    <![CDATA[
+                    Specify which version of CSR OTA Update Library to link the application
+                    against, and which version of CSR OTA Update Bootloader to include in
+                    the application image when <b>Include OTA Update Bootloader</b> is set
+                    to <b>Yes</b>.
+                    <p>
+                    <ul>
+                    <li>Version 6 only supports devices with 512-kbit EEPROM NVM storage.
+                    <li>Version 7 supports devices with EEPROM or Flash NVM storage,
+                    512-kbit or greater.
+                    </ul>
+                    Version 6 is provided so that applications developed for version 6 of
+                    CSR OTA Update Bootloader can continue to be supported. In addition, the
+                    version 6 CSR OTA Update Bootloader is significantly smaller than
+                    version 7 which makes it better suited to applications using a 512-kbit
+                    EEPROM for NVM storage.
+                    <p>
+                    Applications linked against version 7 of the CSR OTA Update Library are
+                    backwardly compatible with versions 5 and 6 of the CSR OTA Update
+                    Bootloader.
+                    <p>
+                    Applications linked against version 6 of the CSR OTA Update Library are
+                    backwardly compatible with version 5 of the CSR OTA Update Bootloader.
+                    <p>
+                    Backwardly compatible applications may be updated over-the-air onto
+                    a device running an older version of the CSR OTA Update Bootloader.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="otau_slot_1" internalkey="OTAU_SLOT_1" format="passthrough" name="Slot 1 Address (OTA Update Bootloader)">
+                <description>
+                    <![CDATA[
+                    <b>Only applicable when the CSR OTA Update Bootloader version 7 is
+                    included</b>
+                    <p>
+                    Specify the start address for the first application slot.
+                    <p>
+                    <b>Notes:</b>
+                    <p>
+                    On devices using EEPROM storage, the first application slot address must
+                    be at least 0x4100.
+                    <p>
+                    On devices using Flash storage, the first application slot address must
+                    be at least 0x7000.
+                    <p>
+                    On devices using Flash storage, application slot addresses must be
+                    divisible by 0x1000.
+                    <p>
+                    The application slot address must not overlap with NVM Store, if
+                    configured.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="otau_slot_2" internalkey="OTAU_SLOT_2" format="passthrough" name="Slot 2 Address (OTA Update Bootloader)">
+                <description>
+                    <![CDATA[
+                    <b>Only applicable when the CSR OTA Update Bootloader version 7 is
+                    included</b>
+                    <p>
+                    Specify the start address for the second application slot.
+                    <p>
+                    <b>Notes:</b>
+                    <p>
+                    The second application slot address also specifies the end address of the
+                    first application slot. The second application slot address must be
+                    greater than the first application slot address.
+                    <p>
+                    On devices using Flash storage, application slot addresses must be
+                    divisible by 0x1000.
+                    <p>
+                    The application slot address must not overlap with NVM Store, if
+                    configured.
+                    <p>
+                    If the CSR OTA Update Bootloader is configured for just one application
+                    slot, then this property should be left blank.
+                    ]]>
+                </description>
+            </property>
+
+            <property type="text" key="otau_slot_end" internalkey="OTAU_SLOT_END" format="passthrough" name="Slot End Address (OTA Update Bootloader)">
+                <description>
+                    <![CDATA[
+                    <b>Only applicable when the CSR OTA Update Bootloader version 7 is
+                    included</b>
+                    <p>
+                    Specify the end address of the last application slot.
+                    <p>
+                    <b>Notes:</b>
+                    <p>
+                    The end address must be greater than the last application slot address.
+                    <p>
+                    On devices using Flash storage, the end address must be divisible by
+                    0x1000.
+                    <p>
+                    The end address must not overlap with NVM Store, if configured.
+                    <p>
+                    The last octet shall be at (end address - 1).
+                    For example, if the end address is set to 0x20000, then the last octet of
+                    the last application slot will be stored at 0x1ffff.
+                    ]]>
+                </description>
+            </property>
+
+        </propertygroup>
+
+    </group>
+</properties>

@@ -1,0 +1,12 @@
+# Determine the hardware variant here and assign it to HW_VARIANT 
+chip_id := $(if $(chip_id),$(chip_id),$(getchipid))
+HW_VARIANT = $(call getchipname,$(chip_id))
+HW_VERSION = $(call getchipver,$(chip_id))
+override LIBRARY_VERSION =$(addsuffix $(if $(HW_VERSION),_$(HW_VERSION),),$(HW_VARIANT))
+HW_MAKEFILE_NAME = $(addprefix $(SDK)/Makefile.common.rules.,$(shell echo $(LIBRARY_VERSION)))
+
+ifneq ($(LIBRARY_VERSION),)
+  include $(HW_MAKEFILE_NAME)
+else
+  $(if $(chip_id),$(error $(strip Unrecognised hardware (chipid=$(chip_id)) on Debug Transport $(SPITEXT))),$(error Failed to detect hardware on Debug Transport $(SPITEXT) Project property: Target Hardware 'Auto Detect'))
+endif

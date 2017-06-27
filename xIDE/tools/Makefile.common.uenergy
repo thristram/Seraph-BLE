@@ -1,0 +1,391 @@
+# -*-Makefile-*-
+#
+# Makefile with rules for building and installing uEnergy applications
+#
+
+# Prefer cmd.exe to sh.exe on Windows
+export SHELL := cmd.exe
+
+# Supported OTAU version
+OTAU_VERSION ?= 7
+
+# OTAU bootloader CS version
+OTAU_CS_VERSION := 67
+
+# These variables may be used to override the default locations for
+# the shared data and the first application image.
+# Either define both or neither.
+#OTAU_DATA_OFFSET := 0x4000
+#OTAU_APP_OFFSET  := 0x4200
+# OTAU_APP_OFFSET assumes NVM Store is placed before the applications
+# Force the device to boot from a particular application ID (typically 1)
+#OTAU_APP_ID := 0
+
+# EEPROM I2C frequency, in 16MHz cycles (in hex)
+# Clock frequency may be calculated from 16e6/(SCL_HIGH+2 + SCL_LOW+2) Hz
+SCL_HIGH := 0f
+SCL_LOW  := 16
+
+# Load common rules
+ifeq ($(strip $(MAKE_MODE)),autogen)
+  include $(SDK)/genmakefile.rules
+
+  # Application Configuration Store
+  ifneq ($(CSFILE_$(LIBRARY_VERSION)),)
+    # normalise path to use forward slashes
+    CS_FILE = $(subst \,/,$(CSFILE_$(LIBRARY_VERSION)))
+  else
+    CS_FILE = $(KEYR)
+  endif
+else
+  include $(SDK)/Makefile.rules
+
+  # Application Configuration Store
+  CS_FILE = $(filter %.keyr,$(INPUTS))
+  
+  # Workaround case sensitivity for key filenames (see B-117381)
+  ifeq ("$(CS_FILE)","")
+    # Array of lower case letters
+    lower := a b c d e f g h i j k l m n o p q r s t u v w x y z
+    # Array of upper case letters
+    upper := A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+    # Iteration loop counter
+    iteration := 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+    # Keyfile name to be converted
+    # (Pre-2.0 projects use this as their keyfile name)
+    convert := $(OUTPUT).keyr
+    
+    define replace
+      convert := $(subst $1,$2,$(convert))
+    endef
+    
+    # Convert filename to all lower case
+    $(foreach i,$(iteration),$(eval $(call replace,$(word $i,$(upper)),$(word $i,$(lower)))))
+    # Convert filename to case insensitive
+    $(foreach i,$(iteration),$(eval $(call replace,$(word $i,$(lower)),[$(word $i,$(lower))$(word $i,$(upper))])))
+    # Search for keyfile in project folder using case insensitive name
+    CS_FILE = $(wildcard $(convert))
+  endif
+endif
+
+# EEPROM or Flash?
+ifneq ($(USE_FLASH),0)
+  use_flash = 1
+endif
+flash_device = $(if $(use_flash),dn_flash,dn_eeprom)
+IMG_SUFFIX = $(if $(use_flash),flash.xuv,img)
+
+# Erase EEPROM/Flash prior to download?
+ifdef ERASE_NVM
+  erase_nvm := $(ERASE_NVM)
+else
+  erase_nvm := 1
+endif
+
+# Validate SPI Flash PIO
+ifdef FLASH_CLOCK
+  ifndef FLASH_MISO
+    $(error Both SPI Flash Clock PIO and SPI Flash MISO PIO must be defined)
+  endif
+  
+  # Sanity check: no spaces allowed
+  $(if $(word 2,$(FLASH_CLOCK)),$(error SPI Flash Clock PIO project property must be a value from 0 to 2 or 5 to 15),)
+  $(if $(word 2,$(FLASH_MISO)),$(error SPI Flash MISO PIO project property must be a value from 0 to 2 or 5 to 15),)
+  
+  # SPI APIs are limited to either bank 0 (0-15) or bank 1 (16-31). Since
+  # the other two SPI ports are in bank 0, this means the user can only
+  # select from the range 0-15. And since CSB is on PIO4 and MOSI is on
+  # PIO3 we need to remove those from the available PIOs too.
+  spi_pio_range := 0 1 2 5 6 7 8 9 10 11 12 13 14 15
+
+  pio := $(foreach i,$(spi_pio_range),$(filter $i,$(FLASH_CLOCK)))
+  $(if $(strip $(pio)),,$(error SPI Flash Clock PIO project property must be a value from 0 to 2 or 5 to 15))
+
+  pio := $(foreach i,$(spi_pio_range),$(filter $i,$(FLASH_MISO)))
+  $(if $(strip $(pio)),,$(error SPI Flash MISO PIO project property must be a value from 0 to 2 or 5 to 15))
+  
+  $(if $(filter $(FLASH_MISO),$(FLASH_CLOCK)),$(error SPI Flash Clock PIO and SPI Flash MISO PIO project properties must be different),)
+  
+  # Define a macro for the -pioflash option to nvscmd
+  PIOFLASH_OPTION := -pioflash $(FLASH_CLOCK) $(FLASH_MISO)
+else
+  ifdef FLASH_MISO
+    $(error Both SPI Flash Clock PIO and SPI Flash MISO PIO must be defined)
+  endif
+endif
+
+.PHONY: build clean flash dn_eeprom dn_flash cs
+
+ifeq ($(OUTPUT_TYPE), 1)
+  build: $(PERCONFIGDEPEND)/lib$(OUTPUT).a
+
+  flash:
+	$(error Library projects cannot be RUN, change the output type property from the project properties. )
+else
+  ifeq "$(CS_FILE)" ""
+    ifneq "$(CSFILE_$(LIBRARY_VERSION))" ""
+      # If CS_FILE is empty, but the keyr project property is set,
+      # display an error message
+      build:
+		$(error The .keyr file "$(CSFILE_$(LIBRARY_VERSION))" set in project property "CS Key File ($(call library_description,$(LIBRARY_VERSION)))" cannot be located in the list of .keyr files included in the project: $(KEYR))
+    else
+      # Otherwise build without merging any CS Keys
+      build: $(PERCONFIGDEPEND)/$(OUTPUT).$(IMG_SUFFIX) $(XIDE_PROJECT).elf
+
+      flash: $(flash_device)
+    endif
+  else
+    # Build the image then merge in CS keys
+    build: $(PERCONFIGDEPEND)/$(OUTPUT).$(IMG_SUFFIX) $(XIDE_PROJECT).elf
+
+    flash: cs
+  endif
+endif
+
+ifeq ($(strip $(MAKE_MODE)),autogen)
+  # B-125820
+  # Ideally this would say whether a single source file depends on app_gatt_db.h, but can't know this until have generated dependencies
+  .PHONY: compile
+  compile: $(patsubst %.db,$(PERCONFIGDEPEND)/%.h,$(notdir $(MASTER_DB))) $(patsubst %.c,$(PERCONFIGDEPEND)/%.o,$(notdir $(JUST_COMPILE_FILE)))
+
+  # B-127620
+  .PHONY: assemble
+  assemble: $(patsubst %.asm,$(PERCONFIGDEPEND)/%.byte,$(notdir $(JUST_COMPILE_FILE)))
+
+  # B-127991
+  .PHONY: dbgenerate
+  dbgenerate: $(foreach extn,.c .h,$(PERCONFIGDEPEND)/$(basename $(notdir $(JUST_COMPILE_FILE)))$(extn))
+endif
+
+# Temporary fix per B-129169/B-165073
+$(XIDE_PROJECT).elf: $(PERCONFIGDEPEND)/$(OUTPUT).elf flags.configuration
+# This command is hidden as it's not really part of the build and it is
+# aesthetically pleasing to have the application info as the last thing
+# displayed when the build completes.
+	@$(CP) $< $@
+
+dn_eeprom: $(PERCONFIGDEPEND)/$(OUTPUT).img
+	$(if $(chip_id),,$(eval chip_id:=$$(call getchipid)))
+ifneq ($(erase_nvm),0)
+	$(call checkandrun,$(e2cmd),$<,$(chip_id),$(space)-norun$(space)$(SPI)$(space)-quiet$(space)fill$(space)0xffff)
+endif
+	$(call checkandrun,$(e2cmd),$<,$(chip_id),$(space)-norun$(space)$(SPI)$(space)-quiet$(space)download$(space)$<)
+
+dn_flash: $(PERCONFIGDEPEND)/$(OUTPUT).flash.xuv
+	$(if $(chip_id),,$(eval chip_id:=$$(call getchipid)))
+ifneq ($(erase_nvm),0)
+	$(call checkandrun,$(nvscmd),$<,$(chip_id),$(space)-norun$(space)$(SPI)$(space)$(PIOFLASH_OPTION)$(space)erase)
+endif
+	$(call checkandrun,$(nvscmd),$<,$(chip_id),$(space)-norun$(space)$(SPI)$(space)$(PIOFLASH_OPTION)$(space)burn$(space)$<)
+
+cs: $(flash_device)
+
+# Define autogenerated bootloader filenames whether OTA is requested or
+# not so that they can always be cleaned.
+BOOTLOADER := $(PERCONFIGDEPEND)/bootloader.$(IMG_SUFFIX)
+OTAU_SHARED := $(PERCONFIGDEPEND)/ota_shared.keyr
+OTAU_SHARED_TMP := $(OTAU_SHARED).tmp
+FILES_TO_CLEAN += $(PERCONFIGDEPEND)/bootloader.img       \
+                  $(PERCONFIGDEPEND)/bootloader.flash.xuv \
+                  $(OTAU_SHARED) $(OTAU_SHARED_TMP)
+
+# The OTAU library can be linked against applications even though the
+# OTAU bootloader is not being included in the image (B-196445)
+ifeq "$(OTAU_VERSION)" "$(firstword $(sort 6 $(OTAU_VERSION)))"
+    # Earlier versions support EEPROM only
+    ifeq "$(USE_FLASH)" "1"
+        $(error OTA Update bootloader v$(OTAU_VERSION) only supports EEPROM. Check the NVM Type project property)
+    endif
+
+    # Redirect to the specified legacy folder
+    OTAU_LIB_PATH := $(addsuffix /v$(OTAU_VERSION),$(OTAU_LIB_PATH))
+    OTAU_INC_PATH := $(addsuffix /v$(OTAU_VERSION),$(OTAU_INC_PATH))
+
+    # Earlier versions use a single library
+    LIBS := $(filter-out otau_%,$(LIBS))
+    LIBS += otau
+endif
+
+ifeq "$(OTAU_BOOTLOADER)" "1"
+    # Check that a bootloader keyr file has been supplied and stop the
+    # build if not (B-164158)
+    ifeq "$(OTAU_CSFILE)" ""
+        $(error A .keyr file for the OTA Update Bootloader must be supplied. Please check the "CS Key File (OTA Update Bootloader)" project property)
+    endif
+
+    # Test for OTAU_VERSION <= 6
+    ifeq "$(OTAU_VERSION)" "$(firstword $(sort 6 $(OTAU_VERSION)))"
+        # In OTAUv6 and earlier user defined slot addresses are not honoured
+        ifneq "$(OTAU_SLOT_1)$(OTAU_SLOT_2)$(OTAU_SLOT_END)" ""
+            $(warning Slot address project properties are ignored when OTA Update Bootloader Version $(OTAU_VERSION) is used)
+        endif
+
+        # Validate the NVM Store settings using the gennvsimage -N option
+        CHECK_NVM := $(getKeyrNVMStart)
+    else
+        # Slot 1 address must be defined
+        ifeq "$(OTAU_SLOT_1)" ""
+            $(error Slot 1 Address project property not defined)
+        endif
+        # Slot end address must be defined
+        ifeq "$(OTAU_SLOT_END)" ""
+            $(error Slot End Address project property not defined)
+        endif
+
+        # If the application offset has not been overridden at the start
+        # of this file, then OTAU_SLOT_1 is the application offset
+        OTAU_APP_OFFSET ?= $(OTAU_SLOT_1)
+        
+        # Define macro suitable for passing slot addresses
+        comma := ,
+        OTAU_SLOTS := 1 2 END
+        OTAU_APP_TABLE := $(subst $(space),$(comma),$(strip $(foreach s,$(OTAU_SLOTS),$(OTAU_SLOT_$s)$(space))))
+    endif
+
+    # Define pathname of CsConfig query file
+    OTAU_QUERY := $(OTAU_LIB_PATH)/ota_shared.keyq
+
+    # If specific offsets have been defined configure the otauimgcmd
+    # options here.
+    ifneq "$(OTAU_DATA_OFFSET)" ""
+        OTAUIMGCMD_OPTIONS += -dataoffset $(OTAU_DATA_OFFSET)
+    endif
+    ifneq "$(OTAU_APP_OFFSET)" ""
+        OTAUIMGCMD_OPTIONS += -appoffset $(OTAU_APP_OFFSET)
+    endif
+	
+	# Define pathname of bootloader master file
+	BOOTLOADER_MASTER := $(OTAU_LIB_PATH)/bootloader.$(IMG_SUFFIX)
+endif
+
+# Generate EEPROM image
+
+ifeq "$(OTAU_BOOTLOADER)" "1"
+# ------------------------------------------------------------------
+# -------- Rules for images including OTA Update bootloader --------
+# ------------------------------------------------------------------
+
+# Remove the image file if any of the target's build steps fail
+.DELETE_ON_ERROR: $(PERCONFIGDEPEND)/$(OUTPUT).$(IMG_SUFFIX) \
+                  $(PERCONFIGDEPEND)/$(OUTPUT)$(OTAU_EXT).$(IMG_SUFFIX)
+
+$(PERCONFIGDEPEND)/$(OUTPUT)$(OTAU_EXT).img: $(PERCONFIGDEPEND)/$(OUTPUT).xuv $(NVS_IMG) $(CS_FILE) $(PERCONFIGDEPEND)/flags.otau
+# Validate the NVM Store settings. Use the gennvsimage -N option to do
+# this on OTAUv6 and earlier, otherwise call validate_nvm_store.
+ifneq "$(CS_FILE)" ""
+ifneq "$(OTAU_VERSION)" "$(firstword $(sort 6 $(OTAU_VERSION)))"
+	$(validate_nvm_store) $(BOOTLOADER_MASTER) $(call escape,$(CS_FILE)) $(OTAU_APP_TABLE)
+endif
+endif
+# Convert the image file into an EEPROM image (and optionally validate
+# NVM start address on OTAUv6)
+	$(gennvsimage) -e -s 0x$(SCL_HIGH)$(SCL_LOW) -i $< -n $(NVS_IMG) -N$(CHECK_NVM) -o $@
+ifneq "$(CS_FILE)" ""
+# Merge application CS keys
+	$(csconfig) merge $(call escape,$(CS_FILE)) -imagefile $@ -quiet
+# Check that the image will fit in the supplied application slots.
+# Only required on OTAUv7 and later.
+ifneq "$(OTAU_VERSION)" "$(firstword $(sort 6 $(OTAU_VERSION)))"
+	$(validate_image) $@ $(OTAU_APP_TABLE)
+endif
+endif
+ 
+$(PERCONFIGDEPEND)/$(OUTPUT)$(OTAU_EXT).flash.xuv: $(PERCONFIGDEPEND)/$(OUTPUT).xuv $(NVS_IMG) $(CS_FILE) $(PERCONFIGDEPEND)/flags.otau
+# Validate the NVM Store settings. Use the gennvsimage -N option to do
+# this on OTAUv6 and earlier, otherwise call validate_nvm_store.
+ifneq "$(CS_FILE)" ""
+ifneq "$(OTAU_VERSION)" "$(firstword $(sort 6 $(OTAU_VERSION)))"
+	$(validate_nvm_store) $(BOOTLOADER_MASTER) $(call escape,$(CS_FILE)) $(OTAU_APP_TABLE)
+endif
+endif
+# Convert the image file into a Flash image (and optionally validate
+# NVM start address on OTAUv6)
+	$(gennvsimage) -f -i $< -n $(NVS_IMG) -N$(CHECK_NVM) -o $@
+ifneq "$(CS_FILE)" ""
+# Merge application CS keys
+	$(csconfig) merge $(call escape,$(CS_FILE)) -imagefile $@ -quiet
+# Check that the image will fit in the supplied application slots.
+# Only required on OTAUv7 and later.
+ifneq "$(OTAU_VERSION)" "$(firstword $(sort 6 $(OTAU_VERSION)))"
+	$(validate_image) $@ $(OTAU_APP_TABLE)
+endif
+endif
+
+$(PERCONFIGDEPEND)/$(OUTPUT).$(IMG_SUFFIX): $(PERCONFIGDEPEND)/$(OUTPUT)$(OTAU_EXT).$(IMG_SUFFIX) $(PERCONFIGDEPEND)/flags.otau $(OTAU_CSFILE)
+# Copy the bootloader image into the build folder
+	$(CP) $(BOOTLOADER_MASTER) $(BOOTLOADER)
+# Merge shared application CS keys into the bootloader image
+	$(csconfig) query $(OTAU_SHARED) $(OTAU_QUERY) -imagefile $< -quiet
+	@$(sed) "s/DECIMAL_CS_VERSION[ \t]*=[ \t]*[0-9]\+/DECIMAL_CS_VERSION=$(OTAU_CS_VERSION)/" $(OTAU_SHARED) > $(OTAU_SHARED_TMP) && $(MV) $(OTAU_SHARED_TMP) $(OTAU_SHARED)
+	$(csconfig) merge $(OTAU_SHARED) -imagefile $(BOOTLOADER) -quiet
+# Apply bootloader configuration
+	$(csconfig) merge $(call escape,$(OTAU_CSFILE)) -imagefile $(BOOTLOADER) -quiet
+# Merge the bootloader and application image together
+	$(otauimgcmd) merge $(BOOTLOADER) $< $@ $(OTAU_VERSION) $(OTAUIMGCMD_OPTIONS) -quiet
+# Configure merged image
+ifneq "$(OTAU_APP_ID)" ""
+	$(otauimgcmd) set $@ $(OTAU_VERSION) app_id $(OTAU_APP_ID) $(OTAUIMGCMD_OPTIONS) -quiet
+endif
+ifneq "$(OTAU_NAME)" ""
+	$(otauimgcmd) set $@ $(OTAU_VERSION) dev_name "$(OTAU_NAME)" $(OTAUIMGCMD_OPTIONS) -quiet
+endif
+ifneq "$(OTAU_SECRET)" ""
+	$(otauimgcmd) set $@ $(OTAU_VERSION) auth_key "$(OTAU_SECRET)" $(OTAUIMGCMD_OPTIONS) -quiet
+endif
+ifneq "$(OTAU_APP_TABLE)" ""
+	$(otauimgcmd) set $@ $(OTAU_VERSION) app_table $(OTAU_APP_TABLE) $(OTAUIMGCMD_OPTIONS) -quiet
+endif
+# Validate (and display) bootloader configuration
+	$(validate_bootloader) $(call escape,$(OTAU_CSFILE)) $(if $(use_flash),$(FLASH_CLOCK) $(FLASH_MISO),) -s
+	@$(call appinfo,$(LIBRARY_VERSION)) $(PERCONFIGDEPEND)/$(OUTPUT).map
+# Generate memory layout file
+# Only supported on OTAUv7 and above
+ifeq "$(OTAU_VERSION)" "$(firstword $(sort 6 $(OTAU_VERSION)))"
+	@echo Note: Layout file is not generated for images including version 6 of the CSR OTA Update bootloader.
+else
+	$(image_layout) $(BOOTLOADER_MASTER) $(OTAU_APP_TABLE) $(CS_FILE) > $@.layout 2>&1
+endif
+	@echo $(call builtimageinfo,$@)
+else
+# ------------------------------------------------------------------
+# -------- Rules for images excluding OTA Update bootloader --------
+# ------------------------------------------------------------------
+
+# Remove the image file if any of the target's build steps fail
+.DELETE_ON_ERROR: $(PERCONFIGDEPEND)/$(OUTPUT).$(IMG_SUFFIX)
+
+$(PERCONFIGDEPEND)/$(OUTPUT).img: $(PERCONFIGDEPEND)/$(OUTPUT).xuv $(NVS_IMG) $(PERCONFIGDEPEND)/flags.otau $(CS_FILE)
+	$(gennvsimage) -e -s 0x$(SCL_HIGH)$(SCL_LOW) -i $< -n $(NVS_IMG) -N$(getKeyrNVMStart) -o $@
+ifneq "$(CS_FILE)" ""
+# Merge application CS keys
+	$(csconfig) merge $(call escape,$(CS_FILE)) -imagefile $@ -quiet
+endif
+	@echo $(call builtimageinfo,$@)
+	@$(call appinfo,$(LIBRARY_VERSION)) $(PERCONFIGDEPEND)/$(OUTPUT).map
+# Generate memory layout file
+	$(image_layout_no_bl) $@ $(CS_FILE) > $@.layout 2>&1
+	@echo $(call builtimageinfo,$@)
+
+# Generate Flash image
+$(PERCONFIGDEPEND)/$(OUTPUT).flash.xuv: $(PERCONFIGDEPEND)/$(OUTPUT).xuv $(NVS_IMG) $(PERCONFIGDEPEND)/flags.otau $(CS_FILE)
+	$(gennvsimage) -f -i $< -n $(NVS_IMG) -N$(getKeyrNVMStart) -o $@
+ifneq "$(CS_FILE)" ""
+# Merge application CS keys
+	$(csconfig) merge $(call escape,$(CS_FILE)) -imagefile $@ -quiet
+endif
+	@$(call appinfo,$(LIBRARY_VERSION)) $(PERCONFIGDEPEND)/$(OUTPUT).map
+# Generate memory layout file
+	$(image_layout_no_bl) $@ $(CS_FILE) > $@.layout 2>&1
+	@echo $(call builtimageinfo,$@)
+endif # OTAU_BOOTLOADER
+
+
+.PHONY: clean_message
+clean_message:
+	$(info ------ Deleting intermediate files and output files for $(XIDE_PROJECT) [$(XIDE_CONFIG)] ------)
+
+clean: $(if $(filter autogen,$(strip $(MAKE_MODE))),clean_message,) cleanag
+# Remove all temporary files except the sources generated by gattdbgen
+	$(RM) $(FILES_TO_CLEAN)
+	$(RM) $(FOLDERS_TO_REMOVE)
+	$(if $(filter autogen,$(strip $(MAKE_MODE))),@echo ----------------------------------- Clean finished -----------------------------------------,)

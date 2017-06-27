@@ -1,0 +1,11 @@
+REGEDIT4
+
+[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Parspi]
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Parspi]
+"DependOnGroup"=hex(7):50,61,72,61,6c,6c,65,6c,20,61,72,62,69,74,72,61,74,6f,\
+  72,00,00
+"Type"=dword:00000001
+"Start"=dword:00000002
+"Group"="Extended Base"
+"ErrorControl"=dword:00000001

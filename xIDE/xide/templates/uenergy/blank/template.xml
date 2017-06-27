@@ -1,0 +1,5 @@
+<template type="project">
+    <displayname>Blank CSR &#181;Energy Project</displayname>
+    <description>A blank CSR &#181;Energy project template</description>
+    <icon default="icon.png"/>
+</template>

@@ -1,0 +1,7 @@
+# -*-Makefile-*-
+#
+# Makefile with rules for building and installing uEnergy applications
+#
+
+MAKE_MODE := autogen
+include $(SDK)/Makefile.common.uenergy

@@ -1,0 +1,13 @@
+EXTERN(slut);
+EXTERN(ram_build_identifier_string);
+EXTERN(ptest_slut);
+EXTERN(persistent_mem);
+EXTERN(main_ram_app_init);
+EXTERN(patch_bitmap);
+EXTERN(patch_table);
+EXTERN(hw_patch);
+EXTERN(___libgatt_lib_db_4269);
+EXTERN(DATA_TIMERSTRUCT_START);
+EXTERN(___libgatt_lib_db_4171);
+EXTERN(___libgatt_lib_db_4173);
+EXTERN(DATA_RCLUTS_START);

@@ -1,0 +1,5 @@
+<template type="project">
+    <displayname>CSR &#181;Energy Library Project</displayname>
+    <description>A CSR &#181;Energy project template for creating library archives.</description>
+    <icon default="icon.png"/>
+</template>

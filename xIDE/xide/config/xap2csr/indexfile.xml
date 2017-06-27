@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- The last file associated with a chip version ID is the one used. -->
+<tableOfMappings>
+<chipVersionFileMapping chipList="0x2b" fileName="robinson" canUseHardcodedMMap="false" chipName="robinson"/>
+</tableOfMappings>

@@ -1,0 +1,16 @@
+HW_VARIANT := CSR101x
+HW_VERSION := A05
+
+# SDK path configuration
+SDK_LIB_PATH = $(SDK)/lib/CSR101x_A05_2_3
+SDK_INC_PATH = $(SDK)/include/CSR101x_A05_2_3
+SDK_LD_CONF = xap_ram_rom.ld
+
+LDFLAGS += -Wl,--just-symbols=$(SDK_LIB_PATH)/rom_img.elf,-T,$(SDK_LD_CONF),--gc-sections
+CFLAGS += -DHAVE_ROM
+XUV_ADDR = --change-section-address .text+$(DATA_RAM_START) \
+    --change-section-address .app_ram_init+$(DATA_RAM_START) \
+    --change-section-address .fw_patch_bitmap+$(DATA_RAM_START) \
+    --change-section-address .fw_patch_table+$(DATA_RAM_START)
+GATT_LIB_NAME := gatt_lib_ram
+GATT_LIB := $(GATT_LIB_NAME:%=-l%)

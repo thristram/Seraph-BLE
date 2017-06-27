@@ -1,0 +1,17 @@
+REGEDIT
+; This .REG file may be used by your SETUP program.
+;   If a SETUP program is not available, the entries below will be
+;   registered in your InitInstance automatically with a call to
+;   CWinApp::RegisterShellFileTypes and COleObjectFactory::UpdateRegistryAll.
+
+
+HKEY_CLASSES_ROOT\uEnergyOTAUpdateTool.Application = uEnergyOTAUpdateTool Application
+
+
+HKEY_CLASSES_ROOT\uEnergyOTAUpdateTool.Application\CLSID = {D6E0F2B4-8530-471F-B869-86D34F48C074}
+
+HKEY_CLASSES_ROOT\CLSID\{D6E0F2B4-8530-471F-B869-86D34F48C074} = uEnergyOTAUpdateTool Application
+HKEY_CLASSES_ROOT\CLSID\{D6E0F2B4-8530-471F-B869-86D34F48C074}\ProgId = uEnergyOTAUpdateTool.Application
+
+
+HKEY_CLASSES_ROOT\CLSID\{D6E0F2B4-8530-471F-B869-86D34F48C074}\LocalServer32 = uEnergyOTAUpdateTool.EXE

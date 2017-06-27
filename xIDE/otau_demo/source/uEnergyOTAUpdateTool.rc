@@ -1,0 +1,400 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 285, 79
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About CSR µEnergy Over-the-Air Updater"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
+    DEFPUSHBUTTON   "OK",IDOK,228,53,50,14,WS_GROUP
+    LTEXT           "CSR µEnergy® Over-the-Air Updater, version 2.6.0.3",IDC_STATIC,51,14,174,8
+    LTEXT           "Copyright 2015 Qualcomm Technologies International, Ltd.",IDC_STATIC,51,30,189,8
+    CONTROL         "<a href=""http://www.csr.com/"">www.csr.com</a>",IDC_SYSLINK1,
+                    "SysLink",WS_TABSTOP,51,48,60,14
+END
+
+IDD_UENERGYOTAUPDATETOOL_DIALOG DIALOGEX 0, 0, 312, 419
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "CSR µEnergy Over-the-Air Updater"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "&Select Image File...",IDC_SELECTFILE_BUTTON,7,14,66,14,WS_DISABLED
+    EDITTEXT        IDC_IMAGE_PATH,84,14,221,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_SECRETKEY_EDIT,81,94,217,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "S&can for Device",IDC_SCAN_BUTTON,7,122,66,14,WS_DISABLED
+    PUSHBUTTON      "&Remove Pairing",IDC_REMOVE_BUTTON,77,122,66,14,WS_DISABLED
+    CONTROL         "",IDC_DEVICE_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,143,298,107
+    PUSHBUTTON      "Up&date Device",IDC_UPDATE_BUTTON,7,257,66,14,WS_DISABLED
+    LISTBOX         IDC_LOGGING_LIST,7,279,298,113,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&About...",IDC_ABOUT_BOX,255,398,50,14
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_DISABLED | WS_BORDER,81,257,224,14
+    GROUPBOX        "Bootloader Security",IDC_STATIC,7,68,298,46
+    PUSHBUTTON      "Generate New Key",IDC_GENERATEKEY_BTN,12,94,64,14
+    CONTROL         " Enable Challenge-Response",IDC_CHECK_AUTH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,177,77,103,10
+    CONTROL         " Enable MITM Protection",IDC_ENABLE_MITM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,177,46,99,10
+    GROUPBOX        "Application Security",IDC_STATIC,7,34,298,28
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,6,0,3
+ PRODUCTVERSION 2,6,0,3
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Qualcomm Technologies International, Ltd"
+            VALUE "FileDescription", "CSR µEnergy® Over-the-Air Updater Tool"
+            VALUE "FileVersion", "2.6.0.3"
+            VALUE "InternalName", "uEnergyOTAUpdateTool.exe"
+            VALUE "LegalCopyright", "Copyright 2015 Qualcomm Technologies International, Ltd."
+            VALUE "OriginalFilename", "uEnergyOTAUpdateTool.exe"
+            VALUE "ProductName", "CSR µEnergy® Over-the-Air Updater Tool"
+            VALUE "ProductVersion", "2.6.0.3"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 278
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 72
+    END
+
+    IDD_UENERGYOTAUPDATETOOL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 305
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 412
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE initialization failed.  Make sure that the OLE libraries are the correct version."
+    IDS_ABOUTBOX            "&About uEnergyOTAUpdateTool..."
+    IDS_APP_INIT_ERROR      "Failed to initialise the tool."
+    IDS_APP_START_ERROR     "Failed to start the tool."
+    IDS_APP_INIT            "Initialising the tool..."
+    IDS_OTA_SETMODE_ERROR   "Failed to set the OTA mode."
+    IDS_OTA_SETCURAPP_ERROR "Failed to set the current application position (code = %d)."
+    IDS_OTA_CURAPP          "Current application position is %d."
+    IDS_OTA_APP_SUPPORTED   "Detected the CSR µEnergy OTA Update Application service."
+    IDS_OTA_BOOTLDR_SUPPORTED "OTA bootloader mode is supported."
+    IDS_OTA_NOT_SUPPORTED   "Device does not support the CSR µEnergy OTA Update Application service."
+    IDS_OTA_CR_CFM_ERROR    "Challenge-Response confirmation failed"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_OTA_BLDR_VERSION    "Connected to OTA version %d."
+    IDS_OTA_SELECT_IMAGEFILE "Select a valid image file to update the device."
+    IDS_APP_HW_NOTREADY     "Hardware is not ready. Restart the application and try again."
+    IDS_APP_HW_READY        "Hardware is ready."
+    IDS_OTA_ENCR_ERROR      "Encryption failed."
+    IDS_OTA_AES_DLLNOTFOUND "Encryption file ""csraes.dll"" could not be found. The Challenge-response mechanism has been disabled."
+    IDS_OTA_AES_DLLFOUND    "Found encryption file ""csraes.dll""."
+    IDS_OTA_READ_BDADDRERROR "Failed to read the Bluetooth address of device."
+    IDS_OTA_READ_CURAPPERROR 
+                            "Failed to read the current application position."
+    IDS_OTA_RESET_DEVICE    "Resetting the device..."
+    IDS_OTA_DNLOAD_START    "Updating device..."
+    IDS_OTA_IMAGE_MERGE_FAILED "Failed to merge the image and key file."
+    IDS_APP_SCANNING        "Scanning for devices..."
+    IDS_APP_STOPSCAN        "Scanning for devices aborted."
+    IDS_OTA_DNLOAD_SUCCESS  "Device has been updated successfully."
+    IDS_OTA_DNLOAD_FAILED   "Failed to update the device (code =0x%x)."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_APP_DISCONNECTED    "Disconnected from the device (source = 0x%x, reason= 0x%x)."
+    IDS_APP_DB_READ         "Reading database."
+    IDS_APP_PAIRING_RCVD    "Pairing request received."
+    IDS_APP_PAIRING_FAILURE "Failed to bond to the device. Disconnecting..."
+    IDS_APP_BONDED          "Bonded to device 0x."
+    IDS_APP_BL_CONNECTED    "Connected to the OTA bootloader."
+    IDS_OTA_GET_CLVAL       "Reading challenge value..."
+    IDS_OTA_GET_BLVER       "Reading version information..."
+    IDS_APP_CONNECTED       "Connected to the device."
+    IDS_OTA_MERGE_KEYS      "Merging the image and key file..."
+    IDS_OTA_CFG_NOT_ERR     "Failed to configure device notifications."
+    IDS_OTA_READ_BLVER_ERR  "Failed to read version information."
+    IDS_OTA_GET_CURAPP      "Reading information from the device..."
+    IDS_OTA_SET_CURAPP      "Setting the current application position to %d..."
+    IDS_OTA_GET_BDADDR      "Reading the Bluetooth address of the device..."
+    IDS_OTA_GET_XTALTRIM    "Reading the device's crystal trim..."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_OTA_GET_IDROOT      "Reading the device's Identity Root..."
+    IDS_OTA_SWITCH_BL       "Switching the device to bootloader mode."
+    IDS_OTA_SETCUTAPP_SUCCESS 
+                            "Current application position has been set successfully."
+    IDS_OTA_READ_XTALTRIM   "Crystal trim: 0x%x."
+    IDS_OTA_CURAPP_ERROR    "Current application position (%d) not supported."
+    IDS_OTA_READ_BDADDRESS  "Bluetooth address: %s."
+    IDS_OTA_CFG_NOTIFICATION "Configuring device notifications..."
+    IDS_OTA_CFG_INDICATION  "Configuring device indications..."
+    IDS_OTA_GET_ENCRROOT    "Reading the device's Encryption Root..."
+    IDS_OTA_READ_IDTYROOT   "Identity Root: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x."
+    IDS_OTA_READ_ENCRROOT   "Encryption Root: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x."
+    IDS_OTA_READ_XTALTRIM_ERROR "Failed to read the device's crystal trim."
+    IDS_OTA_READ_IDROOT_ERROR "Failed to read the device's Identity Root."
+    IDS_OTA_READ_ENROOT_ERROR "Failed to read the device's Encryption Root."
+    IDS_OTA_READ_CSBLOCK    "Reading CS Key block..."
+    IDS_OTA_READ_CSBLOCKFAILED "Failed to read the CS Key block."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DONGLE_REMOVAL      "The CSR BT4.0 enabled USB device has been unplugged.\nEnsure it is plugged in and re-start the application."
+    IDS_RADIO_ABSENT        "Unable to detect the CSR BT4.0 enabled USB device.\nEnsure it is plugged in and re-start the application."
+    IDS_DRIVER_ABSENT       "The CSR BlueCore Bluetooth driver is not installed\nfor the connected CSR BT4.0 USB device.\nInstall the driver and re-start the application.\n\nRefer to CS-235358-UG for instructions on\ninstalling the driver."
+    IDS_PROCESS_RUNNING     "Another instance of the CSR µEnergy Over-the-Air Updater application is already running"
+    IDS_APP_TITLE           "CSR µEnergy Over-the-Air Updater"
+    IDS_OTA_DOWNLOADMSG     "Download is in progress. Do you still want to continue?"
+    IDS_AUTH_VAL            "The authentication key is a 32-digit (128-bit) hexadecimal value. All 32 digits in the key must be specified. "
+    IDS_OTA_CR_CFM_SUCCESS  "Challenge-Response procedure executed succesfully."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ANOTHER_PROCESS_USING_RADIO 
+                            "Another process is using the CSR BT4.0 enabled USB device. Terminate that process and restart the application."
+    IDS_DEV_CONNECTING      "Device connecting..."
+    IDS_DEV_CONTIMEOUT      "Device connection timed out"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_BATTERY_FAIL        "The Battery level is low. Disconnecting..."
+    IDS_OTA_FILE_MISSING    "The selected image file is invalid or does not exist. Please select a valid image file and retry."
+    IDS_GATT_SERV_CHGD_IND  "GATT service changed indication received."
+    IDS_PASSKEY_HEADING     "Pass Key Prompt"
+    IDS_PASSKEY_DISPLAY_MESSAGE 
+                            "Enter this code on your CSR µEnergy keyboard:"
+    IDS_IMAGE_TRANSFER_FAILED "Image transfer failed (code =0x%x)."
+    IDS_IMAGE_TRANSFER_ABORTED "Image transfer aborted (code =0x%x)."
+    IDS_FAILURE_UNKNOWN_REASON "Image download failed (unknown reason)."
+    IDS_OTA_DNLOAD_CANCELLED "Download cancelled."
+    IDS_OTA_IMAGE_BIG_ERR   "Update failed because image is too big."
+    IDS_OTA_BATTERY_LOW_ERR "Update failed because battery level is low."
+    IDS_OTA_IMAGE_CORRUPT_ERR "Update failed because image is corrupted."
+    IDS_OTA_CHECK_BATT_LEVEL "Checking battery level..."
+    IDS_BATT_CFG_NOTIFICATION "Configuring battery level notification..."
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United Kingdom) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\AppIcon.ico"
+#endif    // English (United Kingdom) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (India) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENN)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_INDIA
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROMPT_USER DIALOGEX 0, 0, 281, 101
+STYLE DS_SYSMODAL | DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION
+EXSTYLE WS_EX_TOPMOST
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,210,44,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,210,71,50,14
+    EDITTEXT        IDC_USER_ENTRY,71,36,119,27,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "",IDC_USER_PROMPT_TEXT,17,15,243,18
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PROMPT_USER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 274
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 94
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\uEnergyOTAUpdateTool.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "1 TYPELIB ""uEnergyOTAUpdateTool.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_LOG_MENU MENU
+BEGIN
+    POPUP "LOG"
+    BEGIN
+        MENUITEM "Clear Log",                   ID_LOG_CLEARLOG
+        MENUITEM "Log to File",                 ID_LOG_AUTOLOG, CHECKED
+    END
+END
+
+#endif    // English (India) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\uEnergyOTAUpdateTool.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+1 TYPELIB "uEnergyOTAUpdateTool.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

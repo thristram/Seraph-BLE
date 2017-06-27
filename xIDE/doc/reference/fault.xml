@@ -1,0 +1,303 @@
+<!--
+Copyright (c) 2010 - 2012 Qualcomm Technologies International, Ltd.
+All Rights Reserved.
+Qualcomm Technologies International, Ltd. Confidential and Proprietary.
+-->
+<FAULTS VERSION="1">
+  <FAULT ID="0" NAME="NONE">
+    <LABEL>No Error</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      Marks unused entries in the fault log.  Also occasionally useful
+      in test circumstances to indicate success.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="1" NAME="MYSTERY">
+    <LABEL>An unknown fault</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      Indicates that some unspecified error has occurred.  Except in
+      test circumstances a more specific fault code should always be
+      preferred.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="2" NAME="BAD_LC_STATE">
+    <LABEL>Invalid Link Controller State</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      State machine controlling a BTLE link is in an invalid state.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="3" NAME="BUFFER_CORRUPTED">
+    <LABEL>A circular buffer is corrupt</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The internal state of one of the firmware's circular buffers has
+      been corrupted.  Note that at present the circular buffer
+      subsystem is not in use, so this fault should not appear.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="4" NAME="USER_CSKEY_OUT_OF_RANGE">
+    <LABEL>User-readable CS key index out of range</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The CSR1000 device provides a set of eight 16-bit values that
+      can be set when the device is programmed.  Applications can read
+      these values using the function CSReadUserKey(), supplying
+      an index between 0 and 7 inclusive.
+
+      This fault indicates that an application supplied an index of 8
+      or more to CSReadUserKey().
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="5" NAME="INVALID_LC_INDEX">
+    <LABEL>Attempt to use a non-existant Link Controller</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      A CSR1000 device has a fixed number of controllers managing BTLE
+      links.  This fault indicates that an attempt was made to access
+      a link controller that does not exist.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="6" NAME="H4_RX_BAD_PDU">
+    <LABEL>Host Transport reception failed</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      An error was detected while receiving data from a host device.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="7" NAME="BAD_FAULT">
+    <LABEL>The firmware raised an invalid fault code</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      A fault was raised, but the fault code supplied was not in the
+      valid range.  This fault code is used in place of the invalid
+      one.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="8" NAME="ADC_TENBIT_TIMEOUT">
+    <LABEL>Conversion hardware has failed</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      CSR1000 devices have built-in Analogue to Digital Converters for
+      a number of purposes.  This fault indicates that an ADC has
+      become "stuck" in some manner.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="9" NAME="WD_TIMER_RESOURCE">
+    <LABEL>Background timer could not be claimed</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      CSR1000 devices maintain a background process that performs
+      various vital pieces of system maintenance.  This fault
+      indicates that the timer controlling this process could not be
+      acquired because the firmware ran out of resources.  It can
+      occur if applications use too many timers for their own
+      control.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="10" NAME="HAL_CDAC_TABLE_BUILD">
+    <LABEL>Radio failed to initialise correctly</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      This fault indicates that for some reason the radio could not be
+      set up within expected tolerances.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="11" NAME="HCI_BUFFER_FULL">
+    <LABEL>Host Communications software ran out of resources</LABEL>
+    <PANIC />
+    <DESCRIPTION>
+      Failed to send a message over the HCI to the host application
+      because of a resource shortage.  Note that this error is not
+      reported by default, to avoid entering a possible infinite loop.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="12" NAME="H4_UNKNOWN_EVENT">
+    <LABEL>Host communications asked to send an unknown event</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      This fault indicates that the firmware was asked to send an
+      event to the host which was not recognised as a valid BTLE
+      event.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="13" NAME="UNEXP_MSG_RCVD_FROM_ATT">
+    <LABEL>Unexpected ATT message during GATT procedure</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      An unexpected message was received from the ATT module while
+      carrying out a GATT procedure.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="14" NAME="SA_HNDL_ARRAY_VIOLATION">
+    <LABEL>GATT internal state error</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The internal firmware state driving GATT procedures was found to
+      be in an invalid state.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="15" NAME="GATT_CON_DB_FULL_MASTER_ROLE">
+    <LABEL>Ran out of GATT connections as a master</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      This fault is raised if a device successfully creates a
+      connection in Master mode but runs out of resources to record it
+      internally.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="16" NAME="GATT_CON_DB_FULL_SLAVE_ROLE">
+    <LABEL>Ran out of GATT connections as a slave</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      This fault is raised if a device successfully creates a
+      connection in Slave mode but runs out of resources to record it
+      internally.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="17" NAME="APPLICATION_PANIC">
+    <LABEL>The application called Panic()</LABEL>
+    <PANIC />
+    <DESCRIPTION>
+      This fault is raised when the application calls the Panic()
+      function.  It is not reported by default, to avoid confusing the
+      application further, but does panic the device.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="18" NAME="UPDATE_EXCEEDED_RUNTIME">
+    <LABEL>A firmware background task overran its allotted time</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      Background firmware tasks must run to tight timescales to avoid
+      disrupting radio traffic and breaking the specification.  This
+      fault is raised when a task exceeded its allotted time, and will
+      consequently have interfered with existing connections in an
+      unpredictable manner.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="19" NAME="INTERRUPT_UNBLOCK">
+    <LABEL>Internal process management error</LABEL>
+    <PANIC />
+    <DESCRIPTION>
+      The firmware's internal interrupt management state has become
+      inconsistent.  Attempting to report this fault is probably
+      futile, so by default it simply panics.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="20" NAME="L2CAP_HANDLER_NOT_REGISTERED">
+    <LABEL>No handler has been registered for a used L2CAP service.</LABEL>
+    <PANIC />
+    <DESCRIPTION>
+      The L2CAP code relies on a handler function being registered with
+      it for each of the L2CAP services being used. This fault indicates
+      that a call has been made to a particular service for which no
+      handler has been registered. This may suggest that the L2CAP
+      initialiser function, l2cap_init, has not been called.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="21" NAME="HIBERNATE_TIME_TOO_SHORT">
+    <LABEL>Application didn't request a large enough hibernation duration</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      When the application requests the CSR1000 device to move to
+      the Hibernate state it has to provide the minimum time spent
+      hibernating. This time should be at least 2^20 microseconds
+      (1.048576s). If the supplied time is too short this fault
+      will be raised.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="22" NAME="LS_INVALID_CONNECTION">
+    <LABEL>Firmware out of resources allocating a connection</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      Upper layers need to allocate resources to BLE connections as
+      they are established.  These resources should always be
+      available; this fault indicates that a major firmware error has
+      caused them to be unavailable.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="23" NAME="SM_UNEXPECTED_CID">
+    <LABEL>Security Manager was given an implausible CID by L2CAP</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The Security Manager has been asked to handle security through a
+      Channel ID that is not the fixed CID reserved for it.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="24" NAME="ATT_UNEXP_MSG_RCVD_FROM_L2CAP">
+    <LABEL>Unexpected ATT message received from L2CAP</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      This fault indicates that an unexpected message is received by 
+      ATT module from L2CAP.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="25" NAME="SLOW_CLOCK_FREQ_TRIM">
+    <LABEL>Unable to trim 32kHz frequency</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The firmware was unable to complete the trim procedure for the
+      32kHz slow clock frequency, when trimmed against the 16MHz clock.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="26" NAME="INVALID_UART_BUFFER_SIZE">
+    <LABEL>Invalid UART buffer size</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The application requested an invalid buffer size for the UART RX
+      or UART TX buffer. Supported buffer sizes are defined by the
+      'uart_buf_size_bytes' enumeration in uart.h
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="27" NAME="FW_TIMER_RESOURCES_EXHAUSTED">
+    <LABEL>Firmware timer resources exhausted</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The firmware library tried to allocate an internal timer but did
+      not have any free timer resources.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="28" NAME="INVALID_UART_CONSUMPTION">
+    <LABEL>Invalid UART consumption</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The application claims to have consumed more data from the UART RX
+      buffer than was available, causing a receive buffer underflow.
+    </DESCRIPTION>
+  </FAULT>
+  <FAULT ID="29" NAME="INCORRECT_ROM_VERSION">
+    <LABEL>Incorrect ROM version</LABEL>
+    <PANIC />
+    <REPORT />
+    <DESCRIPTION>
+      The ROM version is not compatible with the SDK used to build the
+      application.
+    </DESCRIPTION>
+  </FAULT>
+</FAULTS>

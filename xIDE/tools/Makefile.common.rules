@@ -1,0 +1,553 @@
+# -*-Makefile-*-
+#
+# uEnergy SDK common rules
+#
+
+# Check required variables have been defined
+ifndef SDK
+  $(error Variable SDK has not been defined. It should be set to the location of the SDK tools folder.)
+endif
+
+# B-127642 Record various flags per configuration
+# Use -include to make these happen every time before anything else
+dummy.force :
+	@$(mkdir) $(PERCONFIGDEPEND)
+	@$(recordflags) flags.configuration $(XIDE_CONFIG)
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.preprocess $(CPPFLAGS)
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.compile $(CFLAGS)
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.assemble $(ASFLAGS) 
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.8051.assemble $(ASMFLAGS) 
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.link $(LDFLAGS)
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.libs $(LIBS) $(GATT_LIB_NAME)
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.strip $(STRIP_OPTIONS)
+	@$(recordflags) $(PERCONFIGDEPEND)/flags.otau $(OTAU_BOOTLOADER) $(OTAU_NAME) $(OTAU_SECRET) $(OTAU_CSFILE) $(OTAU_VERSION) $(OTAU_SLOT_1) $(OTAU_SLOT_2) $(OTAU_SLOT_END)
+
+-include dummy.force
+
+ifeq ($(LIBRARY_VERSION),)
+  -include $(SDK)/libver.mak
+endif
+
+ifeq ($(LIBRARY_VERSION),)
+  ifeq ($(strip $(MAKE_MODE)),legacy)
+    # If library version is empty at this point, it means we are dealing
+    # with a legacy project so assume CSR100x
+    LIBRARY_VERSION = CSR100x
+  else
+    # Should never happen, but assume Auto just in case
+    LIBRARY_VERSION = Auto
+  endif
+endif
+ 
+# Per configuration dependencies
+PERCONFIGDEPEND = depend_$(call sp2us,$(XIDE_CONFIG))_$(LIBRARY_VERSION)
+TARGET_HARDWARE = $(LIBRARY_VERSION)
+
+# Variables used for removing ellipsis from a text variable
+empty:=
+ellipsis:= ...
+
+# Create standard path variables to be used in xIDE
+SDK_INSTALL_PATH:=$(subst /tools,$(empty),$(SDK))
+PROJECT_PATH:=$(CURDIR)
+
+# Helper function that returns all files in folder recursively that match pattern 
+# Assumes that folder has linux style path (with slashes)
+# Note: 
+#    - pattern MUST include only one '*' (e.g. '?' or '*.*' not supported)
+#    - folder argument MUST end with '/' to obtain described behaviour 
+#    - runs out of memory(!) if folder depth is big and folders have lots of files
+#      (e.g. getting all files from root)
+# $(call rwildcard,folder,pattern)
+rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d)) 
+
+# Helper function Returns a list containing:
+#   - all (non empty) folder paths of the directories appended with ellipsis in the folder list (including them) 
+#   - all folders without ellipsis in the folder list
+# Note: 
+#   - Takes both path/to/folder and path\to\folder\
+#   - Removes duplicates
+#   - Outputs path/to/folder
+#   - Assumes folder names do not contain spaces 
+#   - Ellipsis must be placed only at the end of the path
+#     e.g. path/to/folder/...
+#   - Any other placement of ellipsis will not be considered for expanding
+# $(call rdirs,folder_list)
+rdirs= $(foreach d, $(strip ${subst $(ellipsis),$(empty),$(sort $(subst \,/,$(filter %$(ellipsis),$1)))}),$(sort $(dir $(call rwildcard,$d,*)))) $(filter-out %$(ellipsis),$(sort $1)) 
+
+# Expand LIBPATHS and INCPATHS to include subdirectories recursively 
+LIBPATHS := $(call rdirs,$(LIBPATHS))
+INCPATHS := $(call rdirs,$(INCPATHS))
+
+# Compile and link options
+LD_AND_CFLAGS = -gdwarf-2 -g -msmall-mode -mconst-switch-tables -mas-mode \
+	-mno-initc
+CPPFLAGS = -MD $(addprefix -I,. $(INCPATHS) $(PERCONFIGDEPEND) $(SDK_INC_PATH) $(SDK_LIB_PATH) $(OTAU_INC_PATH)) $(DEFS)
+CFLAGS = -Wa,-ahln=$*.si $(LD_AND_CFLAGS) \
+	$(OPTIM) -Wall -W  -Wshadow -Wpointer-arith \
+	-Wbad-function-cast -Wcast-align -Wwrite-strings \
+	-Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations \
+	-Wredundant-decls -Wnested-externs -Wdisabled-optimization \
+	-Wcast-qual -Wundef -Wno-long-long \
+	-Wno-unused-parameter -Werror -fno-inline-functions \
+	-fno-inline-small-functions -fno-delete-null-pointer-checks \
+	-fno-strict-aliasing -ffunction-sections -fdata-sections \
+	-fno-builtin --param large-stack-frame=10 \
+	--param large-stack-frame-growth=50
+LDFLAGS = -nostdlib $(addprefix -L,. $(LIBPATHS) $(SDK_LIB_PATH) \
+	$(OTAU_LIB_PATH)) $(LD_AND_CFLAGS)
+ASFLAGS = $(LD_AND_CFLAGS) -x assembler-with-cpp -c $(CPPFLAGS) \
+	-Wa,-gdwarf2,-Axap2+
+ASMFLAGS = -l -Fbyte
+
+# Strip debug and unnecessary symbols from output file?
+ifeq "$(STRIP_SYMBOLS)" "1"
+    STRIP_OPTIONS = --strip-unneeded --strip-debug
+endif
+
+# Optimisation options based on the configuration
+OPTIM_Release = -Os
+OPTIM_Debug = -O0 -fno-inline-functions-called-once
+
+# If the configuration name is prefixed with the word "Release", use release configuration settings otherwise debug configuration settings
+guessOptimFromCfgName = $(if $(filter Release%,$(1)),$(OPTIM_Release),$(OPTIM_Debug))
+
+# Get optimisation settings as defined, if not guess them based on configuration name
+getOptim = $(if $(OPTIM_$(1)),$(OPTIM_$(1)),$(call guessOptimFromCfgName,$(1)))
+
+# Optimisation settings to be passed on to the compiler
+OPTIM = $(call getOptim,$(call sp2us,$(XIDE_CONFIG)))
+
+# Remove references to gatt_lib or gatt_lib_ram in LIBS
+LIBS := $(filter-out gatt_lib_ram,$(LIBS))
+LIBS := $(filter-out gatt_lib,$(LIBS))
+
+ifneq ($(strip $(MAKECMDGOALS)),clean)
+  APP_MEM_CONF = memory.mak
+  APP_LD_MEM_CONF = memory.cfg
+
+  ifeq ($(wildcard $(APP_MEM_CONF)),)
+    # $(APP_MEM_CONF) not found in the project folder
+    ifeq ($(wildcard $(APP_LD_MEM_CONF)),)
+      # Both $(APP_MEM_CONF) and $(APP_LD_MEM_CONF) were not found in the project folder. No need to print anything
+    else
+      # $(APP_MEM_CONF) not found in the project folder, but $(APP_LD_MEM_CONF) was found. This is critical to abort build process here, otherwise linker picks up the local $(APP_LD_MEM_CONF)
+      $(error INFO: $(APP_MEM_CONF) not found in the build directory, but $(APP_LD_MEM_CONF) was found.  Them both should be either absent or present with compatible definitions.)
+    endif
+    APP_LD_MEM_CONF = $(SDK)/lib/$(LIBRARY_VERSION)/memory.cfg
+    APP_MEM_CONF = $(SDK)/lib/$(LIBRARY_VERSION)/memory.mak
+  else
+    ifeq ($(wildcard $(APP_LD_MEM_CONF)),)
+      # $(APP_LD_MEM_CONF) not found in the project folder, but $(APP_MEM_CONF) was found
+      $(error INFO: $(APP_LD_MEM_CONF) not found in the build directory, but $(APP_MEM_CONF) was found. Them both should be either absent or present with compatible definitions.)
+      APP_LD_MEM_CONF = $(SDK)/lib/$(LIBRARY_VERSION)/memory.cfg
+      APP_MEM_CONF = $(SDK)/lib/$(LIBRARY_VERSION)/memory.mak
+    else
+      # Both $(APP_MEM_CONF) and $(APP_LD_MEM_CONF) were found in the project folder.
+      $(info WARNING: $(APP_LD_MEM_CONF) and $(APP_MEM_CONF) were found in the project folder and will be used. Ensure that they are consistent, otherwise be prepared for corrupt images. If you are not sure remove them. )
+    endif
+  endif
+endif
+
+CC								= $(SDK)/bin/xap-local-xap-gcc
+AS								= $(SDK)/bin/xap-local-xap-gcc
+ASM								= $(SDK)/bin/as31
+MV								= $(SDK)/bin/rename
+RM								= $(SDK)/bin/remove
+CP								= $(SDK)/bin/copyfile
+AR 								= $(SDK)/bin/xap-local-xap-ar
+
+8051tos							= $(SDK)/bin/8051_to_s
+appinfo							= $(SDK)/bin/appinfo_$(1)
+cat								= $(SDK)/bin/cat
+cpre							= $(CC) -E -x c $(CPPFLAGS)
+csconfig						= $(SDK)/bin/csconfigcmd
+e2cmd							= $(SDK)/bin/e2cmd
+gattdbgen						= $(SDK)/bin/gattdbgen
+gennvsimage						= $(SDK)/bin/gennvsimage
+mkdir							= $(SDK)/bin/createpath
+nm		    					= $(SDK)/bin/xap-local-xap-nm
+nvscmd							= $(SDK)/bin/nvscmd
+objcopy							= $(SDK)/bin/xap-local-xap-objcopy
+objdump							= $(SDK)/bin/xap-local-xap-objdump
+otauimgcmd						= $(SDK)/bin/otauimgcmd
+post_process_linker_messages	= $(SDK)/bin/post_process_linker_messages
+readstrings						= $(SDK)/bin/readstrings
+recordflags						= $(SDK)/bin/recordflags
+sed								= $(SDK)/bin/sed
+strip							= $(SDK)/bin/xap-local-xap-strip
+validate_bootloader				= $(SDK)/bin/validate_bootloader
+validate_image					= $(SDK)/bin/validate_image
+validate_nvm_store				= $(SDK)/bin/validate_nvm_store
+image_layout					= $(SDK)/bin/image_layout
+image_layout_no_bl				= $(SDK)/bin/image_layout_no_bl
+
+# Set up SPI transport
+ifndef SPITRANS
+SPITRANS=USB
+endif
+
+ifndef SPIPORT
+ifeq ($(SPITRANS),LPT)
+SPIPORT=1
+else
+SPIPORT=0
+endif
+endif
+
+ifdef XIDE_DEBUGTRANSPORT
+SPI = -trans '$(subst [,,$(subst ],,$(XIDE_DEBUGTRANSPORT)))'
+else
+SPI = -trans 'SPITRANS=$(SPITRANS) SPIPORT=$(SPIPORT)'
+endif
+
+SPITEXT = $(filter-out -trans,$(SPI))
+
+# This function converts spaces into underscores
+space :=
+space +=
+sp2us = $(subst $(space),_,$(1))
+us2sp = $(subst _,$(space),$(1))
+
+# general purpose functions
+is_str_equal = $(filter $(subst $(space),_,$(1)),$(subst $(space),_,$(2)))
+str_if_equal = $(if $(call is_str_equal,$(1),$(2)),$(1),) 
+get_lib_fn	= $(foreach ln,$(1),$(addsuffix .a,$(addprefix lib,$(ln))))
+# Version of realpath that copes with absolute pathnames on Windows
+myrealpath = $(join \
+             $(filter %:,$(subst :,: ,$1)),\
+             $(realpath $(filter-out %:,$(subst :,: ,$1))))
+
+# Application image analysis funtions
+readfwlib       = $(shell $(subst /,\,$(readstrings) -f $1))
+isappCSR101x	= $(filter bdkSDK% bdk_EOI%,$(call readfwlib,$1))
+getappTarget	= $(if $(strip $(call isappCSR101x,$(1))),CSR101x,CSR100x)
+
+# Functions for analysing application image's overlap with NVM store
+
+# extractCSKey <CS key>
+#
+# Extract the value of the specified CS key from the CS_FILE
+# 
+# The sed command breaks down roughly as follows:
+# The command line options:
+# r                                    Extended regular expression is used
+# n                                    Run silently, to make sure that sed doesn't print 
+#                                      the entire string when it didn't match the pattern)
+#
+# s/<find>/<replace>/Ip  Search through the buffer looking for the 
+#                                      <find> pattern (explained below) } and print the 
+#                                      <replace> pattern if there is a match. 
+#                                      "I" at the end is to make the matches ignoring the case. 
+#                                      "p" is to make sed print the match.
+# 
+#
+# The <find> regular expression breaks down as follows (working from outside in and left to right):
+#
+# ^[ \t]*                               Match white space at the start of the line
+# &$1                                   Match the CS key (we match ignoring case, as explained later)
+# [ \t]*                                Match white space following the above string
+# \=                                    Match the character '='
+# [ \t]*                                Match white space following the above character
+# (0x){0,1}                             Match leading 0x for the hex number, if specified. This is match group-1.
+# ([0-9A-Fa-f]*)                        Match any hex digits. This is match group-2.
+# [ \t]*                                Match white space following the above hex number
+# .*                                    Match any character, e.g. comments			
+# $$                                    Match end of line
+#
+# The <replace> pattern is as follows:
+# 
+# \2                                    The group-2 from the above regular expression, if there is a match
+#
+extractCSKey = $(if $(CS_FILE),$(shell $(sed) -rn "s/^[ \t]*&$1[ \t]*\=[ \t]*(0x){0,1}([0-9A-Fa-f]*)[ \t]*.*$$/\2/Ip" $(CS_FILE)),)
+
+# Extract NVM Store start address from the CS File
+extractNVMStartAddr = $(call extractCSKey,NVM_START_ADDRESS)
+# If a Configuration Store key file exists and the key "NVM_START_ADDR" was set, then extract the key value; otherwise return empty string
+getKeyrNVMStart = $(filter-out 0x,0x$(extractNVMStartAddr))
+
+# Auto hardware detection functions
+getchipid		= $(subst CHIP_ID=0x,,$(filter CHIP_ID=0x%,$(strip $(shell $(nvscmd) $(SPI) identifychip -machine -quiet -norun))))
+checkchipid		= $(findstring $(1),$(2))
+checkIfCSR101x	= $(call checkchipid,412b0000,$(1))
+checkIfCSR100x	= $(call checkchipid,402b0000,$(1))
+getchipname		= $(strip $(if $(call checkIfCSR101x,$(1)),CSR101x,$(if $(call checkIfCSR100x,$(1)),CSR100x,)))
+# TODO: Figure out a way to learn the ROM version, which is not possible for A05 so far
+# Since we only have one ROM version, it is okay to assume that CSR101x is always A05
+getchipver		= $(strip $(if $(call checkIfCSR101x,$(1)),A05,$(if $(call checkIfCSR100x,$(1)),,)))
+# Convert library symbol supplied by xIDE into library description
+library_description = $(if $(findstring Auto,$(1)),Auto Detect,$(call us2sp,$(1)))
+
+# Image compatibility functions
+ifdef CHECK_BEFORE_DOWNLOAD
+  isimgcompenabled= $(findstring 1,$(strip $(CHECK_BEFORE_DOWNLOAD)))
+else
+  isimgcompenabled = 1
+endif
+isimgcompatible	= $(findstring $(call getappTarget,$(1)),$(call getchipname,$(2)))
+failuremsg		= $(strip $(if $(2),$(if $(call getchipname,$(2)),$(1) built for $(call getappTarget,$(1)) but $(call getchipname,$(2)) $(getchipver,$(2)) detected on $(SPITEXT),Unrecognised hardware (chipid=$(2)) detected on Debug Transport $(SPITEXT)),Failed to detect hardware on Debug Transport $(SPITEXT) Project property: Target Hardware '$(call library_description,$(LIBRARY_VERSION))'))
+warningmsg		= $(strip ****WARNING****: $(call failuremsg,$(1),$(2)))
+failifnotcomp	= $(if $(call isimgcompatible,$(2),$(3)),$(1) $(4),$(error $(call failuremsg,$(2),$(3))))
+warnifnotcomp	= $(if $(call isimgcompatible,$(2),$(3)),$(1) $(4),$(warning $(call warningmsg,$(2),$(3))) $(1) $(4))
+checkandrun		= $(if $(isimgcompenabled),$(call failifnotcomp,$(1),$(2),$(3),$(4)),$(call warnifnotcomp,$(1),$(2),$(3),$(4)))
+escape          = $(subst $(space),\$(space),$1)
+
+# image information functions
+builtimageinfo = *********** $1 is built for $(call library_description,$(LIBRARY_VERSION)) $(if $(filter 1,$(strip $(USE_FLASH))),Flash,EEPROM) ***********
+
+# Additional compiler/linker flags depending on hardware variant
+include $(SDK)/$(addprefix Makefile.common.rules.,$(LIBRARY_VERSION))
+
+ifeq ($(strip $(MAKE_MODE)),autogen)
+  # Append any UI defined build flags
+  CPPFLAGS += $(UI_CPP_FLAGS)
+  CFLAGS += $(UI_COMPILER_FLAGS)
+  LDFLAGS += $(UI_LINKER_FLAGS)
+  ASFLAGS += $(UI_AS_FLAGS)
+  ASMFLAGS += $(UI_ASM_FLAGS)
+endif
+
+# Paths to OTAU library
+OTAU_LIB_PATH = $(SDK)/lib/otau
+OTAU_INC_PATH = $(SDK)/lib/otau
+
+# Filename modifier for OTA Update images
+OTAU_EXT := _update
+
+# Append -lgcc to linker flags (do this here so that the rom image is
+# included in preference to the standard library)
+LDFLAGS += -lgcc 
+
+ifndef HW_VARIANT
+  $(error Could not determine hardware variant from LIBRARY_VERSION ($(LIBRARY_VERSION)))
+endif
+
+# Additional definitions signalling target hardware for use by applications
+TARGET_HW_FLAGS := -D$(HW_VARIANT)
+ifdef HW_VERSION
+  TARGET_HW_FLAGS += -D$(HW_VARIANT)_$(HW_VERSION)
+endif
+ifeq ($(USE_FLASH),1)
+  TARGET_HW_FLAGS += -DNVM_TYPE_FLASH
+  LIBS += otau_flash
+else
+  TARGET_HW_FLAGS += -DNVM_TYPE_EEPROM
+  LIBS += otau_eeprom
+endif
+CPPFLAGS += $(TARGET_HW_FLAGS)
+CFLAGS += $(TARGET_HW_FLAGS)
+ASFLAGS += $(TARGET_HW_FLAGS)
+
+# List of objects to be built
+OBJS = $(DB_OBJS) $(C_OBJS) $(ASM_OBJS)
+
+# Automatically generated dependencies
+DEPS = $(C_DEPS) $(ASM_DEPS) $(DB_DEPS)
+
+# All files this makefile might generate (useful for clean)
+OUT = $(C_OUT) $(ASM_OUT) $(DB_OUT) \
+	$(addprefix $(PERCONFIGDEPEND)/$(OUTPUT)., xuv img img_ flash.xuv flash.xuv_ elf fwnvs.xuv map keyr lst img.layout flash.xuv.layout) \
+	$(addprefix $(PERCONFIGDEPEND)/$(OUTPUT)$(OTAU_EXT)., img flash.xuv img.layout flash.xuv.layout) \
+	$(addprefix $(PERCONFIGDEPEND)/, lib$(OUTPUT).a) 
+
+# The .db_ files are needed by the clean target. However when make is invoked 
+# with "clean" and "build" targets together, the .db_ files seem to have been 
+# created only once, which is cleaned by the clean target causing the build 
+# target to fail. Hence remove .db_ files only if clean is the only target. 
+# See B-142635. However if there is a change in the *.db files and other files 
+# those *.db files depend on; .db_ file will have to be remade. In order to 
+# ensure that we need to keep .db.d file as well.
+FILES_TO_CLEAN_DB = $(if $(filter-out clean, $(MAKECMDGOALS)),\
+	$(filter-out $(DB_OBJS:.o=.db_) $(DB_OBJS:.o=.db.d) $(DB_OBJS:.o=.c) $(DB_OBJS:.o=.h),$(OUT)),\
+	$(filter-out $(DB_OBJS:.o=.c) $(DB_OBJS:.o=.h),$(OUT)))
+
+# Remove the flags only if clean is the only target. See B-142635
+FILES_TO_CLEAN_FLAGS = $(if $(filter-out clean, $(MAKECMDGOALS)),,$(PERCONFIGDEPEND)/flags.preprocess $(PERCONFIGDEPEND)/flags.compile $(PERCONFIGDEPEND)/flags.assemble $(PERCONFIGDEPEND)/flags.8051.assemble $(PERCONFIGDEPEND)/flags.link $(PERCONFIGDEPEND)/flags.libs $(PERCONFIGDEPEND)/flags.strip $(PERCONFIGDEPEND)/flags.libs $(PERCONFIGDEPEND)/flags.otau flags.configuration)
+
+# Also need to clean output.elf from project folder per B-129169
+FILES_TO_CLEAN = $(FILES_TO_CLEAN_DB) $(FILES_TO_CLEAN_FLAGS) $(XIDE_PROJECT).elf
+FOLDERS_TO_REMOVE := $(PERCONFIGDEPEND)
+
+# If $(PERCONFIGDEPEND)/$(OUTPUT).nvs exists use that, otherwise use firmware defaults
+NVS_IMG = $(firstword $(wildcard $(PERCONFIGDEPEND)/$(OUTPUT).nvs.xuv) $(PERCONFIGDEPEND)/$(OUTPUT).fwnvs.xuv)
+
+# Make sure that make knows where we look for libraries
+vpath %.a $(LIBPATHS) $(SDK_LIB_PATH) $(OTAU_LIB_PATH)
+
+# Compile 8051 to byte code
+define asmrule
+ASM_OBJS += $(1).o
+ASM_DEPS += $(1).d
+ASM_OUT += $(1).o $(1).d $(1).byte $(1).s $(1).lst
+$(1).byte: $(2) $$(PERCONFIGDEPEND)/flags.8051.assemble
+	$$(ASM) $$(ASMFLAGS) -s $$< 1>$$@
+	$$(CP) $(patsubst %.asm,%.lst,$(2)) $(1).lst
+	$$(RM) $(patsubst %.asm,%.lst,$(2))
+# Patch 8051 bytecode to xap assembler array
+$(1).s: $(1).byte
+	$$(8051tos) $$<
+$(1).o: $(1).s $$(PERCONFIGDEPEND)/flags.assemble
+	$$(COMPILE.s) -o $$@ $$<
+endef
+$(foreach af,$(filter %.asm, $(INPUTS)),$(eval $(call asmrule,$(PERCONFIGDEPEND)/$(basename $(notdir $(af))),$(af))))
+
+# Compile S files to object code
+define srule
+ASM_OBJS += $(1).o
+ASM_DEPS += $(1).d
+ASM_OUT += $(1).o $(1).d
+$(1).o: $(2) $$(PERCONFIGDEPEND)/flags.assemble
+	$$(COMPILE.s) -o $$@ $$<
+endef
+$(foreach sf,$(filter %.s, $(INPUTS)),$(eval $(call srule,$(PERCONFIGDEPEND)/$(basename $(notdir $(sf))),$(sf))))
+
+# Compile C files to object code
+define crule
+C_OBJS += $(1).o
+C_DEPS += $(1).d
+C_OUT += $(1).o $(1).d $(1).si
+$(1).o: $(2) $$(PERCONFIGDEPEND)/flags.preprocess $$(PERCONFIGDEPEND)/flags.compile
+	$$(COMPILE.c) -o $$@ $$<
+endef
+$(foreach cf,$(filter %.c, $(INPUTS)),$(eval $(call crule,$(PERCONFIGDEPEND)/$(basename $(notdir $(cf))),$(cf))))
+
+# Only build database objects if databases have been provided
+ifneq ("$(DBS)", "")
+  # If we're just compiling a single db, make that the master database
+  ifeq ("$(MAKECMDGOALS)","dbgenerate")
+    MASTER_DB := $(JUST_COMPILE_FILE)
+  endif
+  
+  # To support legacy projects: if no master db has been defined check
+  # whether app_gatt_db.db appears in the list of databases
+  ifndef MASTER_DB
+    define check_for_legacy_db
+      $(if $(filter app_gatt_db.db,$(notdir $1)),MASTER_DB := $1,)
+    endef
+    $(foreach dbf,$(DBS),$(eval $(call check_for_legacy_db,$(dbf))))
+  endif
+  
+  # A master database must be specified
+  ifndef MASTER_DB
+    $(error Master database has not been defined)
+  endif
+
+  # Check master database is included in the project
+  $(if $(filter $(call myrealpath,$(subst \,/,$(MASTER_DB))),$(foreach dbf,$(DBS),$(call myrealpath,$(subst \,/,$(dbf))))),,$(error Master database specified ($(MASTER_DB)) has not been included in the project))
+  
+  # Convert the master db filename into its intermediate file root
+  MASTER_DB_OUT := $(PERCONFIGDEPEND)/$(basename $(notdir $(MASTER_DB)))
+  DB_OBJS := $(MASTER_DB_OUT).o
+  DB_DEPS = $(foreach extn,.d .db.d,$(MASTER_DB_OUT)$(extn))
+  # Add intermediate files for each separate DB to list of output files
+  # (ensures they are cleaned if built separately in a previous build)
+  DB_OUT += $(foreach dbf,$(DBS),$(foreach extn,.o .d .db.d .c .h .si .dbx .db_,$(PERCONFIGDEPEND)/$(basename $(notdir $(dbf)))$(extn)))
+
+  # If compiling a single database file an extra step is required to remove
+  # trailing commas
+  ifeq ("$(MAKECMDGOALS)","dbgenerate")
+    MASTER_DB_IN := $(MASTER_DB_OUT).dbx
+    $(MASTER_DB_IN): $(MASTER_DB)
+        # Strip off final , from the database, if present.
+        # The sed command breaks down roughly as follows:
+        #
+        #  :a                   Branch label 'a'
+        #  N;                   Read the next line from the input file and
+        #                       append it to the buffer
+        #  $!b a;               If this is not the last line, jump to 'a'
+        #  s/<find>/<replace>/  Search through the buffer looking for the
+        #                       last } that is not within a comment or
+        #                       pre-processor directive and append , if not
+        #                       already present
+        #
+        # The <find> regex breaks down as follows (working from outside in
+        # and left to right):
+        #
+        # ,\?\(...\)$           Find the last instance of the pattern
+        #                       specified and store it. The pattern may
+        #                       or may not start with a , - if it does
+        #                       the , is not stored.
+        # \(...\)*              Match zero or more of the contents
+        # \/\*\([^\*]\|\*[^\/]\)*\*\/ 
+        #                       Match multiline comments (/*...*/)
+        # \/\/[^\n]*            Match single line comments (//...)
+        # \n[ \t]*#\([^\n]\|\\\n\)*
+        #                       Match preprocessor directives (supporting
+        #                       line continuation)
+        # [^},]*                Match any character except } or ,
+        # \|                    "or"
+        #
+        # If you change the sed command build the dbtest project to check
+        # that sed is still working properly.
+        #
+		@$(sed) ":a N;$$!ba;s/,\?\(\(\/\*\([^\*]\|\*[^\/]\)*\*\/\|\/\/[^\n]*\|\n[ \t]*#\([^\n]\|\\\n\)*\|[^},]\)*\)$$/\1/" $< > $@
+  else
+    MASTER_DB_IN := $(MASTER_DB)
+  endif
+
+  $(MASTER_DB_OUT).db_: $(MASTER_DB_IN) $(PERCONFIGDEPEND)/flags.preprocess
+	$(cpre) -MF $(basename $@).db.d -MT $@ $< -o $@
+
+  $(MASTER_DB_OUT).c $(MASTER_DB_OUT).h: $(MASTER_DB_OUT).db_
+	$(gattdbgen) -u -3 $<
+endif
+
+# Do not remove generated database files because they may be useful for
+# application debugging. Also do not remove db_ as make seems unable to
+# workout that since the .c and .h are precious, the db_ is not needed.
+# For that reason it tries to regenerate it causing the build to create
+# it one more time.
+.PRECIOUS: $(DB_OBJS:.o=.c) $(DB_OBJS:.o=.h) $(DB_OBJS:.o=.db_)
+
+# Do not remove generated 8051 xap assembler array .s files as then the
+# next round needs to re-generate them
+.PRECIOUS: $(ASM_OBJS:.o=.s)
+
+# Link .elf file from objects
+BUILD_ELF = $(CC) $(OBJS) $(LIBS:%=-l%) $(GATT_LIB) $(LDFLAGS) -Wl,-Map,$(PERCONFIGDEPEND)/$(OUTPUT).map -o $@
+$(PERCONFIGDEPEND)/$(OUTPUT).elf $(PERCONFIGDEPEND)/$(OUTPUT).map: $(OBJS) $(call get_lib_fn,$(LIBS) $(GATT_LIB_NAME)) $(APP_LD_MEM_CONF) $(APP_MEM_CONF) $(PERCONFIGDEPEND)/flags.link $(PERCONFIGDEPEND)/flags.libs
+# Build the elf file. If the linker reports overlapping sections these errors
+# are stripped by post_process_linker_messages and managed by appinfo instead,
+# which can generate a more meaningful message using the mapfile. Any other
+# errors are reported as normal.
+	$(subst /,\,$(BUILD_ELF)) 2>&1 | $(subst /,\,$(post_process_linker_messages)) -
+# Check integrity of app memory map (detect any overlapping regions etc)
+	$(call appinfo,$(LIBRARY_VERSION)) -c $(PERCONFIGDEPEND)/$(OUTPUT).map
+# Generate .lst file from .elf for debugging
+	$(objdump) -S -d $(PERCONFIGDEPEND)/$(OUTPUT).elf > $(PERCONFIGDEPEND)/$(OUTPUT).lst
+
+# Build a library archive from objects
+$(PERCONFIGDEPEND)/lib$(OUTPUT).a: $(OBJS) $(PERCONFIGDEPEND)/flags.strip
+	$(AR) r $@ $(OBJS)
+ifdef STRIP_OPTIONS
+	$(strip) --target elf32-xap2 $(STRIP_OPTIONS) $@
+endif
+
+.PHONY: cleanag
+
+define clean_autogen_rule
+cleanag: $$(addsuffix .db_,$1)
+# Check for any source files which may conflict with gattdbgen's
+# autogenerated files and abort if any such files found
+	@$$(gattdbgen) -u -3 -c $$^
+	$$(RM) $$(addsuffix .c,$1) $$(addsuffix .h,$1)
+endef
+$(foreach dbf,$(DB_OBJS),$(eval $(call clean_autogen_rule,$(basename $(dbf)))))
+
+# Generate .xuv image (.map is also a prerequisite because we need to check for any overlapping regions)
+$(PERCONFIGDEPEND)/$(OUTPUT).xuv: $(PERCONFIGDEPEND)/$(OUTPUT).elf $(PERCONFIGDEPEND)/$(OUTPUT).map
+	$(objcopy) $(XUV_ADDR) --remove-section CONFIG_STORE --remove-section .fixed_data --remove-section .stack --remove-section .preserved --remove-section PERSIST_MEM --remove-section .textrom1 --remove-section .textrom2 -O xuv $< $@
+
+# Take firmware nvs defaults (.map is also a prerequisite because we need to check for any overlapping regions)
+$(PERCONFIGDEPEND)/$(OUTPUT).fwnvs.xuv: $(PERCONFIGDEPEND)/$(OUTPUT).elf $(PERCONFIGDEPEND)/$(OUTPUT).map
+	$(objcopy) --only-section CONFIG_STORE -O xuv $< $@
+
+# Load memory configuration
+include $(APP_MEM_CONF)
+
+# Load object dependencies
+# We load the dependencies here because #include expands DEPS at the line
+# where #include is first encountered - even when DEPS is defined
+# recursively. If DEPS is modified after this line then #include will not
+# see those changes.
+-include $(DEPS)
