@@ -105,6 +105,7 @@
   <file path="label.h" />
   <file path="typedef.h" />
   <file path="define.h" />
+  <file path="../../../../tools/include/CSR101x_A05/macros.h" />
  </folder>
  <folder name="GATT db files" >
   <extension name="db" />
@@ -141,7 +142,7 @@
    <property key="cm_peripheral" >0</property>
    <property key="cm_server" >0</property>
    <property key="csr101x_a05_keyr" >csr_mesh_heater_csr101x_A05.keyr</property>
-   <property key="debugtransport" >[SPITRANS=USB SPIPORT=1]</property>
+   <property key="debugtransport" >[SPITRANS=USB SPIPORT=0]</property>
    <property key="defines" >THIN_CM4_MESH_NODE,ENABLE_MESH_OTA</property>
    <property key="download_into" >1</property>
    <property key="erase_nvm" >1</property>

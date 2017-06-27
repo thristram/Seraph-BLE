@@ -194,6 +194,13 @@ static void appProcessMeshEvent(CSR_MESH_APP_EVENT_DATA_T
                      * promiscuous settings would be assigned at the time of 
                      * disconnection.
                      */
+                    
+                        uint16 self_dev_id = 0;
+                        CSR_MESH_APP_EVENT_DATA_T get_dev_id_data;
+                        get_dev_id_data.appCallbackDataPtr = &self_dev_id;
+                        CSRmeshGetDeviceID(CSR_MESH_DEFAULT_NETID, &get_dev_id_data);
+                        if(self_dev_id >= 0x8000 && self_dev_id <= 0x9000)
+                        Local_MESH_ID = self_dev_id;
                     if(GetConnectedDeviceId() == CM_INVALID_DEVICE_ID)
                     {
                         AppUpdateBearerState(&p_mesh_hdlr_data->bearer_tx_state);
@@ -413,6 +420,8 @@ static void deviceIdAdvertTimeoutHandler(timer_id tid)
             uint32 random_delay = ((uint32)(Random16() & 0x1FF))*(MILLISECOND);
           /* Generate a random delay between 0 to 511 ms */
             //DEBUG_STR("CSRMeshAssociateToANetwork  API is called---> \r\n");
+            Local_MESH_ID = CLEAR;
+                            
             CSRmeshAssociateToANetwork(p_mesh_hdlr_data->appearance , 10);
             /*add by cdy 2017/2/4  */  
             if(tm_1s.tAdvUUID3Min.fov == ON)
