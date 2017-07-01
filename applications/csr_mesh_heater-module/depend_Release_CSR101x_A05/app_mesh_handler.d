@@ -69,4 +69,6 @@ depend_Release_CSR101x_A05/app_mesh_handler.o: app_mesh_handler.c \
   ../mesh_common/mesh/include/ping_server.h \
   ../mesh_common/mesh/include/ping_model.h \
   ../mesh_common/mesh/handlers/largeobjecttransfer_model/largeobjecttransfer_model_handler.h \
-  ../mesh_common/mesh/include/largeobjecttransfer_model.h
+  ../mesh_common/mesh/include/largeobjecttransfer_model.h label.h \
+  D:/CSR_uEnergy_SDK-2.6.1.7/tools/include/CSR101x_A05/sys_events.h \
+  D:/CSR_uEnergy_SDK-2.6.1.7/tools/include/CSR101x_A05/timer.h typedef.h

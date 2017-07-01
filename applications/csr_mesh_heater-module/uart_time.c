@@ -368,8 +368,8 @@ static void WifiTxDataDD(void)
      WifiTxData[7].byte = Con_Mobile_Num;/*连接手机的数量*/
      WifiTxData[8].byte = (Local_MESH_ID >> 8) & 0xff;/*mesh id高位*/
      WifiTxData[9].byte = Local_MESH_ID & 0xff;/*mesh id低位*/
-     WifiTxData[10].byte = Gateway_MsgID & 0xff;/*网关 mesh id低位*/
      WifiTxData[10].byte = (Gateway_MsgID >> 8) & 0xff;/*网关 mesh id高位*/
+     WifiTxData[10].byte = Gateway_MsgID & 0xff;/*网关 mesh id低位*/
      WifiTxGetBcc(); 
      
 }

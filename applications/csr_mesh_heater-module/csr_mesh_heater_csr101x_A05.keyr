@@ -55,7 +55,7 @@
 // included or OTA Update Bootloader version 6 is selected
 // Comment out the following block if EEPROM(256/128kbit) or SPI Flash used
 //&nvm_start_address = FE00 
-//&nvm_size = 100            // Default value (in hex) for a 512kbit EEPROM
+//&nvm_size = 2000           // Default value (in hex) for a 512kbit EEPROM
 
 // NVM storage configuration for 256kbit EEPROM.
 // Comment out the following block if EEPROM(512/128kbit) or SPI Flash used

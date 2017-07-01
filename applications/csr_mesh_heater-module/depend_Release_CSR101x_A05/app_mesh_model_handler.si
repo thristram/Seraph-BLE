@@ -3454,351 +3454,351 @@
  2472      47 52 4F 55 
  2472      50 5F 47 45 
  2472      54 5F 4D 4F 
- 2473                 	.LASF58:
- 2474 013c 43 53 52 4D 		.ascii "sensor_type_desired_second_wakeup_alarm_time\000"
+ 2473                 	.LASF243:
+ 2474 013c 43 53 52 4D 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-27\\apps\\csrmesh_2_1_node - xm-data-block\\appli
  2474      45 53 48 5F 
  2474      53 45 4E 53 
  2474      4F 52 5F 53 
  2474      54 41 54 45 
- 2475                 	.LASF153:
- 2476 0146 43 53 52 4D 		.ascii "CSRMESH_ASSET_STATE\000"
+ 2475                 	.LASF58:
+ 2476 0146 43 53 52 4D 		.ascii "sensor_type_desired_second_wakeup_alarm_time\000"
  2476      45 53 48 5F 
  2476      43 4F 4E 46 
  2476      49 47 5F 47 
  2476      45 54 5F 4D 
- 2477                 	.LASF163:
- 2478 0157 47 65 74 48 		.ascii "CSRMESH_TIME_BROADCAST\000"
+ 2477                 	.LASF153:
+ 2478 0157 47 65 74 48 		.ascii "CSRMESH_ASSET_STATE\000"
  2478      65 61 74 65 
  2478      72 53 74 61 
  2478      74 75 73 00 
- 2479                 	.LASF113:
- 2480 015f 73 65 6E 73 		.ascii "CSRMESH_ACTUATOR_SET_VALUE\000"
+ 2479                 	.LASF163:
+ 2480 015f 73 65 6E 73 		.ascii "CSRMESH_TIME_BROADCAST\000"
  2480      6F 72 5F 74 
  2480      79 70 65 5F 
  2480      65 78 74 65 
  2480      72 6E 61 6C 
- 2481                 	.LASF161:
- 2482 016d 73 65 6E 73 		.ascii "CSRMESH_TIME_GET_STATE\000"
- 2482      6F 72 5F 74 
- 2482      79 70 65 5F 
- 2482      64 65 73 69 
- 2482      72 65 64 5F 
- 2483                 	.LASF46:
- 2484 0184 43 53 52 4D 		.ascii "sensor_type_desired_cooker_hob_back_left_state\000"
- 2484      45 53 48 5F 
- 2484      41 53 53 45 
- 2484      54 5F 53 54 
- 2484      41 54 45 00 
- 2485                 	.LASF176:
- 2486 018e 43 53 52 4D 		.ascii "CSRMESH_FIRMWARE_UPDATE_ACKNOWLEDGED\000"
+ 2481                 	.LASF113:
+ 2482 016d 45 3A 5C 43 		.ascii "CSRMESH_ACTUATOR_SET_VALUE\000"
+ 2482      53 52 5F 75 
+ 2482      45 6E 65 72 
+ 2482      67 79 5F 53 
+ 2482      44 4B 2D 32 
+ 2483                 	.LASF161:
+ 2484 01a8 73 65 6E 73 		.ascii "CSRMESH_TIME_GET_STATE\000"
+ 2484      6F 72 5F 74 
+ 2484      79 70 65 5F 
+ 2484      64 65 73 69 
+ 2484      72 65 64 5F 
+ 2485                 	.LASF46:
+ 2486 01be 43 53 52 4D 		.ascii "sensor_type_desired_cooker_hob_back_left_state\000"
  2486      45 53 48 5F 
- 2486      54 49 4D 45 
- 2486      5F 42 52 4F 
- 2486      41 44 43 41 
- 2487                 	.LASF114:
- 2488 0199 43 53 52 4D 		.ascii "CSRMESH_ACTUATOR_VALUE_ACK\000"
+ 2486      41 53 53 45 
+ 2486      54 5F 53 54 
+ 2486      41 54 45 00 
+ 2487                 	.LASF176:
+ 2488 01c8 43 53 52 4D 		.ascii "CSRMESH_FIRMWARE_UPDATE_ACKNOWLEDGED\000"
  2488      45 53 48 5F 
- 2488      41 43 54 55 
- 2488      41 54 4F 52 
- 2488      5F 53 45 54 
- 2489                 	.LASF212:
- 2490 01a7 43 53 52 4D 		.ascii "heater_on\000"
+ 2488      54 49 4D 45 
+ 2488      5F 42 52 4F 
+ 2488      41 44 43 41 
+ 2489                 	.LASF114:
+ 2490 01d4 43 53 52 4D 		.ascii "CSRMESH_ACTUATOR_VALUE_ACK\000"
  2490      45 53 48 5F 
- 2490      54 49 4D 45 
- 2490      5F 47 45 54 
- 2490      5F 53 54 41 
- 2491                 	.LASF41:
- 2492 01b2 73 65 6E 73 		.ascii "sensor_type_water_level\000"
- 2492      6F 72 5F 74 
- 2492      79 70 65 5F 
- 2492      64 65 73 69 
- 2492      72 65 64 5F 
- 2493                 	.LASF5:
- 2494 01ca 43 53 52 4D 		.ascii "signed char\000"
- 2494      45 53 48 5F 
- 2494      46 49 52 4D 
- 2494      57 41 52 45 
- 2494      5F 55 50 44 
- 2495                 	.LASF100:
- 2496 01dc 43 53 52 4D 		.ascii "CSRMESH_SENSOR_GET_TYPES\000"
+ 2490      41 43 54 55 
+ 2490      41 54 4F 52 
+ 2490      5F 53 45 54 
+ 2491                 	.LASF212:
+ 2492 01e1 43 53 52 4D 		.ascii "heater_on\000"
+ 2492      45 53 48 5F 
+ 2492      54 49 4D 45 
+ 2492      5F 47 45 54 
+ 2492      5F 53 54 41 
+ 2493                 	.LASF41:
+ 2494 01ed 73 65 6E 73 		.ascii "sensor_type_water_level\000"
+ 2494      6F 72 5F 74 
+ 2494      79 70 65 5F 
+ 2494      64 65 73 69 
+ 2494      72 65 64 5F 
+ 2495                 	.LASF5:
+ 2496 0204 43 53 52 4D 		.ascii "signed char\000"
  2496      45 53 48 5F 
- 2496      41 43 54 55 
- 2496      41 54 4F 52 
- 2496      5F 56 41 4C 
- 2497                 	.LASF69:
- 2498 01ea 68 65 61 74 		.ascii "sensor_type_wind_direction_gust\000"
- 2498      65 72 5F 6F 
- 2498      6E 00 
- 2499                 	.LASF34:
- 2500 01ef 73 65 6E 73 		.ascii "sensor_type_washing_machine_state\000"
- 2500      6F 72 5F 74 
- 2500      79 70 65 5F 
- 2500      77 61 74 65 
- 2500      72 5F 6C 65 
- 2501                 	.LASF45:
- 2502 01fb 73 69 67 6E 		.ascii "sensor_type_cooker_hob_back_left_state\000"
- 2502      65 64 20 63 
- 2502      68 61 72 00 
- 2503                 	.LASF26:
- 2504 0201 43 53 52 4D 		.ascii "sensor_type_number_of_activations\000"
- 2504      45 53 48 5F 
- 2504      53 45 4E 53 
- 2504      4F 52 5F 47 
- 2504      45 54 5F 54 
- 2505                 	.LASF183:
- 2506 020d 73 65 6E 73 		.ascii "CSRMESH_ACTION_ACTION_STATUS\000"
- 2506      6F 72 5F 74 
- 2506      79 70 65 5F 
- 2506      77 69 6E 64 
- 2506      5F 64 69 72 
- 2507                 	.LASF21:
- 2508 021d 73 65 6E 73 		.ascii "sensor_type_internal_door\000"
+ 2496      46 49 52 4D 
+ 2496      57 41 52 45 
+ 2496      5F 55 50 44 
+ 2497                 	.LASF100:
+ 2498 0217 43 53 52 4D 		.ascii "CSRMESH_SENSOR_GET_TYPES\000"
+ 2498      45 53 48 5F 
+ 2498      41 43 54 55 
+ 2498      41 54 4F 52 
+ 2498      5F 56 41 4C 
+ 2499                 	.LASF69:
+ 2500 0224 68 65 61 74 		.ascii "sensor_type_wind_direction_gust\000"
+ 2500      65 72 5F 6F 
+ 2500      6E 00 
+ 2501                 	.LASF34:
+ 2502 0229 73 65 6E 73 		.ascii "sensor_type_washing_machine_state\000"
+ 2502      6F 72 5F 74 
+ 2502      79 70 65 5F 
+ 2502      77 61 74 65 
+ 2502      72 5F 6C 65 
+ 2503                 	.LASF45:
+ 2504 0235 73 69 67 6E 		.ascii "sensor_type_cooker_hob_back_left_state\000"
+ 2504      65 64 20 63 
+ 2504      68 61 72 00 
+ 2505                 	.LASF26:
+ 2506 023b 43 53 52 4D 		.ascii "sensor_type_number_of_activations\000"
+ 2506      45 53 48 5F 
+ 2506      53 45 4E 53 
+ 2506      4F 52 5F 47 
+ 2506      45 54 5F 54 
+ 2507                 	.LASF183:
+ 2508 0248 73 65 6E 73 		.ascii "CSRMESH_ACTION_ACTION_STATUS\000"
  2508      6F 72 5F 74 
  2508      79 70 65 5F 
- 2508      77 61 73 68 
- 2508      69 6E 67 5F 
- 2509                 	.LASF111:
- 2510 022e 73 65 6E 73 		.ascii "CSRMESH_ACTUATOR_TYPES\000"
+ 2508      77 69 6E 64 
+ 2508      5F 64 69 72 
+ 2509                 	.LASF21:
+ 2510 0258 73 65 6E 73 		.ascii "sensor_type_internal_door\000"
  2510      6F 72 5F 74 
  2510      79 70 65 5F 
- 2510      63 6F 6F 6B 
- 2510      65 72 5F 68 
- 2511                 	.LASF85:
- 2512 0242 73 65 6E 73 		.ascii "CSRMESH_CONFIG_SET_PARAMETERS\000"
+ 2510      77 61 73 68 
+ 2510      69 6E 67 5F 
+ 2511                 	.LASF111:
+ 2512 0269 73 65 6E 73 		.ascii "CSRMESH_ACTUATOR_TYPES\000"
  2512      6F 72 5F 74 
  2512      79 70 65 5F 
- 2512      6E 75 6D 62 
- 2512      65 72 5F 6F 
- 2513                 	.LASF237:
- 2514 0253 43 53 52 4D 		.ascii "sensor_model_groups\000"
- 2514      45 53 48 5F 
- 2514      41 43 54 49 
- 2514      4F 4E 5F 41 
- 2514      43 54 49 4F 
- 2515                 	.LASF226:
- 2516 0261 73 65 6E 73 		.ascii "sensor_app_data\000"
- 2516      6F 72 5F 74 
- 2516      79 70 65 5F 
- 2516      69 6E 74 65 
- 2516      72 6E 61 6C 
- 2517                 	.LASF128:
- 2518 026e 43 53 52 4D 		.ascii "CSRMESH_ATTENTION_STATE\000"
- 2518      45 53 48 5F 
- 2518      41 43 54 55 
- 2518      41 54 4F 52 
- 2518      5F 54 59 50 
- 2519                 	.LASF197:
- 2520 027a 43 53 52 4D 		.ascii "CSRMESH_BEACONPROXY_COMMAND_STATUS_DEVICES\000"
+ 2512      63 6F 6F 6B 
+ 2512      65 72 5F 68 
+ 2513                 	.LASF85:
+ 2514 027c 73 65 6E 73 		.ascii "CSRMESH_CONFIG_SET_PARAMETERS\000"
+ 2514      6F 72 5F 74 
+ 2514      79 70 65 5F 
+ 2514      6E 75 6D 62 
+ 2514      65 72 5F 6F 
+ 2515                 	.LASF237:
+ 2516 028d 43 53 52 4D 		.ascii "sensor_model_groups\000"
+ 2516      45 53 48 5F 
+ 2516      41 43 54 49 
+ 2516      4F 4E 5F 41 
+ 2516      43 54 49 4F 
+ 2517                 	.LASF226:
+ 2518 029c 73 65 6E 73 		.ascii "sensor_app_data\000"
+ 2518      6F 72 5F 74 
+ 2518      79 70 65 5F 
+ 2518      69 6E 74 65 
+ 2518      72 6E 61 6C 
+ 2519                 	.LASF128:
+ 2520 02a9 43 53 52 4D 		.ascii "CSRMESH_ATTENTION_STATE\000"
  2520      45 53 48 5F 
- 2520      43 4F 4E 46 
- 2520      49 47 5F 53 
- 2520      45 54 5F 50 
- 2521                 	.LASF0:
- 2522 0289 73 65 6E 73 		.ascii "uint8\000"
- 2522      6F 72 5F 6D 
- 2522      6F 64 65 6C 
- 2522      5F 67 72 6F 
- 2522      75 70 73 00 
- 2523                 	.LASF18:
- 2524 0293 73 65 6E 73 		.ascii "sensor_type_internal_humidity\000"
- 2524      6F 72 5F 61 
- 2524      70 70 5F 64 
- 2524      61 74 61 00 
- 2525                 	.LASF6:
- 2526 029b 43 53 52 4D 		.ascii "short int\000"
- 2526      45 53 48 5F 
- 2526      41 54 54 45 
- 2526      4E 54 49 4F 
- 2526      4E 5F 53 54 
- 2527                 	.LASF174:
- 2528 02a7 43 53 52 4D 		.ascii "CSRMESH_FIRMWARE_VERSION\000"
+ 2520      41 43 54 55 
+ 2520      41 54 4F 52 
+ 2520      5F 54 59 50 
+ 2521                 	.LASF197:
+ 2522 02b4 43 53 52 4D 		.ascii "CSRMESH_BEACONPROXY_COMMAND_STATUS_DEVICES\000"
+ 2522      45 53 48 5F 
+ 2522      43 4F 4E 46 
+ 2522      49 47 5F 53 
+ 2522      45 54 5F 50 
+ 2523                 	.LASF0:
+ 2524 02c3 73 65 6E 73 		.ascii "uint8\000"
+ 2524      6F 72 5F 6D 
+ 2524      6F 64 65 6C 
+ 2524      5F 67 72 6F 
+ 2524      75 70 73 00 
+ 2525                 	.LASF18:
+ 2526 02cd 73 65 6E 73 		.ascii "sensor_type_internal_humidity\000"
+ 2526      6F 72 5F 61 
+ 2526      70 70 5F 64 
+ 2526      61 74 61 00 
+ 2527                 	.LASF6:
+ 2528 02d5 43 53 52 4D 		.ascii "short int\000"
  2528      45 53 48 5F 
- 2528      42 45 41 43 
- 2528      4F 4E 50 52 
- 2528      4F 58 59 5F 
- 2529                 	.LASF206:
- 2530 02bc 75 69 6E 74 		.ascii "recvd_curr_temp\000"
- 2530      38 00 
- 2531                 	.LASF65:
- 2532 02bf 73 65 6E 73 		.ascii "sensor_type_desired_fan_speed\000"
- 2532      6F 72 5F 74 
- 2532      79 70 65 5F 
- 2532      69 6E 74 65 
- 2532      72 6E 61 6C 
- 2533                 	.LASF25:
- 2534 02ce 73 68 6F 72 		.ascii "sensor_type_solar_energy\000"
- 2534      74 20 69 6E 
- 2534      74 00 
- 2535                 	.LASF157:
- 2536 02d3 43 53 52 4D 		.ascii "CSRMESH_TRACKER_REPORT\000"
- 2536      45 53 48 5F 
- 2536      46 49 52 4D 
- 2536      57 41 52 45 
- 2536      5F 56 45 52 
- 2537                 	.LASF74:
- 2538 02e0 72 65 63 76 		.ascii "sensor_type_soil_moisture\000"
- 2538      64 5F 63 75 
- 2538      72 72 5F 74 
- 2538      65 6D 70 00 
- 2539                 	.LASF56:
- 2540 02e8 73 65 6E 73 		.ascii "sensor_type_desired_cooker_hob_front_right_state\000"
- 2540      6F 72 5F 74 
- 2540      79 70 65 5F 
- 2540      64 65 73 69 
- 2540      72 65 64 5F 
- 2541                 	.LASF109:
- 2542 02f7 73 65 6E 73 		.ascii "CSRMESH_SENSOR_MISSING\000"
+ 2528      41 54 54 45 
+ 2528      4E 54 49 4F 
+ 2528      4E 5F 53 54 
+ 2529                 	.LASF174:
+ 2530 02e1 43 53 52 4D 		.ascii "CSRMESH_FIRMWARE_VERSION\000"
+ 2530      45 53 48 5F 
+ 2530      42 45 41 43 
+ 2530      4F 4E 50 52 
+ 2530      4F 58 59 5F 
+ 2531                 	.LASF206:
+ 2532 02f7 75 69 6E 74 		.ascii "recvd_curr_temp\000"
+ 2532      38 00 
+ 2533                 	.LASF65:
+ 2534 02fa 73 65 6E 73 		.ascii "sensor_type_desired_fan_speed\000"
+ 2534      6F 72 5F 74 
+ 2534      79 70 65 5F 
+ 2534      69 6E 74 65 
+ 2534      72 6E 61 6C 
+ 2535                 	.LASF25:
+ 2536 0309 73 68 6F 72 		.ascii "sensor_type_solar_energy\000"
+ 2536      74 20 69 6E 
+ 2536      74 00 
+ 2537                 	.LASF157:
+ 2538 030e 43 53 52 4D 		.ascii "CSRMESH_TRACKER_REPORT\000"
+ 2538      45 53 48 5F 
+ 2538      46 49 52 4D 
+ 2538      57 41 52 45 
+ 2538      5F 56 45 52 
+ 2539                 	.LASF74:
+ 2540 031a 72 65 63 76 		.ascii "sensor_type_soil_moisture\000"
+ 2540      64 5F 63 75 
+ 2540      72 72 5F 74 
+ 2540      65 6D 70 00 
+ 2541                 	.LASF56:
+ 2542 0322 73 65 6E 73 		.ascii "sensor_type_desired_cooker_hob_front_right_state\000"
  2542      6F 72 5F 74 
  2542      79 70 65 5F 
- 2542      73 6F 6C 61 
- 2542      72 5F 65 6E 
- 2543                 	.LASF48:
- 2544 0303 43 53 52 4D 		.ascii "sensor_type_desired_cooker_hob_front_left_state\000"
- 2544      45 53 48 5F 
- 2544      54 52 41 43 
- 2544      4B 45 52 5F 
- 2544      52 45 50 4F 
- 2545                 	.LASF202:
- 2546 030f 73 65 6E 73 		.ascii "CSRMESH_MODEL_EVENT_T\000"
- 2546      6F 72 5F 74 
- 2546      79 70 65 5F 
- 2546      73 6F 69 6C 
- 2546      5F 6D 6F 69 
- 2547                 	.LASF232:
- 2548 031c 73 65 6E 73 		.ascii "read_val_tid\000"
+ 2542      64 65 73 69 
+ 2542      72 65 64 5F 
+ 2543                 	.LASF109:
+ 2544 0331 73 65 6E 73 		.ascii "CSRMESH_SENSOR_MISSING\000"
+ 2544      6F 72 5F 74 
+ 2544      79 70 65 5F 
+ 2544      73 6F 6C 61 
+ 2544      72 5F 65 6E 
+ 2545                 	.LASF48:
+ 2546 033e 43 53 52 4D 		.ascii "sensor_type_desired_cooker_hob_front_left_state\000"
+ 2546      45 53 48 5F 
+ 2546      54 52 41 43 
+ 2546      4B 45 52 5F 
+ 2546      52 45 50 4F 
+ 2547                 	.LASF202:
+ 2548 0349 73 65 6E 73 		.ascii "CSRMESH_MODEL_EVENT_T\000"
  2548      6F 72 5F 74 
  2548      79 70 65 5F 
- 2548      64 65 73 69 
- 2548      72 65 64 5F 
- 2549                 	.LASF133:
- 2550 0334 43 53 52 4D 		.ascii "CSRMESH_POWER_GET_STATE\000"
- 2550      45 53 48 5F 
- 2550      53 45 4E 53 
- 2550      4F 52 5F 4D 
- 2550      49 53 53 49 
- 2551                 	.LASF200:
- 2552 0340 73 65 6E 73 		.ascii "CSRMESH_BEACONPROXY_GET_DEVICES\000"
- 2552      6F 72 5F 74 
- 2552      79 70 65 5F 
- 2552      64 65 73 69 
- 2552      72 65 64 5F 
- 2553                 	.LASF196:
- 2554 0358 43 53 52 4D 		.ascii "CSRMESH_BEACONPROXY_REMOVE\000"
- 2554      45 53 48 5F 
- 2554      4D 4F 44 45 
- 2554      4C 5F 45 56 
- 2554      45 4E 54 5F 
- 2555                 	.LASF116:
- 2556 0363 72 65 61 64 		.ascii "CSRMESH_DATA_STREAM_FLUSH\000"
- 2556      5F 76 61 6C 
- 2556      5F 74 69 64 
- 2556      00 
- 2557                 	.LASF82:
- 2558 0369 43 53 52 4D 		.ascii "CSRMESH_CONFIG_LAST_SEQUENCE_NUMBER\000"
- 2558      45 53 48 5F 
- 2558      50 4F 57 45 
- 2558      52 5F 47 45 
- 2558      54 5F 53 54 
- 2559                 	.LASF241:
- 2560 0375 43 53 52 4D 		.ascii "GNU C 4.3.4 CSR version 29 for xap []\000"
+ 2548      73 6F 69 6C 
+ 2548      5F 6D 6F 69 
+ 2549                 	.LASF232:
+ 2550 0356 73 65 6E 73 		.ascii "read_val_tid\000"
+ 2550      6F 72 5F 74 
+ 2550      79 70 65 5F 
+ 2550      64 65 73 69 
+ 2550      72 65 64 5F 
+ 2551                 	.LASF133:
+ 2552 036f 43 53 52 4D 		.ascii "CSRMESH_POWER_GET_STATE\000"
+ 2552      45 53 48 5F 
+ 2552      53 45 4E 53 
+ 2552      4F 52 5F 4D 
+ 2552      49 53 53 49 
+ 2553                 	.LASF200:
+ 2554 037a 73 65 6E 73 		.ascii "CSRMESH_BEACONPROXY_GET_DEVICES\000"
+ 2554      6F 72 5F 74 
+ 2554      79 70 65 5F 
+ 2554      64 65 73 69 
+ 2554      72 65 64 5F 
+ 2555                 	.LASF196:
+ 2556 0392 43 53 52 4D 		.ascii "CSRMESH_BEACONPROXY_REMOVE\000"
+ 2556      45 53 48 5F 
+ 2556      4D 4F 44 45 
+ 2556      4C 5F 45 56 
+ 2556      45 4E 54 5F 
+ 2557                 	.LASF116:
+ 2558 039d 72 65 61 64 		.ascii "CSRMESH_DATA_STREAM_FLUSH\000"
+ 2558      5F 76 61 6C 
+ 2558      5F 74 69 64 
+ 2558      00 
+ 2559                 	.LASF82:
+ 2560 03a4 43 53 52 4D 		.ascii "CSRMESH_CONFIG_LAST_SEQUENCE_NUMBER\000"
  2560      45 53 48 5F 
- 2560      42 45 41 43 
- 2560      4F 4E 50 52 
- 2560      4F 58 59 5F 
- 2561                 	.LASF171:
- 2562 0385 43 53 52 4D 		.ascii "CSRMESH_LARGEOBJECTTRANSFER_ANNOUNCE\000"
+ 2560      50 4F 57 45 
+ 2560      52 5F 47 45 
+ 2560      54 5F 53 54 
+ 2561                 	.LASF241:
+ 2562 03b0 43 53 52 4D 		.ascii "GNU C 4.3.4 CSR version 29 for xap []\000"
  2562      45 53 48 5F 
  2562      42 45 41 43 
  2562      4F 4E 50 52 
  2562      4F 58 59 5F 
- 2563                 	.LASF101:
- 2564 0393 43 53 52 4D 		.ascii "CSRMESH_SENSOR_TYPES\000"
+ 2563                 	.LASF171:
+ 2564 03c0 43 53 52 4D 		.ascii "CSRMESH_LARGEOBJECTTRANSFER_ANNOUNCE\000"
  2564      45 53 48 5F 
- 2564      44 41 54 41 
- 2564      5F 53 54 52 
- 2564      45 41 4D 5F 
- 2565                 	.LASF223:
- 2566 03a0 43 53 52 4D 		.ascii "ConfigureHeater\000"
+ 2564      42 45 41 43 
+ 2564      4F 4E 50 52 
+ 2564      4F 58 59 5F 
+ 2565                 	.LASF101:
+ 2566 03cd 43 53 52 4D 		.ascii "CSRMESH_SENSOR_TYPES\000"
  2566      45 53 48 5F 
- 2566      43 4F 4E 46 
- 2566      49 47 5F 4C 
- 2566      41 53 54 5F 
- 2567                 	.LASF230:
- 2568 03b2 47 4E 55 20 		.ascii "current_desired_air_temp\000"
- 2568      43 20 34 2E 
- 2568      33 2E 34 20 
- 2568      43 53 52 20 
- 2568      76 65 72 73 
- 2569                 	.LASF175:
- 2570 03c5 43 53 52 4D 		.ascii "CSRMESH_FIRMWARE_UPDATE_REQUIRED\000"
- 2570      45 53 48 5F 
- 2570      4C 41 52 47 
- 2570      45 4F 42 4A 
- 2570      45 43 54 54 
- 2571                 	.LASF172:
- 2572 03d7 43 53 52 4D 		.ascii "CSRMESH_LARGEOBJECTTRANSFER_INTEREST\000"
+ 2566      44 41 54 41 
+ 2566      5F 53 54 52 
+ 2566      45 41 4D 5F 
+ 2567                 	.LASF223:
+ 2568 03da 43 53 52 4D 		.ascii "ConfigureHeater\000"
+ 2568      45 53 48 5F 
+ 2568      43 4F 4E 46 
+ 2568      49 47 5F 4C 
+ 2568      41 53 54 5F 
+ 2569                 	.LASF230:
+ 2570 03ec 47 4E 55 20 		.ascii "current_desired_air_temp\000"
+ 2570      43 20 34 2E 
+ 2570      33 2E 34 20 
+ 2570      43 53 52 20 
+ 2570      76 65 72 73 
+ 2571                 	.LASF175:
+ 2572 03ff 43 53 52 4D 		.ascii "CSRMESH_FIRMWARE_UPDATE_REQUIRED\000"
  2572      45 53 48 5F 
- 2572      53 45 4E 53 
- 2572      4F 52 5F 54 
- 2572      59 50 45 53 
- 2573                 	.LASF214:
- 2574 03e2 43 6F 6E 66 		.ascii "value\000"
- 2574      69 67 75 72 
- 2574      65 48 65 61 
- 2574      74 65 72 00 
- 2575                 	.LASF213:
- 2576 03ea 63 75 72 72 		.ascii "heater_status_t\000"
- 2576      65 6E 74 5F 
- 2576      64 65 73 69 
- 2576      72 65 64 5F 
- 2576      61 69 72 5F 
- 2577                 	.LASF219:
- 2578 03f6 43 53 52 4D 		.ascii "IsHeaterConfigured\000"
- 2578      45 53 48 5F 
- 2578      46 49 52 4D 
- 2578      57 41 52 45 
- 2578      5F 55 50 44 
- 2579                 	.LASF12:
- 2580 0407 43 53 52 4D 		.ascii "CsrUint16\000"
+ 2572      4C 41 52 47 
+ 2572      45 4F 42 4A 
+ 2572      45 43 54 54 
+ 2573                 	.LASF172:
+ 2574 0412 43 53 52 4D 		.ascii "CSRMESH_LARGEOBJECTTRANSFER_INTEREST\000"
+ 2574      45 53 48 5F 
+ 2574      53 45 4E 53 
+ 2574      4F 52 5F 54 
+ 2574      59 50 45 53 
+ 2575                 	.LASF214:
+ 2576 041c 43 6F 6E 66 		.ascii "value\000"
+ 2576      69 67 75 72 
+ 2576      65 48 65 61 
+ 2576      74 65 72 00 
+ 2577                 	.LASF213:
+ 2578 0424 63 75 72 72 		.ascii "heater_status_t\000"
+ 2578      65 6E 74 5F 
+ 2578      64 65 73 69 
+ 2578      72 65 64 5F 
+ 2578      61 69 72 5F 
+ 2579                 	.LASF219:
+ 2580 0431 43 53 52 4D 		.ascii "IsHeaterConfigured\000"
  2580      45 53 48 5F 
- 2580      4C 41 52 47 
- 2580      45 4F 42 4A 
- 2580      45 43 54 54 
- 2581                 	.LASF240:
- 2582 0419 76 61 6C 75 		.ascii "lot_model_groups\000"
- 2582      65 00 
- 2583                 	.LASF9:
- 2584 041c 68 65 61 74 		.ascii "unsigned int\000"
- 2584      65 72 5F 73 
- 2584      74 61 74 75 
- 2584      73 5F 74 00 
- 2585                 	.LASF243:
- 2586 0424 49 73 48 65 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-5-2\\apps\\csrmesh_2_1_node - xm-data-block\\applic
- 2586      61 74 65 72 
- 2586      43 6F 6E 66 
- 2586      69 67 75 72 
- 2586      65 64 00 
+ 2580      46 49 52 4D 
+ 2580      57 41 52 45 
+ 2580      5F 55 50 44 
+ 2581                 	.LASF12:
+ 2582 0441 43 53 52 4D 		.ascii "CsrUint16\000"
+ 2582      45 53 48 5F 
+ 2582      4C 41 52 47 
+ 2582      45 4F 42 4A 
+ 2582      45 43 54 54 
+ 2583                 	.LASF240:
+ 2584 0454 76 61 6C 75 		.ascii "lot_model_groups\000"
+ 2584      65 00 
+ 2585                 	.LASF9:
+ 2586 0457 68 65 61 74 		.ascii "unsigned int\000"
+ 2586      65 72 5F 73 
+ 2586      74 61 74 75 
+ 2586      73 5F 74 00 
  2587                 	.LASF66:
- 2588 042e 43 73 72 55 		.ascii "sensor_type_wind_speed\000"
- 2588      69 6E 74 31 
- 2588      36 00 
+ 2588 045f 49 73 48 65 		.ascii "sensor_type_wind_speed\000"
+ 2588      61 74 65 72 
+ 2588      43 6F 6E 66 
+ 2588      69 67 75 72 
+ 2588      65 64 00 
  2589                 	.LASF146:
- 2590 0433 6C 6F 74 5F 		.ascii "CSRMESH_LIGHT_SET_WHITE_NO_ACK\000"
- 2590      6D 6F 64 65 
- 2590      6C 5F 67 72 
- 2590      6F 75 70 73 
- 2590      00 
+ 2590 0468 43 73 72 55 		.ascii "CSRMESH_LIGHT_SET_WHITE_NO_ACK\000"
+ 2590      69 6E 74 31 
+ 2590      36 00 
  2591                 	.LASF132:
- 2592 043b 75 6E 73 69 		.ascii "CSRMESH_POWER_TOGGLE_STATE\000"
- 2592      67 6E 65 64 
- 2592      20 69 6E 74 
+ 2592 046d 6C 6F 74 5F 		.ascii "CSRMESH_POWER_TOGGLE_STATE\000"
+ 2592      6D 6F 64 65 
+ 2592      6C 5F 67 72 
+ 2592      6F 75 70 73 
  2592      00 
  2593                 	.LASF191:
- 2594 0442 45 3A 5C 43 		.ascii "CSRMESH_BEACON_TYPES\000"
- 2594      53 52 5F 75 
- 2594      45 6E 65 72 
- 2594      67 79 5F 53 
- 2594      44 4B 2D 32 
+ 2594 0476 75 6E 73 69 		.ascii "CSRMESH_BEACON_TYPES\000"
+ 2594      67 6E 65 64 
+ 2594      20 69 6E 74 
+ 2594      00 
  2595                 	.LASF221:
  2596 047c 73 65 6E 73 		.ascii "InitialiseHeater\000"
  2596      6F 72 5F 74 
@@ -3806,7 +3806,7 @@
  2596      77 69 6E 64 
  2596      5F 73 70 65 
  2597                 	.LASF4:
- 2598 0487 43 53 52 4D 		.ascii "long unsigned int\000"
+ 2598 0488 43 53 52 4D 		.ascii "long unsigned int\000"
  2598      45 53 48 5F 
  2598      4C 49 47 48 
  2598      54 5F 53 45 
@@ -3818,7 +3818,7 @@
  2600      52 5F 54 4F 
  2600      47 47 4C 45 
  2601                 	.LASF210:
- 2602 04a4 43 53 52 4D 		.ascii "SENSOR_APP_DATA_T\000"
+ 2602 04a5 43 53 52 4D 		.ascii "SENSOR_APP_DATA_T\000"
  2602      45 53 48 5F 
  2602      42 45 41 43 
  2602      4F 4E 5F 54 
@@ -3830,25 +3830,25 @@
  2604      61 74 65 72 
  2604      00 
  2605                 	.LASF17:
- 2606 04b7 6C 6F 6E 67 		.ascii "sensor_type_desired_air_temperature\000"
+ 2606 04b8 6C 6F 6E 67 		.ascii "sensor_type_desired_air_temperature\000"
  2606      20 75 6E 73 
  2606      69 67 6E 65 
  2606      64 20 69 6E 
  2606      74 00 
  2607                 	.LASF178:
- 2608 04c0 73 74 61 72 		.ascii "CSRMESH_DIAGNOSTIC_GET_STATS\000"
+ 2608 04c1 73 74 61 72 		.ascii "CSRMESH_DIAGNOSTIC_GET_STATS\000"
  2608      74 52 65 61 
  2608      64 56 61 6C 
  2608      75 65 54 69 
  2608      6D 65 72 00 
  2609                 	.LASF227:
- 2610 04ca 53 45 4E 53 		.ascii "ReadSensorDataFromNVM\000"
+ 2610 04cb 53 45 4E 53 		.ascii "ReadSensorDataFromNVM\000"
  2610      4F 52 5F 41 
  2610      50 50 5F 44 
  2610      41 54 41 5F 
  2610      54 00 
  2611                 	.LASF90:
- 2612 04d3 73 65 6E 73 		.ascii "CSRMESH_CONFIG_GET_INFO\000"
+ 2612 04d4 73 65 6E 73 		.ascii "CSRMESH_CONFIG_GET_INFO\000"
  2612      6F 72 5F 74 
  2612      79 70 65 5F 
  2612      69 6E 74 65 
@@ -3866,31 +3866,31 @@
  2616      4E 4F 53 54 
  2616      49 43 5F 47 
  2617                 	.LASF32:
- 2618 0506 52 65 61 64 		.ascii "sensor_type_desired_oven_temperature\000"
+ 2618 0507 52 65 61 64 		.ascii "sensor_type_desired_oven_temperature\000"
  2618      53 65 6E 73 
  2618      6F 72 44 61 
  2618      74 61 46 72 
  2618      6F 6D 4E 56 
  2619                 	.LASF79:
- 2620 0511 43 53 52 4D 		.ascii "CSRMESH_WATCHDOG_MESSAGE\000"
+ 2620 0512 43 53 52 4D 		.ascii "CSRMESH_WATCHDOG_MESSAGE\000"
  2620      45 53 48 5F 
  2620      43 4F 4E 46 
  2620      49 47 5F 47 
  2620      45 54 5F 49 
  2621                 	.LASF120:
- 2622 051d 43 53 52 4D 		.ascii "CSRMESH_BEARER_SET_STATE\000"
+ 2622 051e 43 53 52 4D 		.ascii "CSRMESH_BEARER_SET_STATE\000"
  2622      45 53 48 5F 
  2622      57 41 54 43 
  2622      48 44 4F 47 
  2622      5F 49 4E 54 
  2623                 	.LASF154:
- 2624 052a 73 65 6E 73 		.ascii "CSRMESH_ASSET_ANNOUNCE\000"
+ 2624 052b 73 65 6E 73 		.ascii "CSRMESH_ASSET_ANNOUNCE\000"
  2624      6F 72 5F 74 
  2624      79 70 65 5F 
  2624      64 65 73 69 
  2624      72 65 64 5F 
  2625                 	.LASF143:
- 2626 0543 73 65 6E 73 		.ascii "CSRMESH_LIGHT_GET_STATE\000"
+ 2626 0544 73 65 6E 73 		.ascii "CSRMESH_LIGHT_GET_STATE\000"
  2626      6F 72 5F 74 
  2626      79 70 65 5F 
  2626      64 65 73 69 
@@ -3902,7 +3902,7 @@
  2628      48 44 4F 47 
  2628      5F 4D 45 53 
  2629                 	.LASF43:
- 2630 0562 43 53 52 4D 		.ascii "sensor_type_cold_water_temperature\000"
+ 2630 0563 43 53 52 4D 		.ascii "sensor_type_cold_water_temperature\000"
  2630      45 53 48 5F 
  2630      42 45 41 52 
  2630      45 52 5F 53 
@@ -3914,13 +3914,13 @@
  2632      54 5F 41 4E 
  2632      4E 4F 55 4E 
  2633                 	.LASF139:
- 2634 057a 43 53 52 4D 		.ascii "CSRMESH_LIGHT_SET_RGB\000"
+ 2634 057b 43 53 52 4D 		.ascii "CSRMESH_LIGHT_SET_RGB\000"
  2634      45 53 48 5F 
  2634      4C 49 47 48 
  2634      54 5F 47 45 
  2634      54 5F 53 54 
  2635                 	.LASF199:
- 2636 0586 74 69 6D 65 		.ascii "CSRMESH_BEACONPROXY_PROXY_STATUS\000"
+ 2636 0587 74 69 6D 65 		.ascii "CSRMESH_BEACONPROXY_PROXY_STATUS\000"
  2636      72 5F 69 64 
  2636      00 
  2637                 	.LASF140:
@@ -3930,7 +3930,7 @@
  2638      63 6F 6C 64 
  2638      5F 77 61 74 
  2639                 	.LASF54:
- 2640 059c 43 53 52 4D 		.ascii "sensor_type_desired_cooker_hob_back_right_state\000"
+ 2640 059d 43 53 52 4D 		.ascii "sensor_type_desired_cooker_hob_back_right_state\000"
  2640      45 53 48 5F 
  2640      54 55 4E 49 
  2640      4E 47 5F 47 
@@ -3948,7 +3948,7 @@
  2644      4F 4E 50 52 
  2644      4F 58 59 5F 
  2645                 	.LASF78:
- 2646 05c4 43 53 52 4D 		.ascii "SENSOR_FORMAT_TEMPERATURE_T\000"
+ 2646 05c5 43 53 52 4D 		.ascii "SENSOR_FORMAT_TEMPERATURE_T\000"
  2646      45 53 48 5F 
  2646      4C 49 47 48 
  2646      54 5F 53 45 
@@ -3963,18 +3963,18 @@
  2650 05ef 62 6F 6F 6C 		.ascii "CSRMESH_CONFIG_DEVICE_IDENTIFIER\000"
  2650      00 
  2651                 	.LASF150:
- 2652 05f1 53 45 4E 53 		.ascii "CSRMESH_LIGHT_WHITE\000"
+ 2652 05f2 53 45 4E 53 		.ascii "CSRMESH_LIGHT_WHITE\000"
  2652      4F 52 5F 44 
  2652      41 54 41 5F 
  2652      54 00 
  2653                 	.LASF218:
- 2654 05f8 53 45 4E 53 		.ascii "InitialiseSensorData\000"
+ 2654 05f9 53 45 4E 53 		.ascii "InitialiseSensorData\000"
  2654      4F 52 5F 46 
  2654      4F 52 4D 41 
  2654      54 5F 54 45 
  2654      4D 50 45 52 
  2655                 	.LASF231:
- 2656 0606 43 53 52 4D 		.ascii "read_value_transmit_count\000"
+ 2656 0607 43 53 52 4D 		.ascii "read_value_transmit_count\000"
  2656      45 53 48 5F 
  2656      42 45 41 43 
  2656      4F 4E 5F 53 
@@ -3986,13 +3986,13 @@
  2658      49 47 5F 44 
  2658      45 56 49 43 
  2659                 	.LASF63:
- 2660 0624 43 53 52 4D 		.ascii "sensor_type_desired_audio_level\000"
+ 2660 0625 43 53 52 4D 		.ascii "sensor_type_desired_audio_level\000"
  2660      45 53 48 5F 
  2660      4C 49 47 48 
  2660      54 5F 57 48 
  2660      49 54 45 00 
  2661                 	.LASF205:
- 2662 062e 49 6E 69 74 		.ascii "type2\000"
+ 2662 062f 49 6E 69 74 		.ascii "type2\000"
  2662      69 61 6C 69 
  2662      73 65 53 65 
  2662      6E 73 6F 72 
@@ -4025,7 +4025,7 @@
  2672      4B 45 52 5F 
  2672      53 45 54 5F 
  2673                 	.LASF102:
- 2674 0676 43 53 52 4D 		.ascii "CSRMESH_SENSOR_SET_STATE\000"
+ 2674 0677 43 53 52 4D 		.ascii "CSRMESH_SENSOR_SET_STATE\000"
  2674      45 53 48 5F 
  2674      42 45 41 43 
  2674      4F 4E 50 52 
@@ -4037,19 +4037,19 @@
  2676      54 5F 53 45 
  2676      54 5F 52 47 
  2677                 	.LASF88:
- 2678 0694 73 65 6E 73 		.ascii "CSRMESH_CONFIG_DISCOVER_DEVICE\000"
+ 2678 0695 73 65 6E 73 		.ascii "CSRMESH_CONFIG_DISCOVER_DEVICE\000"
  2678      6F 72 5F 74 
  2678      79 70 65 5F 
  2678      64 65 73 69 
  2678      72 65 64 5F 
  2679                 	.LASF76:
- 2680 06a7 43 53 52 4D 		.ascii "sensor_type_desired_window_cover_position\000"
+ 2680 06a8 43 53 52 4D 		.ascii "sensor_type_desired_window_cover_position\000"
  2680      45 53 48 5F 
  2680      41 43 54 49 
  2680      4F 4E 5F 44 
  2680      45 4C 45 54 
  2681                 	.LASF112:
- 2682 06b2 43 53 52 4D 		.ascii "CSRMESH_ACTUATOR_SET_VALUE_NO_ACK\000"
+ 2682 06b3 43 53 52 4D 		.ascii "CSRMESH_ACTUATOR_SET_VALUE_NO_ACK\000"
  2682      45 53 48 5F 
  2682      53 45 4E 53 
  2682      4F 52 5F 53 
@@ -4061,7 +4061,7 @@
  2684      64 5F 74 65 
  2684      6D 70 00 
  2685                 	.LASF118:
- 2686 06c8 43 53 52 4D 		.ascii "CSRMESH_DATA_STREAM_RECEIVED\000"
+ 2686 06c9 43 53 52 4D 		.ascii "CSRMESH_DATA_STREAM_RECEIVED\000"
  2686      45 53 48 5F 
  2686      43 4F 4E 46 
  2686      49 47 5F 44 
@@ -4085,7 +4085,7 @@
  2692      4E 53 49 4F 
  2692      4E 5F 43 4F 
  2693                 	.LASF125:
- 2694 070b 43 53 52 4D 		.ascii "CSRMESH_BATTERY_GET_STATE\000"
+ 2694 070c 43 53 52 4D 		.ascii "CSRMESH_BATTERY_GET_STATE\000"
  2694      45 53 48 5F 
  2694      44 41 54 41 
  2694      5F 53 54 52 
@@ -4097,7 +4097,7 @@
  2696      61 74 61 54 
  2696      6F 4E 56 4D 
  2697                 	.LASF136:
- 2698 0724 43 53 52 4D 		.ascii "CSRMESH_LIGHT_SET_LEVEL_NO_ACK\000"
+ 2698 0725 43 53 52 4D 		.ascii "CSRMESH_LIGHT_SET_LEVEL_NO_ACK\000"
  2698      45 53 48 5F 
  2698      42 45 41 43 
  2698      4F 4E 5F 47 
@@ -4125,7 +4125,7 @@
  2706      54 5F 53 45 
  2706      54 5F 4C 45 
  2707                 	.LASF27:
- 2708 0768 73 65 6E 73 		.ascii "sensor_type_fridge_temperature\000"
+ 2708 0769 73 65 6E 73 		.ascii "sensor_type_fridge_temperature\000"
  2708      6F 72 5F 74 
  2708      79 70 65 5F 
  2708      64 65 73 69 
@@ -4137,13 +4137,13 @@
  2710      64 65 73 69 
  2710      72 65 64 5F 
  2711                 	.LASF129:
- 2712 0794 43 53 52 4D 		.ascii "CSRMESH_POWER_SET_STATE_NO_ACK\000"
+ 2712 0795 43 53 52 4D 		.ascii "CSRMESH_POWER_SET_STATE_NO_ACK\000"
  2712      45 53 48 5F 
  2712      4C 49 47 48 
  2712      54 5F 53 45 
  2712      54 5F 57 48 
  2713                 	.LASF121:
- 2714 07a0 61 74 74 65 		.ascii "CSRMESH_BEARER_GET_STATE\000"
+ 2714 07a1 61 74 74 65 		.ascii "CSRMESH_BEARER_GET_STATE\000"
  2714      6E 74 69 6F 
  2714      6E 5F 6D 6F 
  2714      64 65 6C 5F 
@@ -4155,7 +4155,7 @@
  2716      66 72 69 64 
  2716      67 65 5F 74 
  2717                 	.LASF62:
- 2718 07bb 73 72 63 5F 		.ascii "sensor_type_audio_level\000"
+ 2718 07bc 73 72 63 5F 		.ascii "sensor_type_audio_level\000"
  2718      69 64 00 
  2719                 	.LASF135:
  2720 07bf 43 53 52 4D 		.ascii "CSRMESH_POWER_STATE\000"
@@ -4164,7 +4164,7 @@
  2720      52 5F 53 45 
  2720      54 5F 53 54 
  2721                 	.LASF106:
- 2722 07ce 43 53 52 4D 		.ascii "CSRMESH_SENSOR_WRITE_VALUE\000"
+ 2722 07cf 43 53 52 4D 		.ascii "CSRMESH_SENSOR_WRITE_VALUE\000"
  2722      45 53 48 5F 
  2722      42 45 41 52 
  2722      45 52 5F 47 
@@ -4194,30 +4194,30 @@
  2730      4F 52 5F 57 
  2730      52 49 54 45 
  2731                 	.LASF142:
- 2732 080d 43 53 52 4D 		.ascii "CSRMESH_LIGHT_SET_COLOR_TEMP\000"
+ 2732 080e 43 53 52 4D 		.ascii "CSRMESH_LIGHT_SET_COLOR_TEMP\000"
  2732      45 53 48 5F 
  2732      42 45 41 43 
  2732      4F 4E 5F 53 
  2732      45 54 5F 53 
  2733                 	.LASF1:
- 2734 081a 43 53 52 4D 		.ascii "uint16\000"
+ 2734 081b 43 53 52 4D 		.ascii "uint16\000"
  2734      45 53 48 5F 
  2734      53 45 4E 53 
  2734      4F 52 5F 52 
  2734      45 41 44 5F 
  2735                 	.LASF155:
- 2736 0827 68 65 61 74 		.ascii "CSRMESH_TRACKER_FIND\000"
+ 2736 0828 68 65 61 74 		.ascii "CSRMESH_TRACKER_FIND\000"
  2736      65 72 5F 73 
  2736      74 61 74 75 
  2736      73 00 
  2737                 	.LASF181:
- 2738 082e 43 53 52 4D 		.ascii "CSRMESH_ACTION_SET_ACTION_ACK\000"
+ 2738 082f 43 53 52 4D 		.ascii "CSRMESH_ACTION_SET_ACTION_ACK\000"
  2738      45 53 48 5F 
  2738      54 55 4E 49 
  2738      4E 47 5F 53 
  2738      45 54 5F 43 
  2739                 	.LASF72:
- 2740 083b 43 53 52 4D 		.ascii "sensor_type_barometric_pressure\000"
+ 2740 083c 43 53 52 4D 		.ascii "sensor_type_barometric_pressure\000"
  2740      45 53 48 5F 
  2740      4C 49 47 48 
  2740      54 5F 53 45 
@@ -4226,7 +4226,7 @@
  2742 084a 75 69 6E 74 		.ascii "CSRMESH_ASSET_GET_STATE\000"
  2742      31 36 00 
  2743                 	.LASF149:
- 2744 084d 43 53 52 4D 		.ascii "CSRMESH_LIGHT_WHITE_NO_ACK\000"
+ 2744 084e 43 53 52 4D 		.ascii "CSRMESH_LIGHT_WHITE_NO_ACK\000"
  2744      45 53 48 5F 
  2744      54 52 41 43 
  2744      4B 45 52 5F 
@@ -4256,31 +4256,31 @@
  2752      54 5F 57 48 
  2752      49 54 45 5F 
  2753                 	.LASF189:
- 2754 0890 73 65 6E 73 		.ascii "CSRMESH_BEACON_BEACON_STATUS\000"
+ 2754 0891 73 65 6E 73 		.ascii "CSRMESH_BEACON_BEACON_STATUS\000"
  2754      6F 72 5F 74 
  2754      79 70 65 5F 
  2754      72 61 69 6E 
  2754      5F 66 61 6C 
  2755                 	.LASF186:
- 2756 089e 73 65 6E 73 		.ascii "CSRMESH_ACTION_GET\000"
+ 2756 089f 73 65 6E 73 		.ascii "CSRMESH_ACTION_GET\000"
  2756      6F 72 5F 74 
  2756      79 70 65 5F 
  2756      69 6E 76 61 
  2756      6C 69 64 00 
  2757                 	.LASF59:
- 2758 08a8 73 65 6E 73 		.ascii "sensor_type_passive_infrared_state\000"
+ 2758 08a9 73 65 6E 73 		.ascii "sensor_type_passive_infrared_state\000"
  2758      6F 72 5F 74 
  2758      79 70 65 5F 
  2758      77 69 6E 64 
  2758      6F 77 5F 63 
  2759                 	.LASF134:
- 2760 08b9 43 53 52 4D 		.ascii "CSRMESH_POWER_STATE_NO_ACK\000"
+ 2760 08ba 43 53 52 4D 		.ascii "CSRMESH_POWER_STATE_NO_ACK\000"
  2760      45 53 48 5F 
  2760      4C 49 47 48 
  2760      54 5F 53 45 
  2760      54 5F 4C 45 
  2761                 	.LASF44:
- 2762 08c5 43 53 52 4D 		.ascii "sensor_type_desired_water_temperature\000"
+ 2762 08c6 43 53 52 4D 		.ascii "sensor_type_desired_water_temperature\000"
  2762      45 53 48 5F 
  2762      42 45 41 43 
  2762      4F 4E 5F 42 
@@ -4292,7 +4292,7 @@
  2764      4F 4E 5F 47 
  2764      45 54 00 
  2765                 	.LASF119:
- 2766 08dd 73 65 6E 73 		.ascii "CSRMESH_DATA_BLOCK_SEND\000"
+ 2766 08de 73 65 6E 73 		.ascii "CSRMESH_DATA_BLOCK_SEND\000"
  2766      6F 72 5F 74 
  2766      79 70 65 5F 
  2766      70 61 73 73 
@@ -4304,31 +4304,31 @@
  2768      52 5F 53 54 
  2768      41 54 45 5F 
  2769                 	.LASF16:
- 2770 08fc 73 65 6E 73 		.ascii "sensor_type_external_air_temperature\000"
+ 2770 08fd 73 65 6E 73 		.ascii "sensor_type_external_air_temperature\000"
  2770      6F 72 5F 74 
  2770      79 70 65 5F 
  2770      64 65 73 69 
  2770      72 65 64 5F 
  2771                 	.LASF185:
- 2772 090f 43 53 52 4D 		.ascii "CSRMESH_ACTION_DELETE_ACK\000"
+ 2772 0910 43 53 52 4D 		.ascii "CSRMESH_ACTION_DELETE_ACK\000"
  2772      45 53 48 5F 
  2772      41 54 54 45 
  2772      4E 54 49 4F 
  2772      4E 5F 53 45 
  2773                 	.LASF117:
- 2774 091d 43 53 52 4D 		.ascii "CSRMESH_DATA_STREAM_SEND\000"
+ 2774 091e 43 53 52 4D 		.ascii "CSRMESH_DATA_STREAM_SEND\000"
  2774      45 53 48 5F 
  2774      44 41 54 41 
  2774      5F 42 4C 4F 
  2774      43 4B 5F 53 
  2775                 	.LASF103:
- 2776 0929 73 65 6E 73 		.ascii "CSRMESH_SENSOR_GET_STATE\000"
+ 2776 092a 73 65 6E 73 		.ascii "CSRMESH_SENSOR_GET_STATE\000"
  2776      6F 72 5F 74 
  2776      79 70 65 5F 
  2776      65 78 74 65 
  2776      72 6E 61 6C 
  2777                 	.LASF60:
- 2778 0938 73 65 6E 73 		.ascii "sensor_type_water_flowing\000"
+ 2778 0939 73 65 6E 73 		.ascii "sensor_type_water_flowing\000"
  2778      6F 72 5F 74 
  2778      79 70 65 5F 
  2778      65 78 74 65 
@@ -4346,7 +4346,7 @@
  2782      5F 53 54 52 
  2782      45 41 4D 5F 
  2783                 	.LASF190:
- 2784 0964 43 53 52 4D 		.ascii "CSRMESH_BEACON_GET_TYPES\000"
+ 2784 0965 43 53 52 4D 		.ascii "CSRMESH_BEACON_GET_TYPES\000"
  2784      45 53 48 5F 
  2784      53 45 4E 53 
  2784      4F 52 5F 47 
@@ -4364,7 +4364,7 @@
  2788      4F 4E 5F 47 
  2788      45 54 5F 41 
  2789                 	.LASF95:
- 2790 098e 49 6E 69 74 		.ascii "CSRMESH_GROUP_GET_NUMBER_OF_MODEL_GROUPIDS\000"
+ 2790 098f 49 6E 69 74 		.ascii "CSRMESH_GROUP_GET_NUMBER_OF_MODEL_GROUPIDS\000"
  2790      69 61 6C 69 
  2790      7A 65 53 75 
  2790      70 70 6F 72 
@@ -4376,7 +4376,7 @@
  2792      4F 4E 5F 47 
  2792      45 54 5F 54 
  2793                 	.LASF13:
- 2794 09a9 73 65 6E 73 		.ascii "char\000"
+ 2794 09aa 73 65 6E 73 		.ascii "char\000"
  2794      6F 72 5F 74 
  2794      79 70 65 5F 
  2794      77 69 6E 64 
@@ -4394,7 +4394,7 @@
  2798      50 5F 47 45 
  2798      54 5F 4E 55 
  2799                 	.LASF86:
- 2800 09da 73 65 6E 73 		.ascii "CSRMESH_CONFIG_GET_PARAMETERS\000"
+ 2800 09db 73 65 6E 73 		.ascii "CSRMESH_CONFIG_GET_PARAMETERS\000"
  2800      6F 72 5F 74 
  2800      79 70 65 5F 
  2800      73 6F 69 6C 
@@ -4403,13 +4403,13 @@
  2802 09e9 63 68 61 72 		.ascii "sensor_type_internal_window\000"
  2802      00 
  2803                 	.LASF177:
- 2804 09eb 73 65 6E 73 		.ascii "CSRMESH_DIAGNOSTIC_STATE\000"
+ 2804 09ec 73 65 6E 73 		.ascii "CSRMESH_DIAGNOSTIC_STATE\000"
  2804      6F 72 5F 74 
  2804      79 70 65 5F 
  2804      73 65 61 74 
  2804      5F 6F 63 63 
  2805                 	.LASF145:
- 2806 09f8 67 5F 61 70 		.ascii "CSRMESH_LIGHT_STATE\000"
+ 2806 09f9 67 5F 61 70 		.ascii "CSRMESH_LIGHT_STATE\000"
  2806      70 5F 6E 76 
  2806      6D 5F 6F 66 
  2806      66 73 65 74 
@@ -4433,28 +4433,28 @@
  2812      4E 4F 53 54 
  2812      49 43 5F 53 
  2813                 	.LASF96:
- 2814 0a2a 43 53 52 4D 		.ascii "CSRMESH_GROUP_NUMBER_OF_MODEL_GROUPIDS\000"
+ 2814 0a2b 43 53 52 4D 		.ascii "CSRMESH_GROUP_NUMBER_OF_MODEL_GROUPIDS\000"
  2814      45 53 48 5F 
  2814      4C 49 47 48 
  2814      54 5F 53 54 
  2814      41 54 45 00 
  2815                 	.LASF36:
- 2816 0a34 69 6E 64 65 		.ascii "sensor_type_clothes_dryer_state\000"
+ 2816 0a35 69 6E 64 65 		.ascii "sensor_type_clothes_dryer_state\000"
  2816      78 00 
  2817                 	.LASF67:
- 2818 0a37 43 53 52 4D 		.ascii "sensor_type_wind_speed_gust\000"
+ 2818 0a38 43 53 52 4D 		.ascii "sensor_type_wind_speed_gust\000"
  2818      45 53 48 5F 
  2818      4C 49 47 48 
  2818      54 5F 47 45 
  2818      54 5F 57 48 
  2819                 	.LASF235:
- 2820 0a43 43 53 52 4D 		.ascii "g_app_nvm_fresh\000"
+ 2820 0a44 43 53 52 4D 		.ascii "g_app_nvm_fresh\000"
  2820      45 53 48 5F 
  2820      45 58 54 45 
  2820      4E 53 49 4F 
  2820      4E 5F 52 45 
  2821                 	.LASF179:
- 2822 0a50 43 53 52 4D 		.ascii "CSRMESH_DIAGNOSTIC_STATS\000"
+ 2822 0a51 43 53 52 4D 		.ascii "CSRMESH_DIAGNOSTIC_STATS\000"
  2822      45 53 48 5F 
  2822      47 52 4F 55 
  2822      50 5F 4E 55 
@@ -4483,7 +4483,7 @@
  2830      4E 4F 53 54 
  2830      49 43 5F 53 
  2831                 	.LASF77:
- 2832 0a96 6F 6C 64 5F 		.ascii "sensor_type_t\000"
+ 2832 0a97 6F 6C 64 5F 		.ascii "sensor_type_t\000"
  2832      63 6F 6E 66 
  2832      69 67 00 
  2833                 	.LASF3:
@@ -4505,12 +4505,12 @@
  2838      63 61 72 62 
  2838      6F 6E 5F 64 
  2839                 	.LASF91:
- 2840 0ac3 73 65 6E 73 		.ascii "CSRMESH_CONFIG_INFO\000"
+ 2840 0ac4 73 65 6E 73 		.ascii "CSRMESH_CONFIG_INFO\000"
  2840      6F 72 5F 74 
  2840      79 70 65 5F 
  2840      74 00 
  2841                 	.LASF242:
- 2842 0aca 73 68 6F 72 		.ascii "app_mesh_model_handler.c\000"
+ 2842 0acb 73 68 6F 72 		.ascii "app_mesh_model_handler.c\000"
  2842      74 20 75 6E 
  2842      73 69 67 6E 
  2842      65 64 20 69 
@@ -4539,19 +4539,19 @@
  2850      65 6C 5F 68 
  2850      61 6E 64 6C 
  2851                 	.LASF37:
- 2852 0b02 43 53 52 4D 		.ascii "sensor_type_toaster_state\000"
+ 2852 0b03 43 53 52 4D 		.ascii "sensor_type_toaster_state\000"
  2852      45 53 48 5F 
  2852      47 52 4F 55 
  2852      50 5F 4D 4F 
  2852      44 45 4C 5F 
  2853                 	.LASF51:
- 2854 0b10 43 53 52 4D 		.ascii "sensor_type_cooker_hob_front_middle_state\000"
+ 2854 0b11 43 53 52 4D 		.ascii "sensor_type_cooker_hob_front_middle_state\000"
  2854      45 53 48 5F 
  2854      41 53 53 45 
  2854      54 5F 53 45 
  2854      54 5F 53 54 
  2855                 	.LASF47:
- 2856 0b1c 43 73 72 55 		.ascii "sensor_type_cooker_hob_front_left_state\000"
+ 2856 0b1d 43 73 72 55 		.ascii "sensor_type_cooker_hob_front_left_state\000"
  2856      69 6E 74 38 
  2856      00 
  2857                 	.LASF110:
@@ -4585,7 +4585,7 @@
  2866      41 54 4F 52 
  2866      5F 47 45 54 
  2867                 	.LASF239:
- 2868 0b70 73 65 6E 73 		.ascii "data_model_groups\000"
+ 2868 0b71 73 65 6E 73 		.ascii "data_model_groups\000"
  2868      6F 72 5F 74 
  2868      79 70 65 5F 
  2868      64 65 73 69 
@@ -4597,7 +4597,7 @@
  2870      57 41 52 45 
  2870      5F 47 45 54 
  2871                 	.LASF160:
- 2872 0b8e 73 65 6E 73 		.ascii "CSRMESH_TIME_SET_STATE\000"
+ 2872 0b8f 73 65 6E 73 		.ascii "CSRMESH_TIME_SET_STATE\000"
  2872      6F 72 5F 74 
  2872      79 70 65 5F 
  2872      63 6F 6F 6B 
@@ -4627,30 +4627,30 @@
  2880      5F 53 45 54 
  2880      5F 53 54 41 
  2881                 	.LASF122:
- 2882 0bd6 67 5F 63 73 		.ascii "CSRMESH_BEARER_STATE\000"
+ 2882 0bd7 67 5F 63 73 		.ascii "CSRMESH_BEARER_STATE\000"
  2882      6B 65 79 5F 
  2882      66 6C 61 67 
  2882      73 00 
  2883                 	.LASF35:
- 2884 0bdd 43 53 52 4D 		.ascii "sensor_type_dish_washer_state\000"
+ 2884 0bde 43 53 52 4D 		.ascii "sensor_type_dish_washer_state\000"
  2884      45 53 48 5F 
  2884      43 4F 4E 46 
  2884      49 47 5F 4D 
  2884      45 53 53 41 
  2885                 	.LASF22:
- 2886 0bec 43 53 52 4D 		.ascii "sensor_type_external_door\000"
+ 2886 0bed 43 53 52 4D 		.ascii "sensor_type_external_door\000"
  2886      45 53 48 5F 
  2886      42 41 54 54 
  2886      45 52 59 5F 
  2886      53 54 41 54 
  2887                 	.LASF247:
- 2888 0bf7 73 65 6E 73 		.ascii "readValTimerHandler\000"
+ 2888 0bf8 73 65 6E 73 		.ascii "readValTimerHandler\000"
  2888      6F 72 5F 74 
  2888      79 70 65 5F 
  2888      66 72 65 65 
  2888      7A 65 72 5F 
  2889                 	.LASF87:
- 2890 0c07 43 53 52 4D 		.ascii "CSRMESH_CONFIG_PARAMETERS\000"
+ 2890 0c08 43 53 52 4D 		.ascii "CSRMESH_CONFIG_PARAMETERS\000"
  2890      45 53 48 5F 
  2890      42 45 41 52 
  2890      45 52 5F 53 
@@ -4686,7 +4686,7 @@
  2900      4F 52 5F 56 
  2900      41 4C 55 45 
  2901                 	.LASF115:
- 2902 0c4f 43 53 52 4D 		.ascii "CSRMESH_ACTUATOR_GET_VALUE_ACK\000"
+ 2902 0c50 43 53 52 4D 		.ascii "CSRMESH_ACTUATOR_GET_VALUE_ACK\000"
  2902      45 53 48 5F 
  2902      54 49 4D 45 
  2902      5F 53 54 41 
@@ -4698,7 +4698,7 @@
  2904      4F 4E 5F 50 
  2904      41 59 4C 4F 
  2905                 	.LASF124:
- 2906 0c66 72 65 70 65 		.ascii "CSRMESH_PING_RESPONSE\000"
+ 2906 0c67 72 65 70 65 		.ascii "CSRMESH_PING_RESPONSE\000"
  2906      61 74 69 6E 
  2906      74 65 72 76 
  2906      61 6C 00 
@@ -4709,7 +4709,7 @@
  2908      63 6F 6F 6B 
  2908      65 72 5F 68 
  2909                 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"
- 2910 0c82 43 53 52 4D 	...
+ 2910 0c83 43 53 52 4D 	...
  2910      45 53 48 5F 
  2910      41 43 54 55 
  2910      41 54 4F 52 

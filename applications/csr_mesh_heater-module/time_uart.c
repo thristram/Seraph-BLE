@@ -41,6 +41,9 @@ uint8 *const chp_t100msec_adr[]=
   (uint8*)&tm_100ms.tSend82Wait800ms.word, 
   (uint8*)&tm_100ms.tmeshfinishdataWait100ms.word, 
   (uint8*)&tm_100ms.tmfTxdataWait100ms.word,  
+  (uint8*)&tm_100ms.tWriteFlashDelay.word,
+  (uint8*)&tm_100ms.tRstWait500ms.word,
+  
 };
 #define TM100MSEC (sizeof(chp_t100msec_adr)/sizeof(chp_t100msec_adr[0]))
   
@@ -53,6 +56,8 @@ uint8 *const chp_t1sec_adr[]=
   (uint8*)&tm_1s.tAdvUUID3Min.word,
   (uint8*)&tm_1s.tMeshTimeOut2s.word,
   (uint8*)&tm_1s.tRxMeshTimeOut2s.word,
+  (uint8*)&tm_1s.tPoweronWait3s.word,
+  
 };
 #define TM1SEC (sizeof(chp_t1sec_adr)/sizeof(chp_t1sec_adr[0]))
 

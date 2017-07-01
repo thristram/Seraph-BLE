@@ -93,6 +93,7 @@
   <file path="label.c" />
   <file path="time_uart.c" />
   <file path="uart_time.c" />
+  <file path="Flash_Run.c" />
  </folder>
  <folder name="Header Files" >
   <extension name="h" />
@@ -156,8 +157,8 @@
    <property key="otau_keyr" >bootloader.keyr</property>
    <property key="otau_name" >CSRmesh-OTA</property>
    <property key="otau_secret" >00112233445566778899aabbccddeeff</property>
-   <property key="otau_slot_1" >0x9000</property>
-   <property key="otau_slot_2" >0x20000</property>
+   <property key="otau_slot_1" >0x11000</property>
+   <property key="otau_slot_2" >0x22000</property>
    <property key="otau_slot_end" >0x40000</property>
    <property key="output" ></property>
   </configuration>

@@ -77,8 +77,7 @@
 #define CSKEY_INDEX_USER_FLAGS         (0)
 #endif /* !CSR101x_A05 */
 
-/* NVM Store ID */
-#define NVM_ID                          (2)
+
 /*add by cdy 2016-12-30*/
 timer_id t_250us_id;
 timer_id t_10ms_id;
@@ -352,6 +351,7 @@ void time1mshandle(timer_id tid)
                StartBlockSendData(TX_MESH_ID);
                /*startStream(TX_MESH_ID);*/
           }
+          flash_run();
      }
      
      TimerCreate(TIME1MS, TRUE, time1mshandle);
@@ -363,11 +363,13 @@ void srf_init(void)
      tm_1ms.tUartWait10ms.word = C_T_tUartWait10ms;
      tm_1s.tPanic2Min.word = C_T_tPanic2Min;
      f_Block_Buffer_Empty = ON;
+     FlashRead = ON;
+     tm_1s.tPoweronWait3s.word = 0x4000+3;
      
 }
 void Reset_BLE_Module(void)
 {
-     f_Ble_Reset = ON;
+     f_Ble_Reset = OFF;
      tm_1s.tBleReset3Min.word = C_T_tBleReset3Min;
      RemoveAssociation();     
      Panic(1);    

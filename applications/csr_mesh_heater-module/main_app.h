@@ -140,7 +140,7 @@
 /* NVM Offset for Application data */
 #define NVM_MAX_APP_MEMORY_WORDS       (NVM_OFFSET_LOT_MODEL_GROUPS + \
                                         SIZEOF_LOT_MODEL_GROUPS)
-
+#define NVM_BLE_STATUS_MEMORY_WORDS    (NVM_MAX_APP_MEMORY_WORDS + 10)
 uint16                                  g_app_nvm_offset;
 bool                                    g_app_nvm_fresh;
 uint16                                  g_cskey_flags;

@@ -2216,8 +2216,8 @@
  1325      6D 6F 64 65 
  1325      5F 70 77 6D 
  1325      31 00 
- 1326                 	.LASF62:
- 1327 0146 70 69 6F 5F 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-5-2\\apps\\csrmesh_2_1_node - xm-data-block\\applic
+ 1326                 	.LASF8:
+ 1327 0146 70 69 6F 5F 		.ascii "unsigned int\000"
  1327      6D 6F 64 65 
  1327      5F 70 77 6D 
  1327      32 00 
@@ -2227,138 +2227,138 @@
  1329      5F 70 77 6D 
  1329      33 00 
  1330                 	.LASF1:
- 1331 0154 45 3A 5C 43 		.ascii "short unsigned int\000"
- 1331      53 52 5F 75 
- 1331      45 6E 65 72 
- 1331      67 79 5F 53 
- 1331      44 4B 2D 32 
+ 1331 0154 75 6E 73 69 		.ascii "short unsigned int\000"
+ 1331      67 6E 65 64 
+ 1331      20 69 6E 74 
+ 1331      00 
  1332                 	.LASF37:
- 1333 018e 70 69 6F 5F 		.ascii "pio_mode_strong_pull_down\000"
+ 1333 015b 70 69 6F 5F 		.ascii "pio_mode_strong_pull_down\000"
  1333      70 77 6D 5F 
  1333      6D 6F 64 65 
  1333      5F 6F 70 65 
  1333      6E 5F 73 6F 
  1334                 	.LASF36:
- 1335 019b 73 68 6F 72 		.ascii "pio_mode_weak_pull_up\000"
+ 1335 0167 73 68 6F 72 		.ascii "pio_mode_weak_pull_up\000"
  1335      74 20 75 6E 
  1335      73 69 67 6E 
  1335      65 64 20 69 
  1335      6E 74 00 
  1336                 	.LASF43:
- 1337 01a4 70 69 6F 5F 		.ascii "pio_event_mode_falling\000"
+ 1337 0171 70 69 6F 5F 		.ascii "pio_event_mode_falling\000"
  1337      6D 6F 64 65 
  1337      5F 73 74 72 
  1337      6F 6E 67 5F 
  1337      70 75 6C 6C 
  1338                 	.LASF59:
- 1339 01b1 70 69 6F 5F 		.ascii "off_time\000"
+ 1339 017e 70 69 6F 5F 		.ascii "off_time\000"
  1339      6D 6F 64 65 
  1339      5F 77 65 61 
  1339      6B 5F 70 75 
  1339      6C 6C 5F 75 
  1340                 	.LASF58:
- 1341 01bc 70 69 6F 5F 		.ascii "on_time\000"
+ 1341 0189 70 69 6F 5F 		.ascii "on_time\000"
  1341      65 76 65 6E 
  1341      74 5F 6D 6F 
  1341      64 65 5F 66 
  1341      61 6C 6C 69 
- 1342                 	.LASF22:
- 1343 01c8 6F 66 66 5F 		.ascii "pio_mode_radio_tx_en\000"
+ 1342                 	.LASF62:
+ 1343 0194 6F 66 66 5F 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-27\\apps\\csrmesh_2_1_node - xm-data-block\\appli
  1343      74 69 6D 65 
  1343      00 
- 1344                 	.LASF2:
- 1345 01cc 6F 6E 5F 74 		.ascii "long unsigned int\000"
+ 1344                 	.LASF22:
+ 1345 0199 6F 6E 5F 74 		.ascii "pio_mode_radio_tx_en\000"
  1345      69 6D 65 00 
- 1346                 	.LASF27:
- 1347 01d0 70 69 6F 5F 		.ascii "pio_mode_ser_flash_dout\000"
- 1347      6D 6F 64 65 
- 1347      5F 72 61 64 
- 1347      69 6F 5F 74 
- 1347      78 5F 65 6E 
- 1348                 	.LASF32:
- 1349 01db 6C 6F 6E 67 		.ascii "pio_mode_pio_control_timer\000"
- 1349      20 75 6E 73 
- 1349      69 67 6E 65 
- 1349      64 20 69 6E 
- 1349      74 00 
- 1350                 	.LASF52:
- 1351 01e4 70 69 6F 5F 		.ascii "IOTLightControlDeviceSetLevel\000"
- 1351      6D 6F 64 65 
- 1351      5F 73 65 72 
- 1351      5F 66 6C 61 
- 1351      73 68 5F 64 
- 1352                 	.LASF40:
- 1353 01f0 70 69 6F 5F 		.ascii "pio_mode_strong_sticky\000"
+ 1346                 	.LASF2:
+ 1347 019d 45 3A 5C 43 		.ascii "long unsigned int\000"
+ 1347      53 52 5F 75 
+ 1347      45 6E 65 72 
+ 1347      67 79 5F 53 
+ 1347      44 4B 2D 32 
+ 1348                 	.LASF27:
+ 1349 01d7 70 69 6F 5F 		.ascii "pio_mode_ser_flash_dout\000"
+ 1349      6D 6F 64 65 
+ 1349      5F 72 61 64 
+ 1349      69 6F 5F 74 
+ 1349      78 5F 65 6E 
+ 1350                 	.LASF32:
+ 1351 01e2 6C 6F 6E 67 		.ascii "pio_mode_pio_control_timer\000"
+ 1351      20 75 6E 73 
+ 1351      69 67 6E 65 
+ 1351      64 20 69 6E 
+ 1351      74 00 
+ 1352                 	.LASF52:
+ 1353 01eb 70 69 6F 5F 		.ascii "IOTLightControlDeviceSetLevel\000"
  1353      6D 6F 64 65 
- 1353      5F 70 69 6F 
- 1353      5F 63 6F 6E 
- 1353      74 72 6F 6C 
- 1354                 	.LASF53:
- 1355 01fd 49 4F 54 4C 		.ascii "level\000"
- 1355      69 67 68 74 
- 1355      43 6F 6E 74 
- 1355      72 6F 6C 44 
- 1355      65 76 69 63 
- 1356                 	.LASF46:
- 1357 020c 70 69 6F 5F 		.ascii "pio_pwm_mode_open_drain\000"
- 1357      6D 6F 64 65 
- 1357      5F 73 74 72 
- 1357      6F 6E 67 5F 
- 1357      73 74 69 63 
- 1358                 	.LASF24:
- 1359 0218 6C 65 76 65 		.ascii "pio_mode_pio_controller\000"
- 1359      6C 00 
- 1360                 	.LASF63:
- 1361 021b 70 69 6F 5F 		.ascii "IOTLightControlDeviceBlink\000"
- 1361      70 77 6D 5F 
- 1361      6D 6F 64 65 
- 1361      5F 6F 70 65 
- 1361      6E 5F 64 72 
- 1362                 	.LASF54:
- 1363 0227 70 69 6F 5F 		.ascii "IOTSwitchInit\000"
+ 1353      5F 73 65 72 
+ 1353      5F 66 6C 61 
+ 1353      73 68 5F 64 
+ 1354                 	.LASF40:
+ 1355 01f7 70 69 6F 5F 		.ascii "pio_mode_strong_sticky\000"
+ 1355      6D 6F 64 65 
+ 1355      5F 70 69 6F 
+ 1355      5F 63 6F 6E 
+ 1355      74 72 6F 6C 
+ 1356                 	.LASF53:
+ 1357 0204 49 4F 54 4C 		.ascii "level\000"
+ 1357      69 67 68 74 
+ 1357      43 6F 6E 74 
+ 1357      72 6F 6C 44 
+ 1357      65 76 69 63 
+ 1358                 	.LASF46:
+ 1359 0213 70 69 6F 5F 		.ascii "pio_pwm_mode_open_drain\000"
+ 1359      6D 6F 64 65 
+ 1359      5F 73 74 72 
+ 1359      6F 6E 67 5F 
+ 1359      73 74 69 63 
+ 1360                 	.LASF24:
+ 1361 021f 6C 65 76 65 		.ascii "pio_mode_pio_controller\000"
+ 1361      6C 00 
+ 1362                 	.LASF63:
+ 1363 0222 70 69 6F 5F 		.ascii "IOTLightControlDeviceBlink\000"
+ 1363      70 77 6D 5F 
  1363      6D 6F 64 65 
- 1363      5F 70 69 6F 
- 1363      5F 63 6F 6E 
- 1363      74 72 6F 6C 
- 1364                 	.LASF45:
- 1365 0233 49 4F 54 4C 		.ascii "pio_pwm_mode_push_pull\000"
- 1365      69 67 68 74 
- 1365      43 6F 6E 74 
- 1365      72 6F 6C 44 
- 1365      65 76 69 63 
- 1366                 	.LASF10:
- 1367 0240 49 4F 54 53 		.ascii "pio_mode_edge_capture\000"
- 1367      77 69 74 63 
- 1367      68 49 6E 69 
- 1367      74 00 
- 1368                 	.LASF38:
- 1369 0247 70 69 6F 5F 		.ascii "pio_mode_strong_pull_up\000"
- 1369      70 77 6D 5F 
- 1369      6D 6F 64 65 
- 1369      5F 70 75 73 
- 1369      68 5F 70 75 
- 1370                 	.LASF11:
- 1371 0253 70 69 6F 5F 		.ascii "pio_mode_clk_req\000"
+ 1363      5F 6F 70 65 
+ 1363      6E 5F 64 72 
+ 1364                 	.LASF54:
+ 1365 022e 70 69 6F 5F 		.ascii "IOTSwitchInit\000"
+ 1365      6D 6F 64 65 
+ 1365      5F 70 69 6F 
+ 1365      5F 63 6F 6E 
+ 1365      74 72 6F 6C 
+ 1366                 	.LASF45:
+ 1367 023a 49 4F 54 4C 		.ascii "pio_pwm_mode_push_pull\000"
+ 1367      69 67 68 74 
+ 1367      43 6F 6E 74 
+ 1367      72 6F 6C 44 
+ 1367      65 76 69 63 
+ 1368                 	.LASF10:
+ 1369 0247 49 4F 54 53 		.ascii "pio_mode_edge_capture\000"
+ 1369      77 69 74 63 
+ 1369      68 49 6E 69 
+ 1369      74 00 
+ 1370                 	.LASF38:
+ 1371 024e 70 69 6F 5F 		.ascii "pio_mode_strong_pull_up\000"
+ 1371      70 77 6D 5F 
  1371      6D 6F 64 65 
- 1371      5F 65 64 67 
- 1371      65 5F 63 61 
- 1371      70 74 75 72 
- 1372                 	.LASF8:
- 1373 025e 70 69 6F 5F 		.ascii "unsigned int\000"
+ 1371      5F 70 75 73 
+ 1371      68 5F 70 75 
+ 1372                 	.LASF11:
+ 1373 025a 70 69 6F 5F 		.ascii "pio_mode_clk_req\000"
  1373      6D 6F 64 65 
- 1373      5F 73 74 72 
- 1373      6F 6E 67 5F 
- 1373      70 75 6C 6C 
+ 1373      5F 65 64 67 
+ 1373      65 5F 63 61 
+ 1373      70 74 75 72 
  1374                 	.LASF35:
- 1375 026a 70 69 6F 5F 		.ascii "pio_mode_weak_pull_down\000"
+ 1375 0265 70 69 6F 5F 		.ascii "pio_mode_weak_pull_down\000"
  1375      6D 6F 64 65 
- 1375      5F 63 6C 6B 
- 1375      5F 72 65 71 
- 1375      00 
+ 1375      5F 73 74 72 
+ 1375      6F 6E 67 5F 
+ 1375      70 75 6C 6C 
  1376                 	.LASF25:
- 1377 0272 75 6E 73 69 		.ascii "pio_mode_pio_control_txd\000"
- 1377      67 6E 65 64 
- 1377      20 69 6E 74 
+ 1377 0271 70 69 6F 5F 		.ascii "pio_mode_pio_control_txd\000"
+ 1377      6D 6F 64 65 
+ 1377      5F 63 6C 6B 
+ 1377      5F 72 65 71 
  1377      00 
  1378                 	.LASF44:
  1379 0279 70 69 6F 5F 		.ascii "pio_event_mode_both\000"
@@ -2373,7 +2373,7 @@
  1381      5F 63 6F 6E 
  1381      74 72 6F 6C 
  1382                 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"
- 1383 0291 70 69 6F 5F 	...
+ 1383 0292 70 69 6F 5F 	...
  1383      65 76 65 6E 
  1383      74 5F 6D 6F 
  1383      64 65 5F 62 

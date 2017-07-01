@@ -125,15 +125,15 @@
 
 
 
-/* Enable Time model support */
-#define ENABLE_TIME_MODEL
+/* Enable Time model support 
+#define ENABLE_TIME_MODEL*/
 
-/* Enable Action model support */
-#define ENABLE_ACTION_MODEL 
+/* Enable Action model support 
+#define ENABLE_ACTION_MODEL */
 
 #if defined(ENABLE_ACTION_MODEL)
-/* Enable Time model support */
-#define ENABLE_TIME_MODEL 
+/* Enable Time model support 
+#define ENABLE_TIME_MODEL */
 
 /* Maximum Actions supported. Each action takes 24 bytes of data to be stored.
  * On increasing number of actions the NVM space for the same need to be 

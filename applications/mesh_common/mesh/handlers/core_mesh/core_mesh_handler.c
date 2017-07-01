@@ -163,7 +163,7 @@ static void appProcessMeshEvent(CSR_MESH_APP_EVENT_DATA_T
                         TimerDelete(assoc_attn_tid);
                         assoc_attn_tid = TIMER_INVALID;
                     }
-
+                    Mesh_status = app_state_association_started;
                     /* Blink Light in Yellow to indicate association started */
                     IOTLightControlDeviceBlink(127, 127, 0, 32, 32);
 
@@ -201,6 +201,9 @@ static void appProcessMeshEvent(CSR_MESH_APP_EVENT_DATA_T
                         CSRmeshGetDeviceID(CSR_MESH_DEFAULT_NETID, &get_dev_id_data);
                         if(self_dev_id >= 0x8000 && self_dev_id <= 0x9000)
                         Local_MESH_ID = self_dev_id;
+                        Mesh_status = app_state_associated;
+                        tm_100ms.tWriteFlashDelay.word = C_T_tWriteFlashDelay;
+                        FlashWrite = ON;
                     if(GetConnectedDeviceId() == CM_INVALID_DEVICE_ID)
                     {
                         AppUpdateBearerState(&p_mesh_hdlr_data->bearer_tx_state);
@@ -420,8 +423,13 @@ static void deviceIdAdvertTimeoutHandler(timer_id tid)
             uint32 random_delay = ((uint32)(Random16() & 0x1FF))*(MILLISECOND);
           /* Generate a random delay between 0 to 511 ms */
             //DEBUG_STR("CSRMeshAssociateToANetwork  API is called---> \r\n");
-            Local_MESH_ID = CLEAR;
-                            
+            Mesh_status = app_state_not_associated;
+            if(Local_MESH_ID != NULL)
+            {
+                 Local_MESH_ID = CLEAR;  
+                 tm_100ms.tWriteFlashDelay.word = C_T_tWriteFlashDelay;
+                 FlashWrite = ON;
+            }
             CSRmeshAssociateToANetwork(p_mesh_hdlr_data->appearance , 10);
             /*add by cdy 2017/2/4  */  
             if(tm_1s.tAdvUUID3Min.fov == ON)

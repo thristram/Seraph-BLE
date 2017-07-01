@@ -36,6 +36,7 @@ extern void srf_init(void);
 extern void init_stream_state(void);
 extern void Check_Flush_nesn(void);
 extern void PioSetMode_Bottun(void);
+extern void flash_run(void);
 extern void HandlePIOChangedEvent(pio_changed_data *pio_data);
 extern void handleExtraLongButtonPress(timer_id tid);
 extern void Reset_BLE_Module(void);
@@ -50,6 +51,9 @@ extern uint8 CommRxState;
 extern uint8 UartTxDataType;
 extern uint8 WifiNowBuffer;
 extern uint8 MeshNowBuffer;
+extern uint8 FlashWrite;
+extern uint8 FlashRead;
+extern uint16 OffSetAddr;
 
 /*
 extern uint8 WifiRxDataOrder; 
@@ -294,6 +298,8 @@ typedef struct {
   UTIME16 tSendEAWait800ms;
   UTIME16 tmeshfinishdataWait100ms;
   UTIME16 tmfTxdataWait100ms;
+  UTIME16 tWriteFlashDelay;
+  UTIME16 tRstWait500ms;
 }_tm_100ms;
 extern _tm_100ms tm_100ms;
 
@@ -308,6 +314,7 @@ typedef struct {
   UTIME16 tHeartPack5s;
   UTIME16 tMeshTimeOut2s;
   UTIME16 tRxMeshTimeOut2s;
+  UTIME16 tPoweronWait3s;
 }_tm_1s;
 extern _tm_1s tm_1s;
 

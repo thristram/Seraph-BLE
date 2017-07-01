@@ -17,8 +17,10 @@
 #define BUTTON_PIO_MASK             (PIO_BIT_MASK(BUTTON_PIO))
 #define EXTRA_LONG_BUTTON_PRESS_TIMER \
                                     (4*SECOND)
+*/                                    
+/* NVM Store ID */
+#define NVM_ID                          (2)
 
-*/
 #define C_EIGHTHEATTEMP        (8*2+0x40)
 /*250usÊ±»ù*/
 #define TIME250US (250)
@@ -42,8 +44,12 @@
 #define C_T_tmeshfinishdataWait100ms                         (0x4000+1) 
 #define C_T_tRxMeshTimeOut2s                                 (0x4000+2) 
 #define C_T_tmfTxdataWait100ms                               (0x4000+1) 
+#define C_T_tWriteFlashDelay                                 (0x4000+5)
+#define C_T_tRstWait500ms                                    (0x4000+5)
 
 
+#define CSR1010_KFCFG_ADDR       500
+#define NVM_BLOCK_SZ 0x30
 
 #define NORMAL               (1) 
 #define AUTOM                (2)  

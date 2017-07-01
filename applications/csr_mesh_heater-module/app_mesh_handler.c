@@ -40,7 +40,7 @@
 #include "app_util.h"
 #include "ping_server.h"
 #include "largeobjecttransfer_model_handler.h"
-
+#include "label.h"
 /*============================================================================*
  *  Private Definitions
  *============================================================================*/
