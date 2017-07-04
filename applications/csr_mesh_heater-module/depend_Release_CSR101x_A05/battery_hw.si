@@ -877,125 +877,125 @@
  690 000e 00 00 00 00 		.section	.debug_str,"MS",@progbits,1
  691 0010 00 00 00 00 	.LASF3:
  692 0012 00 00 00 00 		.ascii "uint32\000"
- 693 0014 00 00 00 00 	.LASF26:
- 694 0016 00 00 00 00 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-27\\apps\\csrmesh_2_1_node - xm-data-block\\appli
+ 693 0014 00 00 00 00 	.LASF9:
+ 694 0016 00 00 00 00 		.ascii "unsigned int\000"
  695                 	.LASF23:
  696                 		.ascii "low_battery\000"
  697 0000 75 69 6E 74 	.LASF2:
  697      33 32 00 
  698                 		.ascii "uint8\000"
- 699 0003 45 3A 5C 43 	.LASF4:
- 699      53 52 5F 75 
- 699      45 6E 65 72 
- 699      67 79 5F 53 
- 699      44 4B 2D 32 
+ 699 0003 75 6E 73 69 	.LASF4:
+ 699      67 6E 65 64 
+ 699      20 69 6E 74 
+ 699      00 
  700                 		.ascii "long unsigned int\000"
- 701 003e 6C 6F 77 5F 	.LASF6:
+ 701 000a 6C 6F 77 5F 	.LASF6:
  701      62 61 74 74 
  701      65 72 79 00 
  702                 		.ascii "short int\000"
- 703 0044 75 69 6E 74 	.LASF17:
+ 703 0010 75 69 6E 74 	.LASF26:
  703      38 00 
- 704                 		.ascii "batt_state\000"
- 705 0047 6C 6F 6E 67 	.LASF20:
+ 704                 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-30\\apps\\csrmesh_2_1_node - xm-data-block\\appli
+ 705 0013 6C 6F 6E 67 	.LASF17:
  705      20 75 6E 73 
  705      69 67 6E 65 
  705      64 20 69 6E 
  705      74 00 
- 706                 		.ascii "SendLowBatteryIndication\000"
- 707 0050 73 68 6F 72 	.LASF8:
+ 706                 		.ascii "batt_state\000"
+ 707 001c 73 68 6F 72 	.LASF20:
  707      74 20 69 6E 
  707      74 00 
- 708                 		.ascii "bool\000"
- 709 0055 62 61 74 74 	.LASF18:
- 709      5F 73 74 61 
- 709      74 65 00 
- 710                 		.ascii "ReadBatteryLevel\000"
- 711 005a 53 65 6E 64 	.LASF0:
- 711      4C 6F 77 42 
- 711      61 74 74 65 
- 711      72 79 49 6E 
- 711      64 69 63 61 
- 712                 		.ascii "unsigned char\000"
- 713 0067 62 6F 6F 6C 	.LASF11:
- 713      00 
- 714                 		.ascii "char\000"
- 715 0069 52 65 61 64 	.LASF10:
- 715      42 61 74 74 
- 715      65 72 79 4C 
- 715      65 76 65 6C 
+ 708                 		.ascii "SendLowBatteryIndication\000"
+ 709 0021 45 3A 5C 43 	.LASF8:
+ 709      53 52 5F 75 
+ 709      45 6E 65 72 
+ 709      67 79 5F 53 
+ 709      44 4B 2D 32 
+ 710                 		.ascii "bool\000"
+ 711 005b 62 61 74 74 	.LASF18:
+ 711      5F 73 74 61 
+ 711      74 65 00 
+ 712                 		.ascii "ReadBatteryLevel\000"
+ 713 0061 53 65 6E 64 	.LASF0:
+ 713      4C 6F 77 42 
+ 713      61 74 74 65 
+ 713      72 79 49 6E 
+ 713      64 69 63 61 
+ 714                 		.ascii "unsigned char\000"
+ 715 006d 62 6F 6F 6C 	.LASF11:
  715      00 
- 716                 		.ascii "CsrUint8\000"
- 717 0072 75 6E 73 69 	.LASF14:
- 717      67 6E 65 64 
- 717      20 63 68 61 
- 717      72 00 
- 718                 		.ascii "CSRMESH_BATTERY_STATE_T\000"
- 719 0079 63 68 61 72 	.LASF12:
- 719      00 
- 720                 		.ascii "batterylevel\000"
- 721 007b 43 73 72 55 	.LASF13:
- 721      69 6E 74 38 
+ 716                 		.ascii "char\000"
+ 717 0070 52 65 61 64 	.LASF10:
+ 717      42 61 74 74 
+ 717      65 72 79 4C 
+ 717      65 76 65 6C 
+ 717      00 
+ 718                 		.ascii "CsrUint8\000"
+ 719 0078 75 6E 73 69 	.LASF14:
+ 719      67 6E 65 64 
+ 719      20 63 68 61 
+ 719      72 00 
+ 720                 		.ascii "CSRMESH_BATTERY_STATE_T\000"
+ 721 007f 63 68 61 72 	.LASF12:
  721      00 
- 722                 		.ascii "batterystate\000"
- 723 0080 43 53 52 4D 	.LASF22:
- 723      45 53 48 5F 
- 723      42 41 54 54 
- 723      45 52 59 5F 
- 723      53 54 41 54 
- 724                 		.ascii "battery_state\000"
- 725 008c 62 61 74 74 	.LASF7:
- 725      65 72 79 6C 
- 725      65 76 65 6C 
- 725      00 
- 726                 		.ascii "long int\000"
- 727 0092 62 61 74 74 	.LASF15:
- 727      65 72 79 73 
- 727      74 61 74 65 
+ 722                 		.ascii "batterylevel\000"
+ 723 0082 43 73 72 55 	.LASF13:
+ 723      69 6E 74 38 
+ 723      00 
+ 724                 		.ascii "batterystate\000"
+ 725 0086 43 53 52 4D 	.LASF22:
+ 725      45 53 48 5F 
+ 725      42 41 54 54 
+ 725      45 52 59 5F 
+ 725      53 54 41 54 
+ 726                 		.ascii "battery_state\000"
+ 727 0092 62 61 74 74 	.LASF7:
+ 727      65 72 79 6C 
+ 727      65 76 65 6C 
  727      00 
- 728                 		.ascii "bat_voltage\000"
- 729 0099 62 61 74 74 	.LASF19:
- 729      65 72 79 5F 
- 729      73 74 61 74 
- 729      65 00 
- 730                 		.ascii "GetBatteryState\000"
- 731 00a0 6C 6F 6E 67 	.LASF1:
- 731      20 69 6E 74 
- 731      00 
- 732                 		.ascii "short unsigned int\000"
- 733 00a4 62 61 74 5F 	.LASF5:
- 733      76 6F 6C 74 
- 733      61 67 65 00 
- 734                 		.ascii "signed char\000"
- 735 00aa 47 65 74 42 	.LASF24:
- 735      61 74 74 65 
- 735      72 79 53 74 
- 735      61 74 65 00 
- 736                 		.ascii "GNU C 4.3.4 CSR version 29 for xap []\000"
- 737 00b2 73 68 6F 72 	.LASF25:
- 737      74 20 75 6E 
- 737      73 69 67 6E 
- 737      65 64 20 69 
- 737      6E 74 00 
- 738                 		.ascii "../mesh_common/mesh/drivers/battery_hw.c\000"
- 739 00bc 73 69 67 6E 	.LASF9:
- 739      65 64 20 63 
- 739      68 61 72 00 
- 740                 		.ascii "unsigned int\000"
- 741 00c2 47 4E 55 20 	.LASF21:
- 741      43 20 34 2E 
- 741      33 2E 34 20 
- 741      43 53 52 20 
- 741      76 65 72 73 
+ 728                 		.ascii "long int\000"
+ 729 0099 62 61 74 74 	.LASF15:
+ 729      65 72 79 73 
+ 729      74 61 74 65 
+ 729      00 
+ 730                 		.ascii "bat_voltage\000"
+ 731 009f 62 61 74 74 	.LASF19:
+ 731      65 72 79 5F 
+ 731      73 74 61 74 
+ 731      65 00 
+ 732                 		.ascii "GetBatteryState\000"
+ 733 00a6 6C 6F 6E 67 	.LASF1:
+ 733      20 69 6E 74 
+ 733      00 
+ 734                 		.ascii "short unsigned int\000"
+ 735 00ab 62 61 74 5F 	.LASF5:
+ 735      76 6F 6C 74 
+ 735      61 67 65 00 
+ 736                 		.ascii "signed char\000"
+ 737 00b1 47 65 74 42 	.LASF24:
+ 737      61 74 74 65 
+ 737      72 79 53 74 
+ 737      61 74 65 00 
+ 738                 		.ascii "GNU C 4.3.4 CSR version 29 for xap []\000"
+ 739 00b9 73 68 6F 72 	.LASF25:
+ 739      74 20 75 6E 
+ 739      73 69 67 6E 
+ 739      65 64 20 69 
+ 739      6E 74 00 
+ 740                 		.ascii "../mesh_common/mesh/drivers/battery_hw.c\000"
+ 741 00c2 73 69 67 6E 	.LASF21:
+ 741      65 64 20 63 
+ 741      68 61 72 00 
  742                 		.ascii "CheckLowBatteryVoltage\000"
- 743 00d5 2E 2E 2F 6D 	.LASF16:
- 743      65 73 68 5F 
- 743      63 6F 6D 6D 
- 743      6F 6E 2F 6D 
- 743      65 73 68 2F 
+ 743 00c8 47 4E 55 20 	.LASF16:
+ 743      43 20 34 2E 
+ 743      33 2E 34 20 
+ 743      43 53 52 20 
+ 743      76 65 72 73 
  744                 		.ascii "bat_level\000"
- 745 00e9 75 6E 73 69 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"
- 745      67 6E 65 64 
- 745      20 69 6E 74 
- 745      00 
+ 745 00db 2E 2E 2F 6D 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"
+ 745      65 73 68 5F 
+ 745      63 6F 6D 6D 
+ 745      6F 6E 2F 6D 
+ 745      65 73 68 2F 
  746                 	...

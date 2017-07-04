@@ -1609,95 +1609,95 @@
  1298 0020 00 00 00 00 		.4byte	0x0
  1299 0022 00 00 00 00 		.4byte	0x0
  1300 0024 00 00 00 00 		.section	.debug_str,"MS",@progbits,1
- 1301 0026 00 00 00 00 	.LASF32:
- 1302 0028 00 00 00 00 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-27\\apps\\csrmesh_2_1_node - xm-data-block\\appli
- 1303 002a 00 00 00 00 	.LASF24:
- 1304                 		.ascii "count\000"
- 1305                 	.LASF21:
- 1306 0000 45 3A 5C 43 		.ascii "CSRmeshPsSecureRead\000"
- 1306      53 52 5F 75 
- 1306      45 6E 65 72 
- 1306      67 79 5F 53 
- 1306      44 4B 2D 32 
- 1307                 	.LASF7:
- 1308 003a 63 6F 75 6E 		.ascii "long int\000"
- 1308      74 00 
- 1309                 	.LASF8:
- 1310 003d 43 53 52 6D 		.ascii "bool\000"
- 1310      65 73 68 50 
- 1310      73 53 65 63 
- 1310      75 72 65 52 
- 1310      65 61 64 00 
- 1311                 	.LASF27:
- 1312 0047 6C 6F 6E 67 		.ascii "CSRmeshPsInit\000"
- 1312      20 69 6E 74 
+ 1301 0026 00 00 00 00 	.LASF24:
+ 1302 0028 00 00 00 00 		.ascii "count\000"
+ 1303 002a 00 00 00 00 	.LASF21:
+ 1304                 		.ascii "CSRmeshPsSecureRead\000"
+ 1305                 	.LASF7:
+ 1306 0000 63 6F 75 6E 		.ascii "long int\000"
+ 1306      74 00 
+ 1307                 	.LASF8:
+ 1308 0003 43 53 52 6D 		.ascii "bool\000"
+ 1308      65 73 68 50 
+ 1308      73 53 65 63 
+ 1308      75 72 65 52 
+ 1308      65 61 64 00 
+ 1309                 	.LASF27:
+ 1310 000d 6C 6F 6E 67 		.ascii "CSRmeshPsInit\000"
+ 1310      20 69 6E 74 
+ 1310      00 
+ 1311                 	.LASF13:
+ 1312 0011 62 6F 6F 6C 		.ascii "CsrBool\000"
  1312      00 
- 1313                 	.LASF13:
- 1314 004c 62 6F 6F 6C 		.ascii "CsrBool\000"
- 1314      00 
- 1315                 	.LASF0:
- 1316 004e 43 53 52 6D 		.ascii "uint8\000"
- 1316      65 73 68 50 
- 1316      73 49 6E 69 
- 1316      74 00 
- 1317                 	.LASF14:
- 1318 0055 43 73 72 42 		.ascii "CSRmeshResult\000"
- 1318      6F 6F 6C 00 
- 1319                 	.LASF2:
- 1320 0059 75 69 6E 74 		.ascii "unsigned char\000"
- 1320      38 00 
- 1321                 	.LASF4:
- 1322 005c 43 53 52 6D 		.ascii "long unsigned int\000"
- 1322      65 73 68 52 
- 1322      65 73 75 6C 
- 1322      74 00 
- 1323                 	.LASF3:
- 1324 0063 75 6E 73 69 		.ascii "short unsigned int\000"
- 1324      67 6E 65 64 
- 1324      20 63 68 61 
- 1324      72 00 
- 1325                 	.LASF34:
- 1326 006a 6C 6F 6E 67 		.ascii "CSRmeshPsDeInit\000"
- 1326      20 75 6E 73 
- 1326      69 67 6E 65 
- 1326      64 20 69 6E 
- 1326      74 00 
- 1327                 	.LASF11:
- 1328 0073 73 68 6F 72 		.ascii "CsrUint16\000"
- 1328      74 20 75 6E 
- 1328      73 69 67 6E 
- 1328      65 64 20 69 
- 1328      6E 74 00 
- 1329                 	.LASF1:
- 1330 007d 43 53 52 6D 		.ascii "uint16\000"
- 1330      65 73 68 50 
- 1330      73 44 65 49 
- 1330      6E 69 74 00 
- 1331                 	.LASF31:
- 1332 0085 43 73 72 55 		.ascii "../mesh_common/mesh/drivers/csr_mesh_ps_ifce.c\000"
- 1332      69 6E 74 31 
- 1332      36 00 
- 1333                 	.LASF29:
- 1334 008a 75 69 6E 74 		.ascii "csr_mesh_pskey_offset_table\000"
- 1334      31 36 00 
- 1335                 	.LASF26:
- 1336 008d 2E 2E 2F 6D 		.ascii "csrmesh_nvm_sanity\000"
- 1336      65 73 68 5F 
- 1336      63 6F 6D 6D 
- 1336      6F 6E 2F 6D 
- 1336      65 73 68 2F 
+ 1313                 	.LASF0:
+ 1314 0014 43 53 52 6D 		.ascii "uint8\000"
+ 1314      65 73 68 50 
+ 1314      73 49 6E 69 
+ 1314      74 00 
+ 1315                 	.LASF14:
+ 1316 001b 43 73 72 42 		.ascii "CSRmeshResult\000"
+ 1316      6F 6F 6C 00 
+ 1317                 	.LASF2:
+ 1318 001f 75 69 6E 74 		.ascii "unsigned char\000"
+ 1318      38 00 
+ 1319                 	.LASF4:
+ 1320 0022 43 53 52 6D 		.ascii "long unsigned int\000"
+ 1320      65 73 68 52 
+ 1320      65 73 75 6C 
+ 1320      74 00 
+ 1321                 	.LASF3:
+ 1322 0029 75 6E 73 69 		.ascii "short unsigned int\000"
+ 1322      67 6E 65 64 
+ 1322      20 63 68 61 
+ 1322      72 00 
+ 1323                 	.LASF34:
+ 1324 0030 6C 6F 6E 67 		.ascii "CSRmeshPsDeInit\000"
+ 1324      20 75 6E 73 
+ 1324      69 67 6E 65 
+ 1324      64 20 69 6E 
+ 1324      74 00 
+ 1325                 	.LASF11:
+ 1326 0039 73 68 6F 72 		.ascii "CsrUint16\000"
+ 1326      74 20 75 6E 
+ 1326      73 69 67 6E 
+ 1326      65 64 20 69 
+ 1326      6E 74 00 
+ 1327                 	.LASF1:
+ 1328 0042 43 53 52 6D 		.ascii "uint16\000"
+ 1328      65 73 68 50 
+ 1328      73 44 65 49 
+ 1328      6E 69 74 00 
+ 1329                 	.LASF31:
+ 1330 004a 43 73 72 55 		.ascii "../mesh_common/mesh/drivers/csr_mesh_ps_ifce.c\000"
+ 1330      69 6E 74 31 
+ 1330      36 00 
+ 1331                 	.LASF29:
+ 1332 004f 75 69 6E 74 		.ascii "csr_mesh_pskey_offset_table\000"
+ 1332      31 36 00 
+ 1333                 	.LASF26:
+ 1334 0053 2E 2E 2F 6D 		.ascii "csrmesh_nvm_sanity\000"
+ 1334      65 73 68 5F 
+ 1334      63 6F 6D 6D 
+ 1334      6F 6E 2F 6D 
+ 1334      65 73 68 2F 
+ 1335                 	.LASF32:
+ 1336 006a 63 73 72 5F 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-30\\apps\\csrmesh_2_1_node - xm-data-block\\appli
+ 1336      6D 65 73 68 
+ 1336      5F 70 73 6B 
+ 1336      65 79 5F 6F 
+ 1336      66 66 73 65 
  1337                 	.LASF9:
- 1338 00a5 63 73 72 5F 		.ascii "unsigned int\000"
- 1338      6D 65 73 68 
- 1338      5F 70 73 6B 
- 1338      65 79 5F 6F 
- 1338      66 66 73 65 
+ 1338 0078 63 73 72 6D 		.ascii "unsigned int\000"
+ 1338      65 73 68 5F 
+ 1338      6E 76 6D 5F 
+ 1338      73 61 6E 69 
+ 1338      74 79 00 
  1339                 	.LASF12:
- 1340 00b3 63 73 72 6D 		.ascii "char\000"
- 1340      65 73 68 5F 
- 1340      6E 76 6D 5F 
- 1340      73 61 6E 69 
- 1340      74 79 00 
+ 1340 0082 45 3A 5C 43 		.ascii "char\000"
+ 1340      53 52 5F 75 
+ 1340      45 6E 65 72 
+ 1340      67 79 5F 53 
+ 1340      44 4B 2D 32 
  1341                 	.LASF19:
  1342 00bc 75 6E 73 69 		.ascii "CSRmeshPsSecureWrite\000"
  1342      67 6E 65 64 

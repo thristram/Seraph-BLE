@@ -4555,708 +4555,708 @@
  3405      6F 6D 69 73 
  3405      63 75 6F 75 
  3405      73 00 
- 3406                 	.LASF201:
- 3407 0269 74 50 61 6E 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-27\\apps\\csrmesh_2_1_node - xm-data-block\\appli
+ 3406                 	.LASF5:
+ 3407 0269 74 50 61 6E 		.ascii "long unsigned int\000"
  3407      69 63 32 4D 
  3407      69 6E 00 
- 3408                 	.LASF5:
- 3409 026e 74 57 72 69 		.ascii "long unsigned int\000"
+ 3408                 	.LASF13:
+ 3409 026e 74 57 72 69 		.ascii "CsrUint8\000"
  3409      74 65 46 6C 
  3409      61 73 68 44 
  3409      65 6C 61 79 
  3409      00 
- 3410                 	.LASF13:
- 3411 0277 76 69 64 5F 		.ascii "CsrUint8\000"
+ 3410                 	.LASF185:
+ 3411 0277 76 69 64 5F 		.ascii "dev_id_advert_tid\000"
  3411      70 69 64 5F 
  3411      69 6E 66 6F 
  3411      00 
- 3412                 	.LASF185:
- 3413 027d 74 6D 66 54 		.ascii "dev_id_advert_tid\000"
+ 3412                 	.LASF34:
+ 3413 027d 74 6D 66 54 		.ascii "default_ttl\000"
  3413      78 64 61 74 
  3413      61 57 61 69 
  3413      74 31 30 30 
  3413      6D 73 00 
- 3414                 	.LASF34:
- 3415 0287 45 3A 5C 43 		.ascii "default_ttl\000"
- 3415      53 52 5F 75 
- 3415      45 6E 65 72 
- 3415      67 79 5F 53 
- 3415      44 4B 2D 32 
- 3416                 	.LASF77:
- 3417 02c1 6C 6F 6E 67 		.ascii "CSR_MESH_GET_CONFORMANCE_SIGNATURE_EVENT\000"
- 3417      20 75 6E 73 
- 3417      69 67 6E 65 
- 3417      64 20 69 6E 
- 3417      74 00 
- 3418                 	.LASF105:
- 3419 02ca 43 73 72 55 		.ascii "attract_attention\000"
- 3419      69 6E 74 38 
- 3419      00 
- 3420                 	.LASF167:
- 3421 02cf 64 65 76 5F 		.ascii "level\000"
- 3421      69 64 5F 61 
- 3421      64 76 65 72 
- 3421      74 5F 74 69 
- 3421      64 00 
- 3422                 	.LASF113:
- 3423 02d8 64 65 66 61 		.ascii "event\000"
- 3423      75 6C 74 5F 
- 3423      74 74 6C 00 
- 3424                 	.LASF3:
- 3425 02de 43 53 52 5F 		.ascii "short unsigned int\000"
- 3425      4D 45 53 48 
- 3425      5F 47 45 54 
- 3425      5F 43 4F 4E 
- 3425      46 4F 52 4D 
- 3426                 	.LASF31:
- 3427 02f2 61 74 74 72 		.ascii "advertising_interval\000"
- 3427      61 63 74 5F 
- 3427      61 74 74 65 
- 3427      6E 74 69 6F 
- 3427      6E 00 
- 3428                 	.LASF122:
- 3429 02fb 6C 65 76 65 		.ascii "assoc_state\000"
- 3429      6C 00 
- 3430                 	.LASF12:
- 3431 02fe 65 76 65 6E 		.ascii "timer_id\000"
- 3431      74 00 
- 3432                 	.LASF43:
- 3433 0301 73 68 6F 72 		.ascii "CSR_MESH_ASSOC_STARTED_EVENT\000"
- 3433      74 20 75 6E 
- 3433      73 69 67 6E 
- 3433      65 64 20 69 
- 3433      6E 74 00 
- 3434                 	.LASF44:
- 3435 030b 61 64 76 65 		.ascii "CSR_MESH_ASSOC_COMPLETE_EVENT\000"
- 3435      72 74 69 73 
- 3435      69 6E 67 5F 
- 3435      69 6E 74 65 
- 3435      72 76 61 6C 
- 3436                 	.LASF71:
- 3437 0315 61 73 73 6F 		.ascii "CSR_MESH_BEARER_STATE_EVENT\000"
- 3437      63 5F 73 74 
- 3437      61 74 65 00 
- 3438                 	.LASF30:
- 3439 031b 74 69 6D 65 		.ascii "scan_duty_cycle\000"
- 3439      72 5F 69 64 
- 3439      00 
- 3440                 	.LASF157:
- 3441 0320 43 53 52 5F 		.ascii "AppGetStoredBearerState\000"
+ 3414                 	.LASF77:
+ 3415 0287 6C 6F 6E 67 		.ascii "CSR_MESH_GET_CONFORMANCE_SIGNATURE_EVENT\000"
+ 3415      20 75 6E 73 
+ 3415      69 67 6E 65 
+ 3415      64 20 69 6E 
+ 3415      74 00 
+ 3416                 	.LASF105:
+ 3417 0290 43 73 72 55 		.ascii "attract_attention\000"
+ 3417      69 6E 74 38 
+ 3417      00 
+ 3418                 	.LASF167:
+ 3419 0294 64 65 76 5F 		.ascii "level\000"
+ 3419      69 64 5F 61 
+ 3419      64 76 65 72 
+ 3419      74 5F 74 69 
+ 3419      64 00 
+ 3420                 	.LASF113:
+ 3421 029d 64 65 66 61 		.ascii "event\000"
+ 3421      75 6C 74 5F 
+ 3421      74 74 6C 00 
+ 3422                 	.LASF3:
+ 3423 02a3 43 53 52 5F 		.ascii "short unsigned int\000"
+ 3423      4D 45 53 48 
+ 3423      5F 47 45 54 
+ 3423      5F 43 4F 4E 
+ 3423      46 4F 52 4D 
+ 3424                 	.LASF31:
+ 3425 02b8 61 74 74 72 		.ascii "advertising_interval\000"
+ 3425      61 63 74 5F 
+ 3425      61 74 74 65 
+ 3425      6E 74 69 6F 
+ 3425      6E 00 
+ 3426                 	.LASF122:
+ 3427 02c1 6C 65 76 65 		.ascii "assoc_state\000"
+ 3427      6C 00 
+ 3428                 	.LASF12:
+ 3429 02c4 65 76 65 6E 		.ascii "timer_id\000"
+ 3429      74 00 
+ 3430                 	.LASF43:
+ 3431 02c7 73 68 6F 72 		.ascii "CSR_MESH_ASSOC_STARTED_EVENT\000"
+ 3431      74 20 75 6E 
+ 3431      73 69 67 6E 
+ 3431      65 64 20 69 
+ 3431      6E 74 00 
+ 3432                 	.LASF44:
+ 3433 02d0 61 64 76 65 		.ascii "CSR_MESH_ASSOC_COMPLETE_EVENT\000"
+ 3433      72 74 69 73 
+ 3433      69 6E 67 5F 
+ 3433      69 6E 74 65 
+ 3433      72 76 61 6C 
+ 3434                 	.LASF71:
+ 3435 02db 61 73 73 6F 		.ascii "CSR_MESH_BEARER_STATE_EVENT\000"
+ 3435      63 5F 73 74 
+ 3435      61 74 65 00 
+ 3436                 	.LASF30:
+ 3437 02e1 74 69 6D 65 		.ascii "scan_duty_cycle\000"
+ 3437      72 5F 69 64 
+ 3437      00 
+ 3438                 	.LASF157:
+ 3439 02e5 43 53 52 5F 		.ascii "AppGetStoredBearerState\000"
+ 3439      4D 45 53 48 
+ 3439      5F 41 53 53 
+ 3439      4F 43 5F 53 
+ 3439      54 41 52 54 
+ 3440                 	.LASF78:
+ 3441 02f4 43 53 52 5F 		.ascii "CSR_MESH_GET_NETWORK_KEY_EVENT\000"
  3441      4D 45 53 48 
  3441      5F 41 53 53 
- 3441      4F 43 5F 53 
- 3441      54 41 52 54 
- 3442                 	.LASF78:
- 3443 032e 43 53 52 5F 		.ascii "CSR_MESH_GET_NETWORK_KEY_EVENT\000"
+ 3441      4F 43 5F 43 
+ 3441      4F 4D 50 4C 
+ 3442                 	.LASF10:
+ 3443 0303 43 53 52 5F 		.ascii "bool\000"
  3443      4D 45 53 48 
- 3443      5F 41 53 53 
- 3443      4F 43 5F 43 
- 3443      4F 4D 50 4C 
- 3444                 	.LASF10:
- 3445 033d 43 53 52 5F 		.ascii "bool\000"
- 3445      4D 45 53 48 
- 3445      5F 42 45 41 
- 3445      52 45 52 5F 
- 3445      53 54 41 54 
- 3446                 	.LASF182:
- 3447 034b 73 63 61 6E 		.ascii "deviceIdAdvertTimeoutHandler\000"
- 3447      5F 64 75 74 
- 3447      79 5F 63 79 
- 3447      63 6C 65 00 
- 3448                 	.LASF75:
- 3449 0353 41 70 70 47 		.ascii "CSR_MESH_NW_KEY_IV_COMPLETE_EVENT\000"
- 3449      65 74 53 74 
- 3449      6F 72 65 64 
- 3449      42 65 61 72 
- 3449      65 72 53 74 
- 3450                 	.LASF48:
- 3451 035f 43 53 52 5F 		.ascii "CSR_MESH_MASP_DEVICE_IND_EVENT\000"
- 3451      4D 45 53 48 
- 3451      5F 47 45 54 
- 3451      5F 4E 45 54 
- 3451      57 4F 52 4B 
- 3452                 	.LASF64:
- 3453 036f 62 6F 6F 6C 		.ascii "CSR_MESH_REMOVE_NETWORK_EVENT\000"
- 3453      00 
- 3454                 	.LASF135:
- 3455 0371 64 65 76 69 		.ascii "tSend82Wait800ms\000"
- 3455      63 65 49 64 
- 3455      41 64 76 65 
- 3455      72 74 54 69 
- 3455      6D 65 6F 75 
- 3456                 	.LASF82:
- 3457 0380 43 53 52 5F 		.ascii "CSR_MESH_CONFIG_SET_MSG_PARAMS_EVENT\000"
+ 3443      5F 42 45 41 
+ 3443      52 45 52 5F 
+ 3443      53 54 41 54 
+ 3444                 	.LASF182:
+ 3445 0311 73 63 61 6E 		.ascii "deviceIdAdvertTimeoutHandler\000"
+ 3445      5F 64 75 74 
+ 3445      79 5F 63 79 
+ 3445      63 6C 65 00 
+ 3446                 	.LASF75:
+ 3447 0319 41 70 70 47 		.ascii "CSR_MESH_NW_KEY_IV_COMPLETE_EVENT\000"
+ 3447      65 74 53 74 
+ 3447      6F 72 65 64 
+ 3447      42 65 61 72 
+ 3447      65 72 53 74 
+ 3448                 	.LASF48:
+ 3449 0325 43 53 52 5F 		.ascii "CSR_MESH_MASP_DEVICE_IND_EVENT\000"
+ 3449      4D 45 53 48 
+ 3449      5F 47 45 54 
+ 3449      5F 4E 45 54 
+ 3449      57 4F 52 4B 
+ 3450                 	.LASF64:
+ 3451 0334 62 6F 6F 6C 		.ascii "CSR_MESH_REMOVE_NETWORK_EVENT\000"
+ 3451      00 
+ 3452                 	.LASF135:
+ 3453 0337 64 65 76 69 		.ascii "tSend82Wait800ms\000"
+ 3453      63 65 49 64 
+ 3453      41 64 76 65 
+ 3453      72 74 54 69 
+ 3453      6D 65 6F 75 
+ 3454                 	.LASF82:
+ 3455 0345 43 53 52 5F 		.ascii "CSR_MESH_CONFIG_SET_MSG_PARAMS_EVENT\000"
+ 3455      4D 45 53 48 
+ 3455      5F 4E 57 5F 
+ 3455      4B 45 59 5F 
+ 3455      49 56 5F 43 
+ 3456                 	.LASF149:
+ 3457 0356 43 53 52 5F 		.ascii "tAdvUUID3Min\000"
  3457      4D 45 53 48 
- 3457      5F 4E 57 5F 
- 3457      4B 45 59 5F 
- 3457      49 56 5F 43 
- 3458                 	.LASF149:
- 3459 0391 43 53 52 5F 		.ascii "tAdvUUID3Min\000"
+ 3457      5F 4D 41 53 
+ 3457      50 5F 44 45 
+ 3457      56 49 43 45 
+ 3458                 	.LASF61:
+ 3459 0366 43 53 52 5F 		.ascii "CSR_MESH_SEND_MCP_MSG_EVENT\000"
  3459      4D 45 53 48 
- 3459      5F 4D 41 53 
- 3459      50 5F 44 45 
- 3459      56 49 43 45 
- 3460                 	.LASF61:
- 3461 03a0 43 53 52 5F 		.ascii "CSR_MESH_SEND_MCP_MSG_EVENT\000"
- 3461      4D 45 53 48 
- 3461      5F 52 45 4D 
- 3461      4F 56 45 5F 
- 3461      4E 45 54 57 
- 3462                 	.LASF142:
- 3463 03af 74 53 65 6E 		.ascii "_tm_100ms\000"
- 3463      64 38 32 57 
- 3463      61 69 74 38 
- 3463      30 30 6D 73 
- 3463      00 
- 3464                 	.LASF79:
- 3465 03b8 43 53 52 5F 		.ascii "CSR_MESH_GET_DHM_KEY_EVENT\000"
- 3465      4D 45 53 48 
- 3465      5F 43 4F 4E 
- 3465      46 49 47 5F 
- 3465      53 45 54 5F 
- 3466                 	.LASF151:
- 3467 03ca 74 41 64 76 		.ascii "tMeshTimeOut2s\000"
- 3467      55 55 49 44 
- 3467      33 4D 69 6E 
- 3467      00 
- 3468                 	.LASF39:
- 3469 03d1 43 53 52 5F 		.ascii "CSR_MESH_START_EVENT\000"
- 3469      4D 45 53 48 
- 3469      5F 53 45 4E 
- 3469      44 5F 4D 43 
- 3469      50 5F 4D 53 
- 3470                 	.LASF62:
- 3471 03df 5F 74 6D 5F 		.ascii "CSR_MESH_MCP_REGISTER_MODEL_EVENT\000"
- 3471      31 30 30 6D 
- 3471      73 00 
- 3472                 	.LASF57:
- 3473 03e4 43 53 52 5F 		.ascii "CSR_MESH_GET_VID_PID_VERSTION_EVENT\000"
- 3473      4D 45 53 48 
- 3473      5F 47 45 54 
- 3473      5F 44 48 4D 
- 3473      5F 4B 45 59 
- 3474                 	.LASF59:
- 3475 03f1 74 4D 65 73 		.ascii "CSR_MESH_GROUP_SET_MODEL_GROUPID_EVENT\000"
- 3475      68 54 69 6D 
- 3475      65 4F 75 74 
- 3475      32 73 00 
- 3476                 	.LASF101:
- 3477 03f9 43 53 52 5F 		.ascii "CSR_MESH_APPEARANCE_T\000"
+ 3459      5F 52 45 4D 
+ 3459      4F 56 45 5F 
+ 3459      4E 45 54 57 
+ 3460                 	.LASF142:
+ 3461 0375 74 53 65 6E 		.ascii "_tm_100ms\000"
+ 3461      64 38 32 57 
+ 3461      61 69 74 38 
+ 3461      30 30 6D 73 
+ 3461      00 
+ 3462                 	.LASF79:
+ 3463 037d 43 53 52 5F 		.ascii "CSR_MESH_GET_DHM_KEY_EVENT\000"
+ 3463      4D 45 53 48 
+ 3463      5F 43 4F 4E 
+ 3463      46 49 47 5F 
+ 3463      53 45 54 5F 
+ 3464                 	.LASF151:
+ 3465 0390 74 41 64 76 		.ascii "tMeshTimeOut2s\000"
+ 3465      55 55 49 44 
+ 3465      33 4D 69 6E 
+ 3465      00 
+ 3466                 	.LASF39:
+ 3467 0396 43 53 52 5F 		.ascii "CSR_MESH_START_EVENT\000"
+ 3467      4D 45 53 48 
+ 3467      5F 53 45 4E 
+ 3467      44 5F 4D 43 
+ 3467      50 5F 4D 53 
+ 3468                 	.LASF62:
+ 3469 03a4 5F 74 6D 5F 		.ascii "CSR_MESH_MCP_REGISTER_MODEL_EVENT\000"
+ 3469      31 30 30 6D 
+ 3469      73 00 
+ 3470                 	.LASF57:
+ 3471 03a9 43 53 52 5F 		.ascii "CSR_MESH_GET_VID_PID_VERSTION_EVENT\000"
+ 3471      4D 45 53 48 
+ 3471      5F 47 45 54 
+ 3471      5F 44 48 4D 
+ 3471      5F 4B 45 59 
+ 3472                 	.LASF59:
+ 3473 03b7 74 4D 65 73 		.ascii "CSR_MESH_GROUP_SET_MODEL_GROUPID_EVENT\000"
+ 3473      68 54 69 6D 
+ 3473      65 4F 75 74 
+ 3473      32 73 00 
+ 3474                 	.LASF101:
+ 3475 03be 43 53 52 5F 		.ascii "CSR_MESH_APPEARANCE_T\000"
+ 3475      4D 45 53 48 
+ 3475      5F 53 54 41 
+ 3475      52 54 5F 45 
+ 3475      56 45 4E 54 
+ 3476                 	.LASF16:
+ 3477 03c9 43 53 52 5F 		.ascii "CsrInt8\000"
  3477      4D 45 53 48 
- 3477      5F 53 54 41 
- 3477      52 54 5F 45 
- 3477      56 45 4E 54 
- 3478                 	.LASF16:
- 3479 0403 43 53 52 5F 		.ascii "CsrInt8\000"
+ 3477      5F 4D 43 50 
+ 3477      5F 52 45 47 
+ 3477      49 53 54 45 
+ 3478                 	.LASF103:
+ 3479 03da 43 53 52 5F 		.ascii "appearance\000"
  3479      4D 45 53 48 
- 3479      5F 4D 43 50 
- 3479      5F 52 45 47 
- 3479      49 53 54 45 
- 3480                 	.LASF103:
- 3481 0414 43 53 52 5F 		.ascii "appearance\000"
+ 3479      5F 47 45 54 
+ 3479      5F 56 49 44 
+ 3479      5F 50 49 44 
+ 3480                 	.LASF148:
+ 3481 03ec 43 53 52 5F 		.ascii "tBleReset3Min\000"
  3481      4D 45 53 48 
- 3481      5F 47 45 54 
- 3481      5F 56 49 44 
- 3481      5F 50 49 44 
- 3482                 	.LASF148:
- 3483 0426 43 53 52 5F 		.ascii "tBleReset3Min\000"
+ 3481      5F 47 52 4F 
+ 3481      55 50 5F 53 
+ 3481      45 54 5F 4D 
+ 3482                 	.LASF126:
+ 3483 03ff 43 53 52 5F 		.ascii "fover\000"
  3483      4D 45 53 48 
- 3483      5F 47 52 4F 
- 3483      55 50 5F 53 
- 3483      45 54 5F 4D 
- 3484                 	.LASF126:
- 3485 043a 43 53 52 5F 		.ascii "fover\000"
- 3485      4D 45 53 48 
- 3485      5F 41 50 50 
- 3485      45 41 52 41 
- 3485      4E 43 45 5F 
- 3486                 	.LASF60:
- 3487 0445 43 73 72 49 		.ascii "CSR_MESH_SEND_RAW_MCP_MSG_EVENT\000"
- 3487      6E 74 38 00 
- 3488                 	.LASF162:
- 3489 0449 61 70 70 65 		.ascii "MeshHandlerInit\000"
- 3489      61 72 61 6E 
- 3489      63 65 00 
- 3490                 	.LASF18:
- 3491 044e 74 42 6C 65 		.ascii "CsrBool\000"
- 3491      52 65 73 65 
- 3491      74 33 4D 69 
- 3491      6E 00 
- 3492                 	.LASF156:
- 3493 0455 66 6F 76 65 		.ascii "IsGattBearerEnabled\000"
- 3493      72 00 
- 3494                 	.LASF127:
- 3495 0458 43 53 52 5F 		.ascii "frequest\000"
- 3495      4D 45 53 48 
- 3495      5F 53 45 4E 
- 3495      44 5F 52 41 
- 3495      57 5F 4D 43 
- 3496                 	.LASF131:
- 3497 0468 4D 65 73 68 		.ascii "time\000"
- 3497      48 61 6E 64 
- 3497      6C 65 72 49 
- 3497      6E 69 74 00 
- 3498                 	.LASF42:
- 3499 0470 43 73 72 42 		.ascii "CSR_MESH_START_DEVICE_INQUIRY_EVENT\000"
- 3499      6F 6F 6C 00 
- 3500                 	.LASF188:
- 3501 0474 49 73 47 61 		.ascii "attention_model_groups\000"
- 3501      74 74 42 65 
- 3501      61 72 65 72 
- 3501      45 6E 61 62 
- 3501      6C 65 64 00 
- 3502                 	.LASF54:
- 3503 047e 66 72 65 71 		.ascii "CSR_MESH_CONFIG_RESET_DEVICE_EVENT\000"
- 3503      75 65 73 74 
+ 3483      5F 41 50 50 
+ 3483      45 41 52 41 
+ 3483      4E 43 45 5F 
+ 3484                 	.LASF60:
+ 3485 040a 43 73 72 49 		.ascii "CSR_MESH_SEND_RAW_MCP_MSG_EVENT\000"
+ 3485      6E 74 38 00 
+ 3486                 	.LASF162:
+ 3487 040e 61 70 70 65 		.ascii "MeshHandlerInit\000"
+ 3487      61 72 61 6E 
+ 3487      63 65 00 
+ 3488                 	.LASF18:
+ 3489 0414 74 42 6C 65 		.ascii "CsrBool\000"
+ 3489      52 65 73 65 
+ 3489      74 33 4D 69 
+ 3489      6E 00 
+ 3490                 	.LASF156:
+ 3491 041b 66 6F 76 65 		.ascii "IsGattBearerEnabled\000"
+ 3491      72 00 
+ 3492                 	.LASF127:
+ 3493 041e 43 53 52 5F 		.ascii "frequest\000"
+ 3493      4D 45 53 48 
+ 3493      5F 53 45 4E 
+ 3493      44 5F 52 41 
+ 3493      57 5F 4D 43 
+ 3494                 	.LASF131:
+ 3495 042e 4D 65 73 68 		.ascii "time\000"
+ 3495      48 61 6E 64 
+ 3495      6C 65 72 49 
+ 3495      6E 69 74 00 
+ 3496                 	.LASF42:
+ 3497 0436 43 73 72 42 		.ascii "CSR_MESH_START_DEVICE_INQUIRY_EVENT\000"
+ 3497      6F 6F 6C 00 
+ 3498                 	.LASF188:
+ 3499 043a 49 73 47 61 		.ascii "attention_model_groups\000"
+ 3499      74 74 42 65 
+ 3499      61 72 65 72 
+ 3499      45 6E 61 62 
+ 3499      6C 65 64 00 
+ 3500                 	.LASF54:
+ 3501 0444 66 72 65 71 		.ascii "CSR_MESH_CONFIG_RESET_DEVICE_EVENT\000"
+ 3501      75 65 73 74 
+ 3501      00 
+ 3502                 	.LASF27:
+ 3503 0448 74 69 6D 65 		.ascii "product_id\000"
  3503      00 
- 3504                 	.LASF27:
- 3505 0483 74 69 6D 65 		.ascii "product_id\000"
- 3505      00 
- 3506                 	.LASF23:
- 3507 0485 43 53 52 5F 		.ascii "CSR_MESH_OPERATION_REQUEST_FOR_INFO\000"
- 3507      4D 45 53 48 
- 3507      5F 53 54 41 
- 3507      52 54 5F 44 
- 3507      45 56 49 43 
- 3508                 	.LASF73:
- 3509 0497 61 74 74 65 		.ascii "CSR_MESH_NW_IV_UPDATE_STARTED\000"
- 3509      6E 74 69 6F 
- 3509      6E 5F 6D 6F 
- 3509      64 65 6C 5F 
- 3509      67 72 6F 75 
- 3510                 	.LASF158:
- 3511 04a3 43 53 52 5F 		.ascii "AppGetCurrentTTL\000"
- 3511      4D 45 53 48 
- 3511      5F 43 4F 4E 
- 3511      46 49 47 5F 
- 3511      52 45 53 45 
- 3512                 	.LASF81:
- 3513 04b4 70 72 6F 64 		.ascii "CSR_MESH_GET_DEFAULT_TTL_EVENT\000"
- 3513      75 63 74 5F 
- 3513      69 64 00 
- 3514                 	.LASF22:
- 3515 04ba 43 53 52 5F 		.ascii "CSR_MESH_OPERATION_MEMORY_FULL\000"
+ 3504                 	.LASF23:
+ 3505 044b 43 53 52 5F 		.ascii "CSR_MESH_OPERATION_REQUEST_FOR_INFO\000"
+ 3505      4D 45 53 48 
+ 3505      5F 53 54 41 
+ 3505      52 54 5F 44 
+ 3505      45 56 49 43 
+ 3506                 	.LASF73:
+ 3507 045d 61 74 74 65 		.ascii "CSR_MESH_NW_IV_UPDATE_STARTED\000"
+ 3507      6E 74 69 6F 
+ 3507      6E 5F 6D 6F 
+ 3507      64 65 6C 5F 
+ 3507      67 72 6F 75 
+ 3508                 	.LASF158:
+ 3509 0468 43 53 52 5F 		.ascii "AppGetCurrentTTL\000"
+ 3509      4D 45 53 48 
+ 3509      5F 43 4F 4E 
+ 3509      46 49 47 5F 
+ 3509      52 45 53 45 
+ 3510                 	.LASF81:
+ 3511 047a 70 72 6F 64 		.ascii "CSR_MESH_GET_DEFAULT_TTL_EVENT\000"
+ 3511      75 63 74 5F 
+ 3511      69 64 00 
+ 3512                 	.LASF22:
+ 3513 047f 43 53 52 5F 		.ascii "CSR_MESH_OPERATION_MEMORY_FULL\000"
+ 3513      4D 45 53 48 
+ 3513      5F 4F 50 45 
+ 3513      52 41 54 49 
+ 3513      4F 4E 5F 52 
+ 3514                 	.LASF194:
+ 3515 0491 43 53 52 5F 		.ascii "FlashWrite\000"
  3515      4D 45 53 48 
- 3515      5F 4F 50 45 
- 3515      52 41 54 49 
- 3515      4F 4E 5F 52 
- 3516                 	.LASF194:
- 3517 04cc 43 53 52 5F 		.ascii "FlashWrite\000"
- 3517      4D 45 53 48 
- 3517      5F 4E 57 5F 
- 3517      49 56 5F 55 
- 3517      50 44 41 54 
- 3518                 	.LASF21:
- 3519 04db 41 70 70 47 		.ascii "CSR_MESH_OPERATION_NOT_PERMITTED\000"
- 3519      65 74 43 75 
- 3519      72 72 65 6E 
- 3519      74 54 54 4C 
- 3519      00 
- 3520                 	.LASF155:
- 3521 04e3 43 53 52 5F 		.ascii "AppGetAssociatedState\000"
+ 3515      5F 4E 57 5F 
+ 3515      49 56 5F 55 
+ 3515      50 44 41 54 
+ 3516                 	.LASF21:
+ 3517 04a0 41 70 70 47 		.ascii "CSR_MESH_OPERATION_NOT_PERMITTED\000"
+ 3517      65 74 43 75 
+ 3517      72 72 65 6E 
+ 3517      74 54 54 4C 
+ 3517      00 
+ 3518                 	.LASF155:
+ 3519 04a9 43 53 52 5F 		.ascii "AppGetAssociatedState\000"
+ 3519      4D 45 53 48 
+ 3519      5F 47 45 54 
+ 3519      5F 44 45 46 
+ 3519      41 55 4C 54 
+ 3520                 	.LASF163:
+ 3521 04b8 43 53 52 5F 		.ascii "power\000"
  3521      4D 45 53 48 
- 3521      5F 47 45 54 
- 3521      5F 44 45 46 
- 3521      41 55 4C 54 
- 3522                 	.LASF163:
- 3523 04f3 43 53 52 5F 		.ascii "power\000"
- 3523      4D 45 53 48 
- 3523      5F 4F 50 45 
- 3523      52 41 54 49 
- 3523      4F 4E 5F 4D 
- 3524                 	.LASF171:
- 3525 0502 46 6C 61 73 		.ascii "attnTimerHandler\000"
- 3525      68 57 72 69 
- 3525      74 65 00 
- 3526                 	.LASF2:
- 3527 0508 43 53 52 5F 		.ascii "unsigned char\000"
- 3527      4D 45 53 48 
- 3527      5F 4F 50 45 
- 3527      52 41 54 49 
- 3527      4F 4E 5F 4E 
- 3528                 	.LASF1:
- 3529 0518 41 70 70 47 		.ascii "uint16\000"
- 3529      65 74 41 73 
- 3529      73 6F 63 69 
- 3529      61 74 65 64 
- 3529      53 74 61 74 
- 3530                 	.LASF132:
- 3531 0523 70 6F 77 65 		.ascii "UTIME16\000"
- 3531      72 00 
- 3532                 	.LASF143:
- 3533 0526 61 74 74 6E 		.ascii "tOnTimeWait3s\000"
- 3533      54 69 6D 65 
- 3533      72 48 61 6E 
- 3533      64 6C 65 72 
- 3533      00 
- 3534                 	.LASF58:
- 3535 052f 75 6E 73 69 		.ascii "CSR_MESH_GET_DEVICE_APPEARANCE_EVENT\000"
- 3535      67 6E 65 64 
- 3535      20 63 68 61 
- 3535      72 00 
- 3536                 	.LASF200:
- 3537 0536 75 69 6E 74 		.ascii "../mesh_common/mesh/handlers/core_mesh/core_mesh_handler.c\000"
- 3537      31 36 00 
- 3538                 	.LASF8:
- 3539 0539 55 54 49 4D 		.ascii "short int\000"
- 3539      45 31 36 00 
- 3540                 	.LASF129:
- 3541 053d 74 4F 6E 54 		.ascii "TIME16\000"
- 3541      69 6D 65 57 
- 3541      61 69 74 33 
- 3541      73 00 
- 3542                 	.LASF88:
- 3543 0544 43 53 52 5F 		.ascii "CSR_MESH_EVENT_T\000"
- 3543      4D 45 53 48 
- 3543      5F 47 45 54 
- 3543      5F 44 45 56 
- 3543      49 43 45 5F 
- 3544                 	.LASF123:
- 3545 0557 2E 2E 2F 6D 		.ascii "bearer_tx_state\000"
- 3545      65 73 68 5F 
- 3545      63 6F 6D 6D 
- 3545      6F 6E 2F 6D 
- 3545      65 73 68 2F 
- 3546                 	.LASF35:
- 3547 0574 73 68 6F 72 		.ascii "CSR_MESH_CONFIG_BEARER_PARAM_T\000"
- 3547      74 20 69 6E 
- 3547      74 00 
- 3548                 	.LASF138:
- 3549 0579 54 49 4D 45 		.ascii "tmeshfinishdataWait100ms\000"
- 3549      31 36 00 
- 3550                 	.LASF120:
- 3551 057d 43 53 52 5F 		.ascii "app_association_state\000"
- 3551      4D 45 53 48 
- 3551      5F 45 56 45 
- 3551      4E 54 5F 54 
- 3551      00 
- 3552                 	.LASF133:
- 3553 0585 62 65 61 72 		.ascii "tWifiSendData\000"
- 3553      65 72 5F 74 
- 3553      78 5F 73 74 
- 3553      61 74 65 00 
- 3554                 	.LASF111:
- 3555 058d 43 53 52 5F 		.ascii "gpId\000"
- 3555      4D 45 53 48 
- 3555      5F 43 4F 4E 
- 3555      46 49 47 5F 
- 3555      42 45 41 52 
- 3556                 	.LASF25:
- 3557 059d 74 6D 65 73 		.ascii "CSR_MESH_OPERATION_STATUS_T\000"
- 3557      68 66 69 6E 
- 3557      69 73 68 64 
- 3557      61 74 61 57 
- 3557      61 69 74 31 
- 3558                 	.LASF165:
- 3559 05a9 61 70 70 5F 		.ascii "AppUpdateBearerState\000"
- 3559      61 73 73 6F 
- 3559      63 69 61 74 
- 3559      69 6F 6E 5F 
- 3559      73 74 61 74 
- 3560                 	.LASF112:
- 3561 05b4 74 57 69 66 		.ascii "CSR_MESH_BEARER_STATE_DATA_T\000"
- 3561      69 53 65 6E 
- 3561      64 44 61 74 
- 3561      61 00 
- 3562                 	.LASF146:
- 3563 05bb 67 70 49 64 		.ascii "tGetIndoorInf2s\000"
- 3563      00 
- 3564                 	.LASF100:
- 3565 05be 43 53 52 5F 		.ascii "deviceHash\000"
- 3565      4D 45 53 48 
- 3565      5F 4F 50 45 
- 3565      52 41 54 49 
- 3565      4F 4E 5F 53 
- 3566                 	.LASF29:
- 3567 05cc 41 70 70 55 		.ascii "CSR_MESH_VID_PID_VERSION_T\000"
- 3567      70 64 61 74 
- 3567      65 42 65 61 
- 3567      72 65 72 53 
- 3567      74 61 74 65 
- 3568                 	.LASF189:
- 3569 05d6 43 53 52 5F 		.ascii "data_model_groups\000"
- 3569      4D 45 53 48 
- 3569      5F 42 45 41 
- 3569      52 45 52 5F 
- 3569      53 54 41 54 
- 3570                 	.LASF45:
- 3571 05e5 74 47 65 74 		.ascii "CSR_MESH_SEND_ASSOC_COMPLETE_EVENT\000"
- 3571      49 6E 64 6F 
- 3571      6F 72 49 6E 
- 3571      66 32 73 00 
- 3572                 	.LASF179:
- 3573 05ed 64 65 76 69 		.ascii "config_param\000"
- 3573      63 65 48 61 
- 3573      73 68 00 
- 3574                 	.LASF168:
- 3575 05f2 43 53 52 5F 		.ascii "ret_evt_data\000"
- 3575      4D 45 53 48 
- 3575      5F 56 49 44 
- 3575      5F 50 49 44 
- 3575      5F 56 45 52 
- 3576                 	.LASF97:
- 3577 0600 64 61 74 61 		.ascii "CSR_MESH_TRANSMIT_STATE_T\000"
- 3577      5F 6D 6F 64 
- 3577      65 6C 5F 67 
- 3577      72 6F 75 70 
- 3577      73 00 
- 3578                 	.LASF17:
- 3579 0609 43 53 52 5F 		.ascii "char\000"
- 3579      4D 45 53 48 
- 3579      5F 53 45 4E 
- 3579      44 5F 41 53 
- 3579      53 4F 43 5F 
- 3580                 	.LASF95:
- 3581 061a 63 6F 6E 66 		.ascii "relay\000"
- 3581      69 67 5F 70 
- 3581      61 72 61 6D 
+ 3521      5F 4F 50 45 
+ 3521      52 41 54 49 
+ 3521      4F 4E 5F 4D 
+ 3522                 	.LASF171:
+ 3523 04c8 46 6C 61 73 		.ascii "attnTimerHandler\000"
+ 3523      68 57 72 69 
+ 3523      74 65 00 
+ 3524                 	.LASF2:
+ 3525 04cd 43 53 52 5F 		.ascii "unsigned char\000"
+ 3525      4D 45 53 48 
+ 3525      5F 4F 50 45 
+ 3525      52 41 54 49 
+ 3525      4F 4E 5F 4E 
+ 3526                 	.LASF1:
+ 3527 04de 41 70 70 47 		.ascii "uint16\000"
+ 3527      65 74 41 73 
+ 3527      73 6F 63 69 
+ 3527      61 74 65 64 
+ 3527      53 74 61 74 
+ 3528                 	.LASF132:
+ 3529 04e9 70 6F 77 65 		.ascii "UTIME16\000"
+ 3529      72 00 
+ 3530                 	.LASF143:
+ 3531 04ec 61 74 74 6E 		.ascii "tOnTimeWait3s\000"
+ 3531      54 69 6D 65 
+ 3531      72 48 61 6E 
+ 3531      64 6C 65 72 
+ 3531      00 
+ 3532                 	.LASF58:
+ 3533 04f4 75 6E 73 69 		.ascii "CSR_MESH_GET_DEVICE_APPEARANCE_EVENT\000"
+ 3533      67 6E 65 64 
+ 3533      20 63 68 61 
+ 3533      72 00 
+ 3534                 	.LASF200:
+ 3535 04fb 75 69 6E 74 		.ascii "../mesh_common/mesh/handlers/core_mesh/core_mesh_handler.c\000"
+ 3535      31 36 00 
+ 3536                 	.LASF8:
+ 3537 04ff 55 54 49 4D 		.ascii "short int\000"
+ 3537      45 31 36 00 
+ 3538                 	.LASF129:
+ 3539 0503 74 4F 6E 54 		.ascii "TIME16\000"
+ 3539      69 6D 65 57 
+ 3539      61 69 74 33 
+ 3539      73 00 
+ 3540                 	.LASF88:
+ 3541 050a 43 53 52 5F 		.ascii "CSR_MESH_EVENT_T\000"
+ 3541      4D 45 53 48 
+ 3541      5F 47 45 54 
+ 3541      5F 44 45 56 
+ 3541      49 43 45 5F 
+ 3542                 	.LASF123:
+ 3543 051c 2E 2E 2F 6D 		.ascii "bearer_tx_state\000"
+ 3543      65 73 68 5F 
+ 3543      63 6F 6D 6D 
+ 3543      6F 6E 2F 6D 
+ 3543      65 73 68 2F 
+ 3544                 	.LASF35:
+ 3545 053a 73 68 6F 72 		.ascii "CSR_MESH_CONFIG_BEARER_PARAM_T\000"
+ 3545      74 20 69 6E 
+ 3545      74 00 
+ 3546                 	.LASF138:
+ 3547 053f 54 49 4D 45 		.ascii "tmeshfinishdataWait100ms\000"
+ 3547      31 36 00 
+ 3548                 	.LASF120:
+ 3549 0542 43 53 52 5F 		.ascii "app_association_state\000"
+ 3549      4D 45 53 48 
+ 3549      5F 45 56 45 
+ 3549      4E 54 5F 54 
+ 3549      00 
+ 3550                 	.LASF133:
+ 3551 054b 62 65 61 72 		.ascii "tWifiSendData\000"
+ 3551      65 72 5F 74 
+ 3551      78 5F 73 74 
+ 3551      61 74 65 00 
+ 3552                 	.LASF111:
+ 3553 0553 43 53 52 5F 		.ascii "gpId\000"
+ 3553      4D 45 53 48 
+ 3553      5F 43 4F 4E 
+ 3553      46 49 47 5F 
+ 3553      42 45 41 52 
+ 3554                 	.LASF25:
+ 3555 0562 74 6D 65 73 		.ascii "CSR_MESH_OPERATION_STATUS_T\000"
+ 3555      68 66 69 6E 
+ 3555      69 73 68 64 
+ 3555      61 74 61 57 
+ 3555      61 69 74 31 
+ 3556                 	.LASF165:
+ 3557 056f 61 70 70 5F 		.ascii "AppUpdateBearerState\000"
+ 3557      61 73 73 6F 
+ 3557      63 69 61 74 
+ 3557      69 6F 6E 5F 
+ 3557      73 74 61 74 
+ 3558                 	.LASF112:
+ 3559 057a 74 57 69 66 		.ascii "CSR_MESH_BEARER_STATE_DATA_T\000"
+ 3559      69 53 65 6E 
+ 3559      64 44 61 74 
+ 3559      61 00 
+ 3560                 	.LASF146:
+ 3561 0581 67 70 49 64 		.ascii "tGetIndoorInf2s\000"
+ 3561      00 
+ 3562                 	.LASF100:
+ 3563 0583 43 53 52 5F 		.ascii "deviceHash\000"
+ 3563      4D 45 53 48 
+ 3563      5F 4F 50 45 
+ 3563      52 41 54 49 
+ 3563      4F 4E 5F 53 
+ 3564                 	.LASF29:
+ 3565 0591 41 70 70 55 		.ascii "CSR_MESH_VID_PID_VERSION_T\000"
+ 3565      70 64 61 74 
+ 3565      65 42 65 61 
+ 3565      72 65 72 53 
+ 3565      74 61 74 65 
+ 3566                 	.LASF189:
+ 3567 059c 43 53 52 5F 		.ascii "data_model_groups\000"
+ 3567      4D 45 53 48 
+ 3567      5F 42 45 41 
+ 3567      52 45 52 5F 
+ 3567      53 54 41 54 
+ 3568                 	.LASF45:
+ 3569 05aa 74 47 65 74 		.ascii "CSR_MESH_SEND_ASSOC_COMPLETE_EVENT\000"
+ 3569      49 6E 64 6F 
+ 3569      6F 72 49 6E 
+ 3569      66 32 73 00 
+ 3570                 	.LASF179:
+ 3571 05b2 64 65 76 69 		.ascii "config_param\000"
+ 3571      63 65 48 61 
+ 3571      73 68 00 
+ 3572                 	.LASF168:
+ 3573 05b8 43 53 52 5F 		.ascii "ret_evt_data\000"
+ 3573      4D 45 53 48 
+ 3573      5F 56 49 44 
+ 3573      5F 50 49 44 
+ 3573      5F 56 45 52 
+ 3574                 	.LASF97:
+ 3575 05c5 64 61 74 61 		.ascii "CSR_MESH_TRANSMIT_STATE_T\000"
+ 3575      5F 6D 6F 64 
+ 3575      65 6C 5F 67 
+ 3575      72 6F 75 70 
+ 3575      73 00 
+ 3576                 	.LASF17:
+ 3577 05ce 43 53 52 5F 		.ascii "char\000"
+ 3577      4D 45 53 48 
+ 3577      5F 53 45 4E 
+ 3577      44 5F 41 53 
+ 3577      53 4F 43 5F 
+ 3578                 	.LASF95:
+ 3579 05e0 63 6F 6E 66 		.ascii "relay\000"
+ 3579      69 67 5F 70 
+ 3579      61 72 61 6D 
+ 3579      00 
+ 3580                 	.LASF191:
+ 3581 05e6 72 65 74 5F 		.ascii "g_app_nvm_offset\000"
+ 3581      65 76 74 5F 
+ 3581      64 61 74 61 
  3581      00 
- 3582                 	.LASF191:
- 3583 0621 72 65 74 5F 		.ascii "g_app_nvm_offset\000"
- 3583      65 76 74 5F 
- 3583      64 61 74 61 
- 3583      00 
- 3584                 	.LASF11:
- 3585 0627 43 53 52 5F 		.ascii "unsigned int\000"
- 3585      4D 45 53 48 
- 3585      5F 54 52 41 
- 3585      4E 53 4D 49 
- 3585      54 5F 53 54 
- 3586                 	.LASF56:
- 3587 0634 63 68 61 72 		.ascii "CSR_MESH_CONFIG_GET_PARAMS_EVENT\000"
- 3587      00 
- 3588                 	.LASF52:
- 3589 0637 72 65 6C 61 		.ascii "CSR_MESH_SET_PASSPHRASE_EVENT\000"
- 3589      79 00 
- 3590                 	.LASF32:
- 3591 063a 67 5F 61 70 		.ascii "advertising_time\000"
- 3591      70 5F 6E 76 
- 3591      6D 5F 6F 66 
- 3591      66 73 65 74 
+ 3582                 	.LASF11:
+ 3583 05ed 43 53 52 5F 		.ascii "unsigned int\000"
+ 3583      4D 45 53 48 
+ 3583      5F 54 52 41 
+ 3583      4E 53 4D 49 
+ 3583      54 5F 53 54 
+ 3584                 	.LASF56:
+ 3585 05fa 63 68 61 72 		.ascii "CSR_MESH_CONFIG_GET_PARAMS_EVENT\000"
+ 3585      00 
+ 3586                 	.LASF52:
+ 3587 05fc 72 65 6C 61 		.ascii "CSR_MESH_SET_PASSPHRASE_EVENT\000"
+ 3587      79 00 
+ 3588                 	.LASF32:
+ 3589 05ff 67 5F 61 70 		.ascii "advertising_time\000"
+ 3589      70 5F 6E 76 
+ 3589      6D 5F 6F 66 
+ 3589      66 73 65 74 
+ 3589      00 
+ 3590                 	.LASF192:
+ 3591 0608 75 6E 73 69 		.ascii "g_app_nvm_fresh\000"
+ 3591      67 6E 65 64 
+ 3591      20 69 6E 74 
  3591      00 
- 3592                 	.LASF192:
- 3593 0642 75 6E 73 69 		.ascii "g_app_nvm_fresh\000"
- 3593      67 6E 65 64 
- 3593      20 69 6E 74 
- 3593      00 
- 3594                 	.LASF87:
- 3595 0649 43 53 52 5F 		.ascii "CSR_MESH_INVALID_EVENT\000"
+ 3592                 	.LASF87:
+ 3593 060e 43 53 52 5F 		.ascii "CSR_MESH_INVALID_EVENT\000"
+ 3593      4D 45 53 48 
+ 3593      5F 43 4F 4E 
+ 3593      46 49 47 5F 
+ 3593      47 45 54 5F 
+ 3594                 	.LASF37:
+ 3595 061f 43 53 52 5F 		.ascii "CSR_MESH_REGISTER_APP_CB_EVENT\000"
  3595      4D 45 53 48 
- 3595      5F 43 4F 4E 
- 3595      46 49 47 5F 
- 3595      47 45 54 5F 
- 3596                 	.LASF37:
- 3597 0659 43 53 52 5F 		.ascii "CSR_MESH_REGISTER_APP_CB_EVENT\000"
- 3597      4D 45 53 48 
- 3597      5F 53 45 54 
- 3597      5F 50 41 53 
- 3597      53 50 48 52 
- 3598                 	.LASF130:
- 3599 0668 61 64 76 65 		.ascii "word\000"
- 3599      72 74 69 73 
- 3599      69 6E 67 5F 
- 3599      74 69 6D 65 
- 3599      00 
- 3600                 	.LASF69:
- 3601 0671 67 5F 61 70 		.ascii "CSR_MESH_GET_NET_ID_FROM_MESH_ID_EVENT\000"
- 3601      70 5F 6E 76 
- 3601      6D 5F 66 72 
- 3601      65 73 68 00 
- 3602                 	.LASF186:
- 3603 0679 43 53 52 5F 		.ascii "p_mesh_hdlr_data\000"
+ 3595      5F 53 45 54 
+ 3595      5F 50 41 53 
+ 3595      53 50 48 52 
+ 3596                 	.LASF130:
+ 3597 062e 61 64 76 65 		.ascii "word\000"
+ 3597      72 74 69 73 
+ 3597      69 6E 67 5F 
+ 3597      74 69 6D 65 
+ 3597      00 
+ 3598                 	.LASF69:
+ 3599 0636 67 5F 61 70 		.ascii "CSR_MESH_GET_NET_ID_FROM_MESH_ID_EVENT\000"
+ 3599      70 5F 6E 76 
+ 3599      6D 5F 66 72 
+ 3599      65 73 68 00 
+ 3600                 	.LASF186:
+ 3601 063e 43 53 52 5F 		.ascii "p_mesh_hdlr_data\000"
+ 3601      4D 45 53 48 
+ 3601      5F 49 4E 56 
+ 3601      41 4C 49 44 
+ 3601      5F 45 56 45 
+ 3602                 	.LASF72:
+ 3603 064a 43 53 52 5F 		.ascii "CSR_MESH_NW_IV_UPDATED_ALREADY\000"
  3603      4D 45 53 48 
- 3603      5F 49 4E 56 
- 3603      41 4C 49 44 
- 3603      5F 45 56 45 
- 3604                 	.LASF72:
- 3605 0684 43 53 52 5F 		.ascii "CSR_MESH_NW_IV_UPDATED_ALREADY\000"
- 3605      4D 45 53 48 
- 3605      5F 52 45 47 
- 3605      49 53 54 45 
- 3605      52 5F 41 50 
- 3606                 	.LASF28:
- 3607 0694 77 6F 72 64 		.ascii "version\000"
- 3607      00 
- 3608                 	.LASF175:
- 3609 0696 43 53 52 5F 		.ascii "operation_event\000"
- 3609      4D 45 53 48 
- 3609      5F 47 45 54 
- 3609      5F 4E 45 54 
- 3609      5F 49 44 5F 
- 3610                 	.LASF84:
- 3611 06aa 70 5F 6D 65 		.ascii "CSR_MESH_SEQ_NUM_ROLL_BACK_EVENT\000"
- 3611      73 68 5F 68 
- 3611      64 6C 72 5F 
- 3611      64 61 74 61 
- 3611      00 
- 3612                 	.LASF174:
- 3613 06b2 43 53 52 5F 		.ascii "operation_status\000"
- 3613      4D 45 53 48 
- 3613      5F 4E 57 5F 
- 3613      49 56 5F 55 
- 3613      50 44 41 54 
- 3614                 	.LASF172:
- 3615 06c2 76 65 72 73 		.ascii "appProcessMeshEvent\000"
- 3615      69 6F 6E 00 
- 3616                 	.LASF93:
- 3617 06c6 6F 70 65 72 		.ascii "bearerEnabled\000"
- 3617      61 74 69 6F 
- 3617      6E 5F 65 76 
- 3617      65 6E 74 00 
- 3618                 	.LASF159:
- 3619 06ce 43 53 52 5F 		.ascii "AppInitializeSeqCache\000"
- 3619      4D 45 53 48 
- 3619      5F 53 45 51 
- 3619      5F 4E 55 4D 
- 3619      5F 52 4F 4C 
- 3620                 	.LASF65:
- 3621 06de 6F 70 65 72 		.ascii "CSR_MESH_GET_DIAG_DATA_EVENT\000"
- 3621      61 74 69 6F 
- 3621      6E 5F 73 74 
- 3621      61 74 75 73 
- 3621      00 
- 3622                 	.LASF96:
- 3623 06e7 61 70 70 50 		.ascii "maspRelayEnable\000"
- 3623      72 6F 63 65 
- 3623      73 73 4D 65 
- 3623      73 68 45 76 
- 3623      65 6E 74 00 
- 3624                 	.LASF98:
- 3625 06f1 62 65 61 72 		.ascii "organization\000"
- 3625      65 72 45 6E 
- 3625      61 62 6C 65 
- 3625      64 00 
- 3626                 	.LASF141:
- 3627 06f8 41 70 70 49 		.ascii "tRstWait500ms\000"
- 3627      6E 69 74 69 
- 3627      61 6C 69 7A 
- 3627      65 53 65 71 
- 3627      43 61 63 68 
- 3628                 	.LASF114:
- 3629 0703 43 53 52 5F 		.ascii "status\000"
- 3629      4D 45 53 48 
- 3629      5F 47 45 54 
- 3629      5F 44 49 41 
- 3629      47 5F 44 41 
- 3630                 	.LASF102:
- 3631 0711 6D 61 73 70 		.ascii "shortName\000"
- 3631      52 65 6C 61 
- 3631      79 45 6E 61 
- 3631      62 6C 65 00 
- 3632                 	.LASF180:
- 3633 0719 6F 72 67 61 		.ascii "bearer_param\000"
- 3633      6E 69 7A 61 
- 3633      74 69 6F 6E 
- 3633      00 
- 3634                 	.LASF177:
- 3635 0720 74 52 73 74 		.ascii "get_dev_id_data\000"
- 3635      57 61 69 74 
- 3635      35 30 30 6D 
- 3635      73 00 
- 3636                 	.LASF134:
- 3637 0727 73 74 61 74 		.ascii "tSend91Wait800ms\000"
- 3637      75 73 00 
- 3638                 	.LASF125:
- 3639 072a 73 68 6F 72 		.ascii "MESH_HANDLER_DATA_T\000"
- 3639      74 4E 61 6D 
- 3639      65 00 
- 3640                 	.LASF33:
- 3641 072f 62 65 61 72 		.ascii "tx_power\000"
- 3641      65 72 5F 70 
- 3641      61 72 61 6D 
- 3641      00 
- 3642                 	.LASF67:
- 3643 0736 67 65 74 5F 		.ascii "CSR_MESH_REGISTER_SNIFFER_APP_CB_EVENT\000"
- 3643      64 65 76 5F 
- 3643      69 64 5F 64 
- 3643      61 74 61 00 
- 3644                 	.LASF193:
- 3645 073e 74 53 65 6E 		.ascii "g_cskey_flags\000"
- 3645      64 39 31 57 
- 3645      61 69 74 38 
- 3645      30 30 6D 73 
- 3645      00 
- 3646                 	.LASF183:
- 3647 0746 4D 45 53 48 		.ascii "random_delay\000"
- 3647      5F 48 41 4E 
- 3647      44 4C 45 52 
- 3647      5F 44 41 54 
- 3647      41 5F 54 00 
- 3648                 	.LASF55:
- 3649 0750 74 78 5F 70 		.ascii "CSR_MESH_CONFIG_SET_PARAMS_EVENT\000"
- 3649      6F 77 65 72 
- 3649      00 
- 3650                 	.LASF170:
- 3651 0755 43 53 52 5F 		.ascii "InitiateAssociation\000"
- 3651      4D 45 53 48 
- 3651      5F 52 45 47 
- 3651      49 53 54 45 
- 3651      52 5F 53 4E 
- 3652                 	.LASF74:
- 3653 0768 67 5F 63 73 		.ascii "CSR_MESH_NW_IV_WRONG_RSP_RECEIVED\000"
- 3653      6B 65 79 5F 
- 3653      66 6C 61 67 
- 3653      73 00 
- 3654                 	.LASF181:
- 3655 076f 72 61 6E 64 		.ascii "attn_data\000"
- 3655      6F 6D 5F 64 
- 3655      65 6C 61 79 
- 3655      00 
- 3656                 	.LASF137:
- 3657 0776 43 53 52 5F 		.ascii "tSendEAWait800ms\000"
- 3657      4D 45 53 48 
- 3657      5F 43 4F 4E 
- 3657      46 49 47 5F 
- 3657      53 45 54 5F 
- 3658                 	.LASF86:
- 3659 0786 49 6E 69 74 		.ascii "CSR_MESH_MASP_CLIENT_CONFIRMATION_EVENT\000"
- 3659      69 61 74 65 
- 3659      41 73 73 6F 
- 3659      63 69 61 74 
- 3659      69 6F 6E 00 
- 3660                 	.LASF136:
- 3661 0790 43 53 52 5F 		.ascii "tSendEEWait800ms\000"
- 3661      4D 45 53 48 
- 3661      5F 4E 57 5F 
- 3661      49 56 5F 57 
- 3661      52 4F 4E 47 
- 3662                 	.LASF160:
- 3663 07a1 61 74 74 6E 		.ascii "AppClearSeqCache\000"
- 3663      5F 64 61 74 
- 3663      61 00 
- 3664                 	.LASF118:
- 3665 07a6 74 53 65 6E 		.ascii "app_state_association_started\000"
- 3665      64 45 41 57 
- 3665      61 69 74 38 
- 3665      30 30 6D 73 
- 3665      00 
- 3666                 	.LASF68:
- 3667 07af 43 53 52 5F 		.ascii "CSR_MESH_GET_MESH_ID_EVENT\000"
- 3667      4D 45 53 48 
- 3667      5F 4D 41 53 
- 3667      50 5F 43 4C 
- 3667      49 45 4E 54 
- 3668                 	.LASF119:
- 3669 07c3 74 53 65 6E 		.ascii "app_state_associated\000"
- 3669      64 45 45 57 
- 3669      61 69 74 38 
- 3669      30 30 6D 73 
+ 3603      5F 52 45 47 
+ 3603      49 53 54 45 
+ 3603      52 5F 41 50 
+ 3604                 	.LASF28:
+ 3605 0659 77 6F 72 64 		.ascii "version\000"
+ 3605      00 
+ 3606                 	.LASF175:
+ 3607 065c 43 53 52 5F 		.ascii "operation_event\000"
+ 3607      4D 45 53 48 
+ 3607      5F 47 45 54 
+ 3607      5F 4E 45 54 
+ 3607      5F 49 44 5F 
+ 3608                 	.LASF84:
+ 3609 066f 70 5F 6D 65 		.ascii "CSR_MESH_SEQ_NUM_ROLL_BACK_EVENT\000"
+ 3609      73 68 5F 68 
+ 3609      64 6C 72 5F 
+ 3609      64 61 74 61 
+ 3609      00 
+ 3610                 	.LASF174:
+ 3611 0678 43 53 52 5F 		.ascii "operation_status\000"
+ 3611      4D 45 53 48 
+ 3611      5F 4E 57 5F 
+ 3611      49 56 5F 55 
+ 3611      50 44 41 54 
+ 3612                 	.LASF172:
+ 3613 0687 76 65 72 73 		.ascii "appProcessMeshEvent\000"
+ 3613      69 6F 6E 00 
+ 3614                 	.LASF93:
+ 3615 068b 6F 70 65 72 		.ascii "bearerEnabled\000"
+ 3615      61 74 69 6F 
+ 3615      6E 5F 65 76 
+ 3615      65 6E 74 00 
+ 3616                 	.LASF159:
+ 3617 0693 43 53 52 5F 		.ascii "AppInitializeSeqCache\000"
+ 3617      4D 45 53 48 
+ 3617      5F 53 45 51 
+ 3617      5F 4E 55 4D 
+ 3617      5F 52 4F 4C 
+ 3618                 	.LASF65:
+ 3619 06a4 6F 70 65 72 		.ascii "CSR_MESH_GET_DIAG_DATA_EVENT\000"
+ 3619      61 74 69 6F 
+ 3619      6E 5F 73 74 
+ 3619      61 74 75 73 
+ 3619      00 
+ 3620                 	.LASF96:
+ 3621 06ac 61 70 70 50 		.ascii "maspRelayEnable\000"
+ 3621      72 6F 63 65 
+ 3621      73 73 4D 65 
+ 3621      73 68 45 76 
+ 3621      65 6E 74 00 
+ 3622                 	.LASF98:
+ 3623 06b6 62 65 61 72 		.ascii "organization\000"
+ 3623      65 72 45 6E 
+ 3623      61 62 6C 65 
+ 3623      64 00 
+ 3624                 	.LASF141:
+ 3625 06bd 41 70 70 49 		.ascii "tRstWait500ms\000"
+ 3625      6E 69 74 69 
+ 3625      61 6C 69 7A 
+ 3625      65 53 65 71 
+ 3625      43 61 63 68 
+ 3626                 	.LASF114:
+ 3627 06c8 43 53 52 5F 		.ascii "status\000"
+ 3627      4D 45 53 48 
+ 3627      5F 47 45 54 
+ 3627      5F 44 49 41 
+ 3627      47 5F 44 41 
+ 3628                 	.LASF102:
+ 3629 06d7 6D 61 73 70 		.ascii "shortName\000"
+ 3629      52 65 6C 61 
+ 3629      79 45 6E 61 
+ 3629      62 6C 65 00 
+ 3630                 	.LASF180:
+ 3631 06df 6F 72 67 61 		.ascii "bearer_param\000"
+ 3631      6E 69 7A 61 
+ 3631      74 69 6F 6E 
+ 3631      00 
+ 3632                 	.LASF177:
+ 3633 06e5 74 52 73 74 		.ascii "get_dev_id_data\000"
+ 3633      57 61 69 74 
+ 3633      35 30 30 6D 
+ 3633      73 00 
+ 3634                 	.LASF134:
+ 3635 06ec 73 74 61 74 		.ascii "tSend91Wait800ms\000"
+ 3635      75 73 00 
+ 3636                 	.LASF125:
+ 3637 06f0 73 68 6F 72 		.ascii "MESH_HANDLER_DATA_T\000"
+ 3637      74 4E 61 6D 
+ 3637      65 00 
+ 3638                 	.LASF33:
+ 3639 06f5 62 65 61 72 		.ascii "tx_power\000"
+ 3639      65 72 5F 70 
+ 3639      61 72 61 6D 
+ 3639      00 
+ 3640                 	.LASF67:
+ 3641 06fb 67 65 74 5F 		.ascii "CSR_MESH_REGISTER_SNIFFER_APP_CB_EVENT\000"
+ 3641      64 65 76 5F 
+ 3641      69 64 5F 64 
+ 3641      61 74 61 00 
+ 3642                 	.LASF193:
+ 3643 0703 74 53 65 6E 		.ascii "g_cskey_flags\000"
+ 3643      64 39 31 57 
+ 3643      61 69 74 38 
+ 3643      30 30 6D 73 
+ 3643      00 
+ 3644                 	.LASF183:
+ 3645 070c 4D 45 53 48 		.ascii "random_delay\000"
+ 3645      5F 48 41 4E 
+ 3645      44 4C 45 52 
+ 3645      5F 44 41 54 
+ 3645      41 5F 54 00 
+ 3646                 	.LASF55:
+ 3647 0716 74 78 5F 70 		.ascii "CSR_MESH_CONFIG_SET_PARAMS_EVENT\000"
+ 3647      6F 77 65 72 
+ 3647      00 
+ 3648                 	.LASF170:
+ 3649 071a 43 53 52 5F 		.ascii "InitiateAssociation\000"
+ 3649      4D 45 53 48 
+ 3649      5F 52 45 47 
+ 3649      49 53 54 45 
+ 3649      52 5F 53 4E 
+ 3650                 	.LASF74:
+ 3651 072e 67 5F 63 73 		.ascii "CSR_MESH_NW_IV_WRONG_RSP_RECEIVED\000"
+ 3651      6B 65 79 5F 
+ 3651      66 6C 61 67 
+ 3651      73 00 
+ 3652                 	.LASF181:
+ 3653 0735 72 61 6E 64 		.ascii "attn_data\000"
+ 3653      6F 6D 5F 64 
+ 3653      65 6C 61 79 
+ 3653      00 
+ 3654                 	.LASF137:
+ 3655 073b 43 53 52 5F 		.ascii "tSendEAWait800ms\000"
+ 3655      4D 45 53 48 
+ 3655      5F 43 4F 4E 
+ 3655      46 49 47 5F 
+ 3655      53 45 54 5F 
+ 3656                 	.LASF86:
+ 3657 074c 49 6E 69 74 		.ascii "CSR_MESH_MASP_CLIENT_CONFIRMATION_EVENT\000"
+ 3657      69 61 74 65 
+ 3657      41 73 73 6F 
+ 3657      63 69 61 74 
+ 3657      69 6F 6E 00 
+ 3658                 	.LASF136:
+ 3659 0756 43 53 52 5F 		.ascii "tSendEEWait800ms\000"
+ 3659      4D 45 53 48 
+ 3659      5F 4E 57 5F 
+ 3659      49 56 5F 57 
+ 3659      52 4F 4E 47 
+ 3660                 	.LASF160:
+ 3661 0767 61 74 74 6E 		.ascii "AppClearSeqCache\000"
+ 3661      5F 64 61 74 
+ 3661      61 00 
+ 3662                 	.LASF118:
+ 3663 076c 74 53 65 6E 		.ascii "app_state_association_started\000"
+ 3663      64 45 41 57 
+ 3663      61 69 74 38 
+ 3663      30 30 6D 73 
+ 3663      00 
+ 3664                 	.LASF68:
+ 3665 0774 43 53 52 5F 		.ascii "CSR_MESH_GET_MESH_ID_EVENT\000"
+ 3665      4D 45 53 48 
+ 3665      5F 4D 41 53 
+ 3665      50 5F 43 4C 
+ 3665      49 45 4E 54 
+ 3666                 	.LASF119:
+ 3667 0788 74 53 65 6E 		.ascii "app_state_associated\000"
+ 3667      64 45 45 57 
+ 3667      61 69 74 38 
+ 3667      30 30 6D 73 
+ 3667      00 
+ 3668                 	.LASF201:
+ 3669 0791 41 70 70 43 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-30\\apps\\csrmesh_2_1_node - xm-data-block\\appli
+ 3669      6C 65 61 72 
+ 3669      53 65 71 43 
+ 3669      61 63 68 65 
  3669      00 
  3670                 	.LASF161:
- 3671 07cb 41 70 70 43 		.ascii "AppSetTxPower\000"
- 3671      6C 65 61 72 
- 3671      53 65 71 43 
- 3671      61 63 68 65 
- 3671      00 
+ 3671 0799 61 70 70 5F 		.ascii "AppSetTxPower\000"
+ 3671      73 74 61 74 
+ 3671      65 5F 61 73 
+ 3671      73 6F 63 69 
+ 3671      61 74 69 6F 
  3672                 	.LASF76:
- 3673 07d4 61 70 70 5F 		.ascii "CSR_MESH_NW_KEY_IV_FAILED_EVENT\000"
- 3673      73 74 61 74 
- 3673      65 5F 61 73 
- 3673      73 6F 63 69 
- 3673      61 74 69 6F 
+ 3673 07a8 43 53 52 5F 		.ascii "CSR_MESH_NW_KEY_IV_FAILED_EVENT\000"
+ 3673      4D 45 53 48 
+ 3673      5F 47 45 54 
+ 3673      5F 4D 45 53 
+ 3673      48 5F 49 44 
  3674                 		.ident	"GCC: (GNU) 4.3.4 CSR version 29 for xap []"
- 3675 07e3 43 53 52 5F 	...
- 3675      4D 45 53 48 
- 3675      5F 47 45 54 
- 3675      5F 4D 45 53 
- 3675      48 5F 49 44 
+ 3675 07b6 61 70 70 5F 	...
+ 3675      73 74 61 74 
+ 3675      65 5F 61 73 
+ 3675      73 6F 63 69 
+ 3675      61 74 65 64 

@@ -172,7 +172,7 @@ extern volatile union FLAGS flag6;
 #define f_GeaFeal                flag6.bit.bit2 
 #define f_SysSE                  flag6.bit.bit3 
 #define f_DefModeV9_1            flag6.bit.bit4 
-#define f_WifiIrOk               flag6.bit.bit5 */
+#define f_FirstOnTime            flag6.bit.bit5 */
 #define f_meshrxdataOK           flag6.bit.bit6
 #define f_rxdataOK               flag6.bit.bit7
 

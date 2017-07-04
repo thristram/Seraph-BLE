@@ -2764,22 +2764,22 @@
  2083 005c 61 76 61 69 		.ascii "BQPopBytes\000"
  2083      6C 61 62 6C 
  2083      65 00 
- 2084                 	.LASF3:
- 2085 0061 67 5F 68 65 		.ascii "short unsigned int\000"
+ 2084                 	.LASF33:
+ 2085 0061 67 5F 68 65 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-30\\apps\\csrmesh_2_1_node - xm-data-block\\appli
  2085      61 64 00 
- 2086                 	.LASF28:
- 2087 0065 75 6E 73 69 		.ascii "g_queue\000"
+ 2086                 	.LASF3:
+ 2087 0065 75 6E 73 69 		.ascii "short unsigned int\000"
  2087      67 6E 65 64 
  2087      20 63 68 61 
  2087      72 00 
- 2088                 	.LASF11:
- 2089 006c 47 4E 55 20 		.ascii "g_peek\000"
+ 2088                 	.LASF28:
+ 2089 006c 47 4E 55 20 		.ascii "g_queue\000"
  2089      43 20 34 2E 
  2089      33 2E 34 20 
  2089      43 53 52 20 
  2089      76 65 72 73 
- 2090                 	.LASF33:
- 2091 007f 73 69 67 6E 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-27\\apps\\csrmesh_2_1_node - xm-data-block\\appli
+ 2090                 	.LASF11:
+ 2091 007f 73 69 67 6E 		.ascii "g_peek\000"
  2091      65 64 20 63 
  2091      68 61 72 00 
  2092                 	.LASF35:
@@ -2798,23 +2798,23 @@
  2097      70 42 79 74 
  2097      65 73 00 
  2098                 	.LASF13:
- 2099 009b 73 68 6F 72 		.ascii "QUEUE_T\000"
- 2099      74 20 75 6E 
- 2099      73 69 67 6E 
- 2099      65 64 20 69 
- 2099      6E 74 00 
+ 2099 009b 45 3A 5C 43 		.ascii "QUEUE_T\000"
+ 2099      53 52 5F 75 
+ 2099      45 6E 65 72 
+ 2099      67 79 5F 53 
+ 2099      44 4B 2D 32 
  2100                 	.LASF20:
- 2101 00a4 67 5F 71 75 		.ascii "p_data\000"
- 2101      65 75 65 00 
+ 2101 00d5 73 68 6F 72 		.ascii "p_data\000"
+ 2101      74 20 75 6E 
+ 2101      73 69 67 6E 
+ 2101      65 64 20 69 
+ 2101      6E 74 00 
  2102                 	.LASF9:
- 2103 00a8 67 5F 70 65 		.ascii "unsigned int\000"
- 2103      65 6B 00 
+ 2103 00df 67 5F 71 75 		.ascii "unsigned int\000"
+ 2103      65 75 65 00 
  2104                 	.LASF26:
- 2105 00ac 45 3A 5C 43 		.ascii "BQSafeQueueBytes\000"
- 2105      53 52 5F 75 
- 2105      45 6E 65 72 
- 2105      67 79 5F 53 
- 2105      44 4B 2D 32 
+ 2105 00e3 67 5F 70 65 		.ascii "BQSafeQueueBytes\000"
+ 2105      65 6B 00 
  2106                 	.LASF15:
  2107 00e6 70 65 65 6B 		.ascii "BQGetDataSize\000"
  2107      42 75 66 66 

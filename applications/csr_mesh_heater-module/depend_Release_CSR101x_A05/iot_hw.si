@@ -2221,8 +2221,8 @@
  1327      6D 6F 64 65 
  1327      5F 70 77 6D 
  1327      32 00 
- 1328                 	.LASF47:
- 1329 014d 70 69 6F 5F 		.ascii "pio_pwm_mode_open_source\000"
+ 1328                 	.LASF62:
+ 1329 014d 70 69 6F 5F 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-30\\apps\\csrmesh_2_1_node - xm-data-block\\appli
  1329      6D 6F 64 65 
  1329      5F 70 77 6D 
  1329      33 00 
@@ -2232,48 +2232,48 @@
  1331      20 69 6E 74 
  1331      00 
  1332                 	.LASF37:
- 1333 015b 70 69 6F 5F 		.ascii "pio_mode_strong_pull_down\000"
- 1333      70 77 6D 5F 
- 1333      6D 6F 64 65 
- 1333      5F 6F 70 65 
- 1333      6E 5F 73 6F 
+ 1333 015b 45 3A 5C 43 		.ascii "pio_mode_strong_pull_down\000"
+ 1333      53 52 5F 75 
+ 1333      45 6E 65 72 
+ 1333      67 79 5F 53 
+ 1333      44 4B 2D 32 
  1334                 	.LASF36:
- 1335 0167 73 68 6F 72 		.ascii "pio_mode_weak_pull_up\000"
+ 1335 0195 73 68 6F 72 		.ascii "pio_mode_weak_pull_up\000"
  1335      74 20 75 6E 
  1335      73 69 67 6E 
  1335      65 64 20 69 
  1335      6E 74 00 
  1336                 	.LASF43:
- 1337 0171 70 69 6F 5F 		.ascii "pio_event_mode_falling\000"
+ 1337 019f 70 69 6F 5F 		.ascii "pio_event_mode_falling\000"
  1337      6D 6F 64 65 
  1337      5F 73 74 72 
  1337      6F 6E 67 5F 
  1337      70 75 6C 6C 
  1338                 	.LASF59:
- 1339 017e 70 69 6F 5F 		.ascii "off_time\000"
+ 1339 01ac 70 69 6F 5F 		.ascii "off_time\000"
  1339      6D 6F 64 65 
  1339      5F 77 65 61 
  1339      6B 5F 70 75 
  1339      6C 6C 5F 75 
  1340                 	.LASF58:
- 1341 0189 70 69 6F 5F 		.ascii "on_time\000"
+ 1341 01b7 70 69 6F 5F 		.ascii "on_time\000"
  1341      65 76 65 6E 
  1341      74 5F 6D 6F 
  1341      64 65 5F 66 
  1341      61 6C 6C 69 
- 1342                 	.LASF62:
- 1343 0194 6F 66 66 5F 		.ascii "E:\\CSR_uEnergy_SDK-2.6.1.7-data-block-6-27\\apps\\csrmesh_2_1_node - xm-data-block\\appli
+ 1342                 	.LASF47:
+ 1343 01c2 6F 66 66 5F 		.ascii "pio_pwm_mode_open_source\000"
  1343      74 69 6D 65 
  1343      00 
  1344                 	.LASF22:
- 1345 0199 6F 6E 5F 74 		.ascii "pio_mode_radio_tx_en\000"
+ 1345 01c7 6F 6E 5F 74 		.ascii "pio_mode_radio_tx_en\000"
  1345      69 6D 65 00 
  1346                 	.LASF2:
- 1347 019d 45 3A 5C 43 		.ascii "long unsigned int\000"
- 1347      53 52 5F 75 
- 1347      45 6E 65 72 
- 1347      67 79 5F 53 
- 1347      44 4B 2D 32 
+ 1347 01cb 70 69 6F 5F 		.ascii "long unsigned int\000"
+ 1347      70 77 6D 5F 
+ 1347      6D 6F 64 65 
+ 1347      5F 6F 70 65 
+ 1347      6E 5F 73 6F 
  1348                 	.LASF27:
  1349 01d7 70 69 6F 5F 		.ascii "pio_mode_ser_flash_dout\000"
  1349      6D 6F 64 65 

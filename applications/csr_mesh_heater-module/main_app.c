@@ -364,6 +364,7 @@ void srf_init(void)
      tm_1s.tPanic2Min.word = C_T_tPanic2Min;
      f_Block_Buffer_Empty = ON;
      FlashRead = ON;
+     tm_1s.tHeartPack5s.word = 0x4000+3;
      tm_1s.tPoweronWait3s.word = 0x4000+3;
      
 }

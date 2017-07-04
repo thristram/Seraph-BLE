@@ -197,8 +197,6 @@ void InitUart(void)
      /*串口初始化成功后，等待3秒后开始收发数据*/
      tm_1s.tOnTimeWait3s.word = C_T_OnTimeWait3s;
      tm_100ms.tWifiSendData.word = C_T_WifiSendData;  
-     /*心跳包30秒发送一次*/
-     tm_1s.tHeartPack5s.word = C_T_tHeartPack5s;
 }
 
 static void WifiTxDataClear(void)
@@ -437,35 +435,30 @@ void processuartdata(void)
                {
                   case cTxdPrepare:
                   WifiTxDataClear(); 
-                  switch(UartTxDataType)
+                  if(UartTxDataType == 0xEE)
                   {
-                       case 0xEE:
-                           WifiTxDataEEEE();/*发送EE数据包*/ 
-                           tm_1s.tHeartPack5s.word = C_T_tHeartPack5s;/*收到任一数据包时，重置心跳包时间*/   
+                           WifiTxDataEEEE();/*发送EE数据包*/   
                            UartTxDataType = CLEAR;        
-                           CommState = cTxd;
-                       break;
-                       case 0xAA:
-                           WifiTxDataEEAA();/*发送AA数据包*/ 
-                           tm_1s.tHeartPack5s.word = C_T_tHeartPack5s;/*收到任一数据包时，重置心跳包时间*/   
-                           
-                           UartTxDataType = CLEAR;        CommState = cTxd;
-                           break;
-                       case 0xDD:
+                           CommState = cTxd;                         
+                  }
+                  else if(UartTxDataType == 0xAA)
+                  {
+                           WifiTxDataEEAA();/*发送AA数据包*/    
+                           UartTxDataType = CLEAR;        
+                           CommState = cTxd;                         
+                  }
+                  else if(UartTxDataType == 0xDD)
+                  {
                            WifiTxDataDD();/*发送DD数据包*/ 
-                           tm_1s.tHeartPack5s.word = C_T_tHeartPack5s;/*收到任一数据包时，重置心跳包时间*/
                            UartTxDataType = CLEAR;        
-                           CommState = cTxd;  
-                       break;
-                       default:
-                            if(tm_1s.tHeartPack5s.fov == ON)
-                            {
-                                 tm_1s.tHeartPack5s.word = C_T_tHeartPack5s;   
-                                 WifiTxDataDD();/*发送DD数据包*/ 
-                                 CommState = cTxd;
-                            }    
-                       break;     
-                  }           
+                           CommState = cTxd;                        
+                  }
+                  else if(tm_1s.tHeartPack5s.fov == ON)
+                  {
+                           tm_1s.tHeartPack5s.word = C_T_tHeartPack5s;   
+                           WifiTxDataDD();/*发送DD数据包*/ 
+                           CommState = cTxd;                      
+                  }                      
                   break;
                   case cTxd:
                     SendDataToUart();                   
