@@ -1,0 +1,96 @@
+# list all partition starting from index 0 including partition type
+# Partition Type                                  Value     Description
+# UPGRADE_FW_IF_PARTITION_TYPE_EXE                0         VM Executable Partition
+# UPGRADE_FW_IF_PARTITION_TYPE_DFU                1         DFU File Partition
+# UPGRADE_FW_IF_PARTITION_TYPE_CONFIG             2         PSFS Configuration Data
+# UPGRADE_FW_IF_PARTITION_TYPE_DATA               3         Standard Data on a read only (RO) partition
+# UPGRADE_FW_IF_PARTITION_TYPE_DATA_RAW_SERIAL    4         Standard Data on a raw serial (RS) partition
+
+# Upgrade header identifier
+header_identifier APPUHDR4
+
+# If you need to have an empty signature (some specific cases using ADK upgrade), uncomment the following line
+#add_empty_signature
+#add_md5_footer
+add_sha256_footer
+
+#User header fields. Fields will appear in output file in the order they are specified
+# user_header_value_8bit <val>          - 8bit field
+# user_header_value_16bit <val>         - 16bit field
+# user_header_value_32bit <val>         - 32bit field
+# user_header_value_str <string>        - string field
+# user_header_value_cmdarg_8bit<name>   - 8bit field from command line argument
+# user_header_value_cmdarg_16bit<name>  - 16bit field from command line argument
+# user_header_value_cmdarg_32bit<name>  - 32bit field from command line argument
+# user_header_value_cmdarg_str<name>    - string field from command line argument
+
+#e.g. 
+# user_header_value_cmdarg_8bit1          
+# would retrive the value from command line argument "-user1=<value>" and place it in an 8bit field in the header
+
+# Set the upgrade version
+# upgrade_version 2.1
+user_header_value_16bit 2
+user_header_value_16bit 1
+
+# Bluetooth Company Code
+user_header_value_16bit 0x00D7
+
+# Platform Type
+# Device Variant                                   Value     
+# CSR101x                                          0         
+# CSR102x                                          1         
+# Other user defined values (128 - 255)        
+user_header_value_8bit 1
+
+# Upgrade Type
+# Type                                             Value     
+# Firmware Upgrade                                 0                  
+# Other user defined values (128 - 255)    
+user_header_value_8bit 0
+
+# Image Type
+# Type                                             Value     
+# Light                                            0
+# Switch                                           1
+# Sensor                                           2
+# Heater                                           3
+# Gateway                                          4
+# Beacon                                           5
+# Beacon Proxy                                     6
+# Lumicast                                         7
+# Bridge                                           8
+# Other user defined values (128 - 255) 
+user_header_value_8bit 3             
+
+# App Version
+# Major Version is 6 bits(MSB).Value should be in range of (0 - 63)
+# Minor Version is 4 bits.Value should be in range of (0 - 15)
+# Revision Version is 6 bits(LSB).Value should be in range of (0 - 63)
+# NVM Version.Value should be in range of (0 - 65535)
+user_header_value_8bit 2
+user_header_value_8bit 1
+user_header_value_8bit 0
+user_header_value_16bit 1
+
+# Output file path, if uncommented this option overrides the path supplied in command line arguments
+# Debug mode
+output_file depend_Debug_CSR102x_A05/heater_update.xuv
+
+# list all partition starting from index 0 including partition type
+# partition <partition type> <partition number> <file name>
+# OR to take file name from cmd argument ("-partition<partition number>=<file name>")
+# partition_cmdarg <partition type> <partition number>
+#
+# Partition types:
+#     0x02  -  Application Store containing the application program and ROM patches.
+#     0x04  -  User Store for application data.
+#     0x05  -  Configuration Store for CS keys.
+
+# DFU file with file system
+# Debug mode
+partition 2 0 depend_Debug_CSR102x_A05/csr_mesh_heater_csr102x.app.1.ota
+
+# Get .bin file
+# Debug mode
+partition -1 -1 depend_Debug_CSR102x_A05/heater_update.bin

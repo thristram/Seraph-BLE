@@ -1,0 +1,47 @@
+<custom>
+    <property type="list" key="cm_client" format="define" name="CM Client Support" defaultvalue="1">
+        <option internalval="CLIENT">Enabled</option>
+        <option fake="">Disabled</option>
+        <description>
+            <![CDATA[
+            Should the connection manager support the GATT Client role.
+            ]]>
+        </description>
+    </property>
+    <property type="list" key="cm_server" format="define" name="CM Server Support" defaultvalue="1">
+        <option internalval="SERVER">Enabled</option>
+        <option fake="">Disabled</option>
+        <description>
+            <![CDATA[
+            Should the connection manager support the GATT Server role.
+            ]]>
+        </description>
+    </property>
+    <property type="list" key="cm_central" format="define" name="CM Central Support" defaultvalue="1">
+        <option internalval="CENTRAL">Enabled</option>
+        <option fake="">Disabled</option>
+        <description>
+            <![CDATA[
+            Should the connection manager support the the CENTRAL role.
+            ]]>
+        </description>
+    </property>
+    <property type="list" key="cm_peripheral" format="define" name="CM Peripheral Support" defaultvalue="1">
+        <option internalval="PERIPHERAL">Enabled</option>
+        <option fake="">Disabled</option>
+        <description>
+            <![CDATA[
+            Should the connection manager support the PERIPHERAL role.
+            ]]>
+        </description>
+    </property>
+    <property type="list" key="cm_observer" format="define" name="CM Observer Support" defaultvalue="1">
+        <option internalval="OBSERVER">Enabled</option>
+        <option fake="">Disabled</option>
+        <description>
+            <![CDATA[
+            Should the connection manager support the PERIPHERAL role.
+            ]]>
+        </description>
+    </property>
+</custom>

@@ -1,0 +1,166 @@
+<project buildenvironment="{067c869e-5bd9-4595-9f4c-60348133ad8e}" buildenvironmentname="uEnergy" executionenvironmentoption="XAP2+ P0 ELF DWARF BINUTILS UENERGYSDK" buildenvironmentoption="UENERGYSDK" executionenvironmentname="uEnergy" name="CSR uEnergy" executionenvironment="{39e65239-59f4-4d78-b84a-26eaebfaa4de}" >
+ <folder name="Mesh_Common" >
+  <folder name="peripheral" >
+   <file path="../mesh_common/peripheral/conn_param_update.c" />
+   <file path="../mesh_common/peripheral/conn_param_update.h" />
+  </folder>
+  <folder name="components" >
+   <folder name="nvm_manager" >
+    <file path="../mesh_common/components/nvm_manager/nvm_access.c" />
+    <file path="../mesh_common/components/nvm_manager/nvm_access.h" />
+   </folder>
+   <folder name="connection_manager" >
+    <file path="../mesh_common/components/connection_manager/cm_api.h" />
+    <file path="../mesh_common/components/connection_manager/cm_appearance.h" />
+    <file path="../mesh_common/components/connection_manager/cm_common.c" />
+    <file path="../mesh_common/components/connection_manager/cm_hal.c" />
+    <file path="../mesh_common/components/connection_manager/cm_hal.h" />
+    <file path="../mesh_common/components/connection_manager/cm_private.c" />
+    <file path="../mesh_common/components/connection_manager/cm_private.h" />
+    <file path="../mesh_common/components/connection_manager/cm_security.c" />
+    <file path="../mesh_common/components/connection_manager/cm_security.h" />
+    <file path="../mesh_common/components/connection_manager/cm_server.c" />
+    <file path="../mesh_common/components/connection_manager/cm_server.h" />
+    <file path="../mesh_common/components/connection_manager/cm_types.h" />
+    <file path="../mesh_common/components/connection_manager/cm_observer.c" />
+    <file path="../mesh_common/components/connection_manager/cm_observer.h" />
+    <file path="../mesh_common/components/connection_manager/cm_peripheral.c" />
+    <file path="../mesh_common/components/connection_manager/cm_peripheral.h" />
+   </folder>
+  </folder>
+  <folder name="mesh" >
+   <folder name="drivers" >
+    <file path="../mesh_common/mesh/drivers/battery_hw.c" />
+    <file path="../mesh_common/mesh/drivers/battery_hw.h" />
+    <file path="../mesh_common/mesh/drivers/iot_hw.c" />
+    <file path="../mesh_common/mesh/drivers/iot_hw.h" />
+    <file path="../mesh_common/mesh/drivers/csr_mesh_nvm.h" />
+    <file path="../mesh_common/mesh/drivers/csr_mesh_ps_ifce.c" />
+   </folder>
+   <folder name="handlers" >
+    <file path="../mesh_common/mesh/handlers/attention_model/attention_model_handler.c" />
+    <file path="../mesh_common/mesh/handlers/attention_model/attention_model_handler.h" />
+    <file path="../mesh_common/mesh/handlers/battery_model/battery_model_handler.c" />
+    <file path="../mesh_common/mesh/handlers/battery_model/battery_model_handler.h" />
+    <file path="../mesh_common/mesh/handlers/core_mesh/core_mesh_handler.c" />
+    <file path="../mesh_common/mesh/handlers/core_mesh/core_mesh_handler.h" />
+    <file path="../mesh_common/mesh/handlers/data_model/data_model_handler.c" />
+    <file path="../mesh_common/mesh/handlers/data_model/data_model_handler.h" />
+    <file path="../mesh_common/mesh/handlers/sensor_model/sensor_model_handler.c" />
+    <file path="../mesh_common/mesh/handlers/sensor_model/sensor_model_handler.h" />
+    <file path="../mesh_common/mesh/handlers/common/app_gatt.h" />
+    <file path="../mesh_common/mesh/handlers/common/app_debug.h" />
+    <file path="../mesh_common/mesh/handlers/common/appearance.h" />
+    <file path="../mesh_common/mesh/handlers/common/app_util.c" />
+    <file path="../mesh_common/mesh/handlers/common/app_util.h" />
+    <file path="../mesh_common/mesh/handlers/connection/connection_handler.c" />
+    <file path="../mesh_common/mesh/handlers/connection/connection_handler.h" />
+    <file path="../mesh_common/mesh/handlers/advertisement/advertisement_handler.c" />
+    <file path="../mesh_common/mesh/handlers/advertisement/advertisement_handler.h" />
+    <file path="../mesh_common/mesh/handlers/time_model/time_model_handler.c" />
+    <file path="../mesh_common/mesh/handlers/time_model/time_model_handler.h" />
+    <file path="../mesh_common/mesh/handlers/action_model/action_model_handler.c" />
+    <file path="../mesh_common/mesh/handlers/action_model/action_model_handler.h" />
+    <file path="../mesh_common/mesh/handlers/largeobjecttransfer_model/largeobjecttransfer_model_handler.c" />
+    <file path="../mesh_common/mesh/handlers/largeobjecttransfer_model/largeobjecttransfer_model_handler.h" />
+   </folder>
+  </folder>
+  <folder name="server" >
+   <file path="../mesh_common/server/gap/gap_service.c" />
+   <file path="../mesh_common/server/gap/gap_service.h" />
+   <file path="../mesh_common/server/gap/gap_service_db.db" />
+   <file path="../mesh_common/server/gap/gap_uuids.h" />
+   <file path="../mesh_common/server/gatt/gatt_service.c" />
+   <file path="../mesh_common/server/gatt/gatt_service.h" />
+   <file path="../mesh_common/server/gatt/gatt_service_db.db" />
+   <file path="../mesh_common/server/gatt/gatt_service_uuids.h" />
+   <file path="../mesh_common/server/mesh_control/mesh_control_service.c" />
+   <file path="../mesh_common/server/mesh_control/mesh_control_service.h" />
+   <file path="../mesh_common/server/mesh_control/mesh_control_service_db.db" />
+   <file path="../mesh_common/server/mesh_control/mesh_control_service_uuids.h" />
+   <file path="../mesh_common/server/csr_ota/csr_ota_db.db" />
+   <file path="../mesh_common/server/csr_ota/csr_ota_service.c" />
+   <file path="../mesh_common/server/csr_ota/csr_ota_service.h" />
+   <file path="../mesh_common/server/csr_ota/csr_ota_uuids.h" />
+  </folder>
+ </folder>
+ <folder name="C Files" >
+  <extension name="c" />
+  <file path="main_app.c" />
+  <file path="app_mesh_handler.c" />
+  <file path="app_mesh_model_handler.c" />
+  <file path="byte_queue.c" />
+  <file path="label.c" />
+  <file path="time_uart.c" />
+  <file path="uart_time.c" />
+  <file path="Flash_Run.c" />
+ </folder>
+ <folder name="Header Files" >
+  <extension name="h" />
+  <file path="user_config.h" />
+  <file path="app_conn_params.h" />
+  <file path="main_app.h" />
+  <file path="app_mesh_handler.h" />
+  <file path="app_mesh_model_handler.h" />
+  <file path="byte_queue.h" />
+  <file path="label.h" />
+  <file path="typedef.h" />
+  <file path="define.h" />
+  <file path="../../../../tools/include/CSR101x_A05/macros.h" />
+ </folder>
+ <folder name="GATT db files" >
+  <extension name="db" />
+  <file path="app_gatt_db.db" />
+ </folder>
+ <file path="csr_mesh_heater_csr101x_A05.keyr" />
+ <file path="bootloader.keyr" />
+ <properties currentconfiguration="Release" >
+  <configuration name="Debug" >
+   <property key="cm_observer" >0</property>
+   <property key="cm_peripheral" >0</property>
+   <property key="cm_server" >0</property>
+   <property key="csr101x_a05_keyr" >csr_mesh_heater_csr101x_A05.keyr</property>
+   <property key="debugtransport" ></property>
+   <property key="defines" >THIN_CM4_MESH_NODE,ENABLE_MESH_OTA</property>
+   <property key="download_into" >0</property>
+   <property key="erase_nvm" >1</property>
+   <property key="flash_clock" ></property>
+   <property key="flash_miso" ></property>
+   <property key="incpaths" >..\mesh_common\...</property>
+   <property key="libpaths" >..\mesh_common\mesh\libraries\csr_101x</property>
+   <property key="libs" >csrmesh sensor_server ping_server attention_server time_client time_server action_server data_server data_client battery_server sensor_client largeobjecttransfer_server</property>
+   <property key="master_db" >app_gatt_db.db</property>
+   <property key="otau_bootloader" >0</property>
+   <property key="otau_keyr" >bootloader.keyr</property>
+   <property key="otau_name" >CSRmesh-OTA</property>
+   <property key="otau_secret" >00112233445566778899aabbccddeeff</property>
+   <property key="otau_slot_1" >0x4300</property>
+   <property key="otau_slot_end" >0x20000</property>
+   <property key="output" ></property>
+  </configuration>
+  <configuration name="Release" >
+   <property key="cm_observer" >0</property>
+   <property key="cm_peripheral" >0</property>
+   <property key="cm_server" >0</property>
+   <property key="csr101x_a05_keyr" >csr_mesh_heater_csr101x_A05.keyr</property>
+   <property key="debugtransport" >[SPITRANS=USB SPIPORT=0]</property>
+   <property key="defines" >THIN_CM4_MESH_NODE,ENABLE_MESH_OTA</property>
+   <property key="download_into" >1</property>
+   <property key="erase_nvm" >1</property>
+   <property key="flash_clock" >9</property>
+   <property key="flash_miso" >11</property>
+   <property key="incpaths" >..\mesh_common\...</property>
+   <property key="libpaths" >..\mesh_common\mesh\libraries\csr_101x</property>
+   <property key="libs" >csrmesh sensor_server ping_server attention_server time_client time_server action_server data_server data_client battery_server sensor_client largeobjecttransfer_server</property>
+   <property key="master_db" >app_gatt_db.db</property>
+   <property key="otau_bootloader" >1</property>
+   <property key="otau_keyr" >bootloader.keyr</property>
+   <property key="otau_name" >CSRmesh-OTA</property>
+   <property key="otau_secret" >00112233445566778899aabbccddeeff</property>
+   <property key="otau_slot_1" >0x11000</property>
+   <property key="otau_slot_2" >0x22000</property>
+   <property key="otau_slot_end" >0x40000</property>
+   <property key="output" ></property>
+  </configuration>
+ </properties>
+</project>

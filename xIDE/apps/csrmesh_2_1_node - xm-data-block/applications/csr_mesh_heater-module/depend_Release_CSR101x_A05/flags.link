@@ -1,0 +1,13 @@
+-nostdlib
+-L.
+-L..\mesh_common\mesh\libraries\csr_101x
+-LD:/CSR_uEnergy_SDK-2.6.1.7/tools/lib/CSR101x_A05
+-LD:/CSR_uEnergy_SDK-2.6.1.7/tools/lib/otau
+-gdwarf-2
+-g
+-msmall-mode
+-mconst-switch-tables
+-mas-mode
+-mno-initc
+-Wl,--just-symbols=D:/CSR_uEnergy_SDK-2.6.1.7/tools/lib/CSR101x_A05/rom_img.elf,-T,xap_ram_rom.ld,--gc-sections
+-lgcc

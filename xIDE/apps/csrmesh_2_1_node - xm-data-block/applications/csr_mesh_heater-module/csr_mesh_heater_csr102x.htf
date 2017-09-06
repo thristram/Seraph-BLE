@@ -1,0 +1,67 @@
+###################################################################################################################
+subsystem=ble
+device=smem
+store=0x000f
+# Remove the store id from the smem that is added by the SDK.
+app_store_id =
+
+# Bluetooth device address
+bdaddr = {0x8723, 0x5b00, 0x02}
+
+# Sleep mode
+sleep_mode = sleep_mode_deep
+
+# -----------------------------------------------------------------------------------------------------------------
+# USER KEY 1 - {<flags - 1 word>, <uuid - 8 words>, <auth code - 4 words>}
+# -----------------------------------------------------------------------------------------------------------------
+# ::: CSRmesh FLAGS :::
+# Word Offset   = 0
+# Size in Words = 1
+#          Bit Field[0] = RELAY_ENABLE
+#          Bit Field[1] = BRIDGE_ENABLE
+#          Bit Field[2] = RANDOM_UUID_ENABLE & RANDOM_AUTHCODE_ENABLE
+#          Random Auth Code is written only if authcode is enabled in userconfig.h
+# ==================================================================================================================
+# ::: CSRmesh Device UUID :::
+# Word Offset   = 1
+# Size in Words = 8
+# UUID must be programmed in Little Endian Format.
+# For example, when UUID = 0x0F0E-0D0C-0B0A-0908-0706-0504-0302-0100
+# This must be programmed as,
+# user_key1 = {<flags>, 0x0100, 0x0302, 0x0504, 0x0706, 0x908, 0x0B0A, 0x0D0C, 0x0F0E}
+# NOTE: UUID in user_key1 is considered if an only if Bit Field[2] = 0 in CSRmesh Flags
+# (i.e. RANDOM_UUID_ENABLE & RANDOM_AUTHCODE_ENABLE in CSRmesh Flags is NOT set).
+# ==================================================================================================================
+# ::: CSRmesh Device Authorization Code :::
+# Word Offset   = 9
+# Size in Words = 4
+# Device Authorization Code must be programmed in Little Endian Format.
+# For example, when UUID = 0x0706-0504-0302-0100
+# This must be programmed as,
+# user_key1 = {<flags>, <uuid>, 0x0100, 0x0302, 0x0504, 0x0706}
+# NOTE: Authorization Code in user_key1 is considered if an only if Bit Field[2] = 0 in CSRmesh Flags
+# (i.e. RANDOM_UUID_ENABLE & RANDOM_AUTHCODE_ENABLE in CSRmesh Flags is NOT set) and
+# USE_AUTHORISATION_CODE is defined in user_config.h.
+# ==================================================================================================================
+# NOTE: When "RANDOM_UUID_ENABLE & RANDOM_AUTHCODE_ENABLE" is "0", user_key1 doesn't contain valid number of words
+# for UUID and/or Authorization Code (when USE_AUTHORISATION_CODE is defined in user_config.h), the CSRmesh Stack
+# won't pick UUID and/or Authorization code. UUID and/or Authorization will be set to a value of all 0's.
+# User can immediately recognize this while associating the device and update the Keys appropriately.
+# Example:
+# When user_key1 is as follows:
+#   user_key1 = {0x0003}
+# In this case Bit[2] of CSRmesh Flags is '0' and Random UUID and Authorization Code is disabled.
+# However, both UUID and Authorization code keys are not present. Hence, both UUID and Authorization code are set
+# to all Zeros.
+# -----------------------------------------------------------------------------------------------------------------
+user_key1 = {0x0003, 0x0100, 0x0302, 0x0504, 0x0706, 0x908, 0x0B0A, 0x0D0C, 0x0F0E, 0x0100, 0x0302, 0x0504, 0x0706}
+
+# pools config
+pools_config = {0x00DF, 0x0349, 0x0153}
+
+subsystem=ble
+device=mtp
+store=0x0010
+# Set the store ID in MTP this can be updated in place and not limit the number of OTA iterations.
+app_store_shadow_id = {0xffff,0xffff,0xffff,0xffff,0xffff,0xffff}
+app_store_id = {0x0001,0x0001,0x0001}

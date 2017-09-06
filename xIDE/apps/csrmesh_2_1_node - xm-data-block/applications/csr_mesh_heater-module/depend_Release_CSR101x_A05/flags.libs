@@ -1,0 +1,14 @@
+csrmesh
+sensor_server
+ping_server
+attention_server
+time_client
+time_server
+action_server
+data_server
+data_client
+battery_server
+sensor_client
+largeobjecttransfer_server
+otau_flash
+gatt_lib_ram
